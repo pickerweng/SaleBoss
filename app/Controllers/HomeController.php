@@ -1,4 +1,6 @@
-<?php
+<?php namespace Controllers;
+
+use Illuminate\Support\Facades\View;
 
 class HomeController extends BaseController {
 
@@ -15,7 +17,10 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	/**
+	 * @return mixed
+	 */
+	public function getIndex()
 	{
 		return View::make('hello');
 	}
