@@ -4,17 +4,21 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.2.*"
+		"laravel/framework": "4.2.*",
+        "cartalyst/sentry": "2.1.*"
 	},
 	"autoload": {
 		"classmap": [
 			"app/commands",
-			"app/controllers",
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php"
-		]
+		],
+        "psr-4" : {
+            "SaleBoss\\" : "app/SaleBoss",
+            "Controllers\\" : "app/Controllers"
+        }
 	},
 	"scripts": {
 		"post-install-cmd": [
