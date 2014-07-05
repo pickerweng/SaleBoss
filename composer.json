@@ -17,7 +17,7 @@
 		],
         "psr-4" : {
             "SaleBoss\\" : "app/SaleBoss",
-            "Controllers\\" : "app/Controllers"
+            "Controllers\\" : "app/Controllerss"
         }
 	},
 	"scripts": {
