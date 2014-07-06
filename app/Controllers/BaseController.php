@@ -2,8 +2,11 @@
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
 
-class BaseController extends Controller {
+class BaseController extends Controller
+{
 
 	/**
 	 * Setup the layout used by the controller.
@@ -12,10 +15,14 @@ class BaseController extends Controller {
 	 */
 	protected function setupLayout()
 	{
-		if ( ! is_null($this->layout))
-		{
+		if (!is_null($this->layout)) {
 			$this->layout = View::make($this->layout);
 		}
+	}
+
+	public function redirectTo($to,$data)
+	{
+		return Redirect::to($to)->with($data);
 	}
 
 }
