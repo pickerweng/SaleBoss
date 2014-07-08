@@ -70,7 +70,7 @@ return array(
 		|
 		*/
 
-		'key' => 'saleboss_ac',
+		'key' => 'cartalyst_sentry',
 
  	),
 
@@ -174,7 +174,7 @@ return array(
 		|
 		*/
 
-		'enabled' => true,
+		'enabled' => false,
 
 		/*
 		|--------------------------------------------------------------------------

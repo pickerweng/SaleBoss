@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'fa',
+	'locale' => 'en',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'fallback_locale' => 'fa',
+	'fallback_locale' => 'en',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -121,8 +121,9 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-		'Cartalyst\Sentry\SentryServiceProvider'
-
+		'Cartalyst\Sentry\SentryServiceProvider',
+		'SaleBoss\Repositories\RepositoryServiceProvider',
+		'SaleBoss\Services\EavSmartAss\EavSmartAssServiceProvider'
 	),
 
 	/*

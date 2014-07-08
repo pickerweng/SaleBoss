@@ -2,7 +2,6 @@
 
 namespace SaleBoss\Services\Authenticator;
 
-
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Cartalyst\Sentry\Users\UserNotFoundException;
 use Cartalyst\Sentry\Users\WrongPasswordException;
@@ -18,14 +17,11 @@ class SentryAuthenticator implements AuthenticatorInterface {
 	protected $loginValidator;
 
 	/**
-	 * @param Sentry $sentry
 	 * @param LoginFormValidator $loginValidator
 	 */
 	public function __construct(
-		Sentry $sentry,
 		LoginFormValidator $loginValidator
 	){
-		$this->sentry = $sentry;
 		$this->loginValidator = $loginValidator;
 	}
 
@@ -41,14 +37,15 @@ class SentryAuthenticator implements AuthenticatorInterface {
 			$this->setValidationErrors($this->loginValidator->getMessages());
 			throw new ValidationException("Validation error");
 		}
-		$userId = $data['identifier'];
 
 		try {
-			Sentry::authenticate([
-				'email' => $data['identifier'],
-				'password' => $data['password'],
+			$user = Sentry::authenticateAndRemember(
+				[
+					'email' => $data['identifier'],
+					'password' => $data['password']
+				],
 				empty($data['remember_me']) ? false : true
-			]);
+			);
 			return true;
 		}catch (UserNotFoundException $e){
 			throw new InvalidCredentialsException("User not found");

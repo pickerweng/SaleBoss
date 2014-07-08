@@ -2,7 +2,6 @@
 
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 
 class BaseController extends Controller
@@ -20,9 +19,55 @@ class BaseController extends Controller
 		}
 	}
 
-	public function redirectTo($to,$data)
+	/**
+	 * @param $bladable_path
+	 * @param array $data
+	 */
+	protected function view($bladable_path , $data = [])
 	{
-		return Redirect::to($to)->with($data);
+		$this->layout->content = View::make($bladable_path, $data);
+	}
+
+	/**
+	 * Redirect back
+	 *
+	 * @return mixed
+	 */
+	protected function redirectBack()
+	{
+		return Redirect::back();
+	}
+
+	/**
+	 * Redirect intended
+	 *
+	 * @param null $def
+	 * @return mixed
+	 */
+	protected function redirectIntended( $def = null )
+	{
+		return Redirect::intended( $def );
+	}
+
+	/**
+	 * Redirect to page
+	 *
+	 * @param string $to
+	 * @return
+	 */
+	protected function redirectTo( $to = '/' )
+	{
+		return Redirect::to( $to );
+	}
+
+	/**
+	 * Share a variable through views
+	 *
+	 * @return void
+	 */
+	protected function viewShare($var, $data)
+	{
+		View::share($var,$data);
 	}
 
 }

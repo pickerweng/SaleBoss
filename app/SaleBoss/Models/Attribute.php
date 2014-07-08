@@ -15,7 +15,7 @@ class Attribute extends Eloquent {
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function entity_type()
+	public function entityType()
 	{
 		return $this->belongsTo('SaleBoss\Models\EntityType','entity_type_id');
 	}
