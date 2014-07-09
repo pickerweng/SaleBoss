@@ -123,7 +123,8 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'SaleBoss\Repositories\RepositoryServiceProvider',
-		'SaleBoss\Services\EavSmartAss\EavSmartAssServiceProvider'
+		'SaleBoss\Services\EavSmartAss\EavSmartAssServiceProvider',
+		'SaleBoss\Services\EavSmartAss\Form\FormServiceProvider',
 	),
 
 	/*
@@ -191,6 +192,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'FormGenerator'   => 'SaleBoss\Services\EavSmartAss\Form\Facades\FormGenerator'
 
 	),
 

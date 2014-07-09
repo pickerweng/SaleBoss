@@ -49,6 +49,9 @@ class AttributeRepository implements AttributeRepositoryInterface   {
 			$attributeRecord->machine_name = $attribute['machine_name'];
 			$attributeRecord->display_name = $attribute['display_name'];
 			$attributeRecord->form_type = !empty($attribute['form_type']) ? $attribute['form_type'] : 0;
+			$attributeRecord->options = !empty($attribute['options']) ? $attribute['options'] : null;
+			$attributeRecord->exclude = !empty($attribute['exclude']) ? true : false;
+			$attributeRecord->default_value = !empty($attribute['default_value']) ? $attribute['default_value'] : null;
 			$toSave[] = $attributeRecord;
 		}
 		return $toSave;

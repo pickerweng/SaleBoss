@@ -144,4 +144,9 @@ class EavManager implements  EavManagerInterface {
 	{
 		return $this->type;
 	}
+
+	public function getRepoManager()
+	{
+		return $this->repoManager;
+	}
 }

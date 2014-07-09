@@ -9,6 +9,13 @@ class OrderManager implements OrderManagerInterface {
 
 	const ENTITY_TYPE = 'opilo_orders';
 
+	/**
+	 *
+	 * @param EavManagerInterface $eavManager
+	 * @param StateRepositoryInterface $stateRepo
+	 * @param OrderRepositoryInterface $orderRepo
+	 * @param OrderLogRepositoryInterface $orderLog
+	 */
 	public function __construct(
 		EavManagerInterface $eavManager,
 		StateRepositoryInterface $stateRepo,
@@ -22,15 +29,11 @@ class OrderManager implements OrderManagerInterface {
 		$this->eavManager->setType(self::ENTITY_TYPE);
 	}
 
-	public function getManager()
+	/**
+	 * @return EavManagerInterface
+	 */
+	public function getEavManager()
 	{
 		return $this->eavManager;
 	}
-
-	public function changeOrderstate()
-	{
-
-	}
-
-
 } 

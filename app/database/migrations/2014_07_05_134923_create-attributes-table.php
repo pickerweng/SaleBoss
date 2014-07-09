@@ -15,7 +15,7 @@ class CreateAttributesTable extends Migration {
 		Schema::create('attributes',function($table){
 			$table->increments('id');
 			$table->integer('entity_type_id')->unsigned();
-			$table->integer('form_type')->nullable();
+			$table->string('form_type')->nullable();
 			$table->string('machine_name');
 			$table->string('display_name');
 			$table->softDeletes();

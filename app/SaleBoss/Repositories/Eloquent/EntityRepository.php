@@ -88,6 +88,6 @@ class EntityRepository implements EntityRepositoryInterface{
 		if (is_null($entity))
 			throw new NotFoundException("Entity with id: {$id} not found");
 
-		return $entity->toArray();
+		return $entity;
 	}
 }

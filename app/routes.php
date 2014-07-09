@@ -10,8 +10,8 @@ Route::group(["namespace" => "Controllers"], function(){
 
 Route::group(["namespace" => 'Controllers\Opilo'],function(){
 	Route::get('opilo-orders','OrderController@getIndex');
-	Route::get('opilo-orders/{:id}','OrderController@getShow');
 	Route::get('opilo-orders/create','OrderController@getCreate');
+	Route::get('opilo-orders/{id}','OrderController@getShow');
 	Route::post('opilo-orders','OrderController@postCreate');
 	Route::get('opilo-orders/{:id}/edit','OrderController@getEdit');
 	Route::get('opilo-orders/{:id}','OrderController@getShow');
