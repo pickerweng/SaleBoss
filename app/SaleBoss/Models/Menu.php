@@ -1,6 +1,4 @@
-<?php
-
-namespace SaleBoss\Models;
+<?php namespace SaleBoss\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
@@ -15,6 +13,6 @@ class Menu  extends Eloquent {
 	 */
 	public function menuType()
 	{
-		return $this->belongsTo('MenuType','menu_type_id');
+		return $this->belongsTo('SaleBoss\Models\MenuType','menu_type_id');
 	}
-} 
+}

@@ -12,7 +12,8 @@ class UserTableSeeder extends Seeder
 	{
 		Sentry::register([
 			'email'     =>  'pcfeeler@gmail.com',
-			'password'  =>  '123456'
+			'password'  =>  '123456',
+            'activated' =>  true
 		]);
 	}
-} 
+}

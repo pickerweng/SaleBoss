@@ -1,11 +1,14 @@
 <?php namespace Controllers;
 
-use Cartalyst\Sentry\Users\Eloquent\User;
-use Illuminate\Support\Facades\View;
-use SaleBoss\Models\Entity;
-
+use SaleBoss\Services\Menu\Facades\MenuBuilder;
 
 class HomeController extends BaseController {
+
+    public function __construct(
+        MenuBuilder $builder
+    ){
+        $this->builder = $builder;
+    }
 
 
 	/**
@@ -13,7 +16,7 @@ class HomeController extends BaseController {
 	 */
 	public function getIndex()
 	{
-
+        dd(\MenuBuilder::fetch('sidebar'));
 	}
 
 }

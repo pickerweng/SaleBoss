@@ -38,5 +38,14 @@ class RepositoryServiceProvider extends ServiceProvider {
 			'SaleBoss\Repositories\ValueRepositoryInterface',
 			'SaleBoss\Repositories\Eloquent\ValueRepository'
 		);
+
+        $this->app->bind(
+            'SaleBoss\Repositories\MenuTypeRepositoryInterface',
+            'SaleBoss\Repositories\Eloquent\MenuTypeRepository'
+        );
+        $this->app->bind(
+            'SaleBoss\Repositories\MenuRepositoryInterface',
+            'SaleBoss\Repositories\Eloquent\MenuRepository'
+        );
 	}
 }

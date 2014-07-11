@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'fa',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -125,6 +125,10 @@ return array(
 		'SaleBoss\Repositories\RepositoryServiceProvider',
 		'SaleBoss\Services\EavSmartAss\EavSmartAssServiceProvider',
 		'SaleBoss\Services\EavSmartAss\Form\FormServiceProvider',
+        'SaleBoss\Filters\FilterServiceProvider',
+        'SaleBoss\Services\ServicesServiceProvider',
+        'Miladr\Jalali\JalaliServiceProvider',
+        'SaleBoss\Services\Menu\MenuServiceProvider'
 	),
 
 	/*
@@ -192,8 +196,8 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-		'FormGenerator'   => 'SaleBoss\Services\EavSmartAss\Form\Facades\FormGenerator'
-
+		'FormGenerator'   => 'SaleBoss\Services\EavSmartAss\Form\Facades\FormGenerator',
+        'MenuBuilder'     => 'SaleBoss\Services\Menu\Facades\MenuBuilder'
 	),
 
 );

@@ -1,0 +1,17 @@
+<?php return array(
+		'profile'		=>	'پروفایل',
+		'login'			=>	'ورود',
+		'logout'		=>	'خروج',
+		'settings'		=>	'تنظیمات',
+		'id'			=>	'شناسه',
+		'email'			=>	'ایمیل',
+		'roles'			=>	'نقش ها',
+		'name'			=>	'نام',
+		'operation'		=>	'عملیات',
+		'username'		=>	'نام کاربری',
+		'create'		=>	'ایجاد',
+		'cancel'		=>	'لغو',
+		'edit'			=>	'ویرایش',
+		'administrator' =>	'مدیر',
+		'guest'			=>	'مهمان',
+	);

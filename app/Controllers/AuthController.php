@@ -2,8 +2,8 @@
 
 namespace Controllers;
 
-
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Lang;
 use SaleBoss\Services\Authenticator\Exceptions\InvalidCredentialsException;
 use SaleBoss\Services\Authenticator\Exceptions\UserNotActivatedException;
 use SaleBoss\Services\Authenticator\Exceptions\ValidationException;
@@ -15,7 +15,6 @@ use SaleBoss\Services\Registerator\Sentry\Registerator;
 class AuthController extends BaseController {
 
 	protected $auth;
-	protected $layout = 'panel.layouts.guest';
 	protected $reg;
 
 	/**
@@ -31,26 +30,33 @@ class AuthController extends BaseController {
 		$this->reg = $reg;
 	}
 
-
-
-	/**
-	 *
-	 */
-	public function getLogin()
+    /**
+     * User Login page
+     *
+     * @return View
+     */
+    public function getLogin()
 	{
-		$this->viewShare('bodyIds','login-body');
-		$this->view('panel.pages.auth.login');
+		return $this->view('admin.pages.login.main');
 	}
 
-	/**
-	 *
-	 */
-	public function postLogin()
+    /**
+     * Login the user and redirect to dash
+     *
+     * @return Redirect
+     */
+    public function postLogin()
 	{
-		$input = Input::all();
+		$input = Input::only('identifier','password','remember');
 		try{
 			$this->auth->attempt($input);
-			return $this->redirectTo('dash');
+            if (! $redirect = Input::get('redirect')){
+                $redirect = 'dash';
+            }
+			return $this->redirectTo($redirect)->with(
+                'success_message',
+                Lang::get('messages.welcome', array(':name' => $this->auth->user()))
+            );
 		}catch (ValidationException $e){
 			return $this->redirectBack()->withErrors($this->auth->getErrors());
 		}catch(InvalidCredentialsException $e){
@@ -65,7 +71,6 @@ class AuthController extends BaseController {
 	 */
 	public function getRegister()
 	{
-		$this->viewShare('bodyIds','login-body');
 		$this->view('panel.pages.auth.register');
 	}
 
@@ -103,5 +108,19 @@ class AuthController extends BaseController {
 		}
 	}
 
+    /**
+     * Log out the user
+     *
+     * @return Redirect
+     */
+    public function getLogout()
+    {
+        $this->auth->logout();
+        return $this->redirectTo('auth/login')->with(
+                'success_message',
+                Lang::get('messages.panel_logout')
+         );
+    }
 
-} 
+
+}

@@ -8,7 +8,7 @@ use SaleBoss\Services\EavSmartAss\Form\FormOptionProvider;
 
 class OrderController extends BaseController {
 
-	protected $layout = 'panel.layouts.master';
+	protected $layout = 'admin.layouts.default';
 
 	public function __construct(
 		EavManagerInterface $eavManager,
@@ -28,4 +28,4 @@ class OrderController extends BaseController {
 			'options'
 		));
 	}
-} 
+}

@@ -5,8 +5,6 @@ namespace Controllers;
 
 class UserController extends BaseController
 {
-
-	protected $layout = 'panel.layouts.master';
 	/**
 	 * User Dashboard page
 	 *
@@ -14,6 +12,6 @@ class UserController extends BaseController
 	 */
 	public function getDash()
 	{
-		$this->view('panel.pages.user.dash');
+		return $this->view('admin.pages.dashboard.main');
 	}
-} 
+}

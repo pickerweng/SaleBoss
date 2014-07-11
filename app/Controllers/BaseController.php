@@ -25,7 +25,7 @@ class BaseController extends Controller
 	 */
 	protected function view($bladable_path , $data = [])
 	{
-		$this->layout->content = View::make($bladable_path, $data);
+		return  View::make($bladable_path, $data);
 	}
 
 	/**

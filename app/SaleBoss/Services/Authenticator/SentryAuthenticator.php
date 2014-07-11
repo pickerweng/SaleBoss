@@ -39,12 +39,12 @@ class SentryAuthenticator implements AuthenticatorInterface {
 		}
 
 		try {
-			$user = Sentry::authenticateAndRemember(
+			$user = Sentry::authenticate(
 				[
 					'email' => $data['identifier'],
 					'password' => $data['password']
 				],
-				empty($data['remember_me']) ? false : true
+				empty($data['remember']) ? false : true
 			);
 			return true;
 		}catch (UserNotFoundException $e){
@@ -70,4 +70,34 @@ class SentryAuthenticator implements AuthenticatorInterface {
 	{
 		return $this->validationErrors;
 	}
+
+    /**
+     * Logout User
+     *
+     * @return boolean
+     */
+    public function logout()
+    {
+        return Sentry::logout();
+    }
+
+    /**
+     * Check that user is logged in or not
+     *
+     * @return boolean
+     */
+    public function check()
+    {
+        return Sentry::check();
+    }
+
+    /**
+     * Get Logged  in user
+     *
+     * @return \SaleBoss\Models\User
+     */
+    public function user()
+    {
+        return Sentry::getUser();
+    }
 }

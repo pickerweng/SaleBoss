@@ -1,19 +1,46 @@
 <?php
 
 Route::group(["namespace" => "Controllers"], function(){
-	Route::get("/", "HomeController@getIndex");
-	Route::get("auth/login","AuthController@getLogin");
-	Route::post("auth/login","AuthController@postLogin");
-	Route::get("auth/register","AuthController@getRegister");
-	Route::post("auth/register","AuthController@postRegister");
+
+    /**
+     * Front page
+     */
+    Route::get("/", "HomeController@getIndex");
+
+    /**
+     * Pages that need not to be accessed when
+     * User is logged in the app
+     *
+     * @see \SaleBoss\Filters\SimpleAccessFilter
+     */
+    Route::group(['before' => 'guest'],function(){
+        Route::get('auth/login', "AuthController@getLogin");
+        Route::post("auth/login","AuthController@postLogin");
+        Route::get("auth/register","AuthController@getRegister");
+        Route::post("auth/register","AuthController@postRegister");
+    });
+
+    /**
+     * Pages that need to be accessed only
+     * when user is logged in the app
+     *
+     * @see \SaleBoss\Filters\SimpleAccessFilter
+     */
+    Route::group(['before' => 'auth'],function(){
+        Route::get('dash','UserController@getDash');
+        Route::get('auth/logout','AuthController@getLogout');
+    });
 });
 
+/**
+ * Pages that are Opilo Specific
+ *
+ * @see SlaeBoss\Controllers\Opilo namespace
+ */
 Route::group(["namespace" => 'Controllers\Opilo'],function(){
-	Route::get('opilo-orders','OrderController@getIndex');
-	Route::get('opilo-orders/create','OrderController@getCreate');
-	Route::get('opilo-orders/{id}','OrderController@getShow');
-	Route::post('opilo-orders','OrderController@postCreate');
-	Route::get('opilo-orders/{:id}/edit','OrderController@getEdit');
-	Route::get('opilo-orders/{:id}','OrderController@getShow');
-	Route::put('opilo-orders/{:id}','OrderController@putUpdate');
+
+    Route::resource(
+        'opilo-order',
+        'OrderController'
+    );
 });

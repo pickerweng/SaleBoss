@@ -1,14 +1,19 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bigsinoos
- * Date: 07/07/2014
- * Time: 03:44 PM
- */
+<?php namespace SaleBoss\Repositories\Eloquent;
 
-namespace SaleBoss\Repositories\Eloquent;
+use SaleBoss\Models\MenuType;
+use SaleBoss\Repositories\MenuRepositoryInterface;
 
+class MenuRepository implements MenuRepositoryInterface {
 
-class MenuRepository {
-
-} 
+    /**
+     * All menus of a type
+     *
+     * @param MenuType $type
+     *
+     * @return Collection
+     */
+    public function getArrayAllInType(MenuType $type)
+    {
+        return $type->menus()->get()->toArray();
+    }
+}

@@ -1,0 +1,1 @@
+<h1>{{$title or 'پنل فروش اپیلو'}} <small>{{$description or 'داشبورد مدیریتی'}}</small></h1>
