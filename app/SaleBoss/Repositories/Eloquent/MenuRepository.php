@@ -4,7 +4,7 @@ use SaleBoss\Models\Menu;
 use SaleBoss\Models\MenuType;
 use SaleBoss\Repositories\MenuRepositoryInterface;
 
-class MenuRepository  implements MenuRepositoryInterface {
+class MenuRepository  extends AbstractRepository implements MenuRepositoryInterface {
 
 	/**
 	 * @param Menu $model
