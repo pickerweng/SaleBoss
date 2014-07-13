@@ -72,7 +72,7 @@ class BaseController extends Controller
 
 	protected function getView($view, $fallback)
 	{
-		if (View::exsist($view)){
+		if (View::exists($view)){
 			return $view;
 		}else {
 			return $fallback;

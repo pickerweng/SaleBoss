@@ -39,10 +39,10 @@
     <li class="dropdown user-dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Sentry::getUser()->email}} <b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="{{URL::to('admin/user/' . Sentry::getUser()->id)}}"><i class="fa fa-user"></i> {{Lang::get('strings.profile')}} </a></li>
-            <li><a href="{{URL::to('admin/user/' . Sentry::getUser()->id . '/edit')}}"><i class="fa fa-gear"></i> {{Lang::get('strings.settings')}} </a></li>
+            <li><a href="{{URL::to('users/' . Sentry::getUser()->id)}}"><i class="fa fa-user"></i> {{Lang::get('strings.profile')}} </a></li>
+            <li><a href="{{URL::to('users/' . Sentry::getUser()->id . '/edit')}}"><i class="fa fa-gear"></i> {{Lang::get('strings.settings')}} </a></li>
             <li class="divider"></li>
-            <li><a href="{{URL::to('admin/logout')}}"><i class="fa fa-power-off"></i> {{Lang::get('strings.logout')}} </a></li>
+            <li><a href="{{URL::to('auth/logout')}}"><i class="fa fa-power-off"></i> {{Lang::get('strings.logout')}} </a></li>
         </ul>
     </li>
     <li>

@@ -69,7 +69,60 @@ class MenuController  extends BaseController{
 						->withInput()
 						->withErrors($this->menuValidator->getMessages());
 		}
+		return $this->saveMenu($info);
+	}
 
+	/**
+	 * Edit form
+	 *
+	 * @param $id
+	 */
+	public function edit($id)
+	{
+		try {
+			$menu_item = $this->menuRepo->findById($id);
+
+			$default_value = null;
+
+			if(!is_null($menu_item->menu_type_id))
+			{
+				$default_value = $menu_item->menu_type_id;
+				if(! is_null($menu_item->parent_id))
+				{
+					$default_value .= '_' . $menu_item->parent_id;
+				}
+			}
+
+			return $this->view('admin.pages.menu.edit',compact('default_value','menu_item'));
+		}catch (NotFoundException $e){
+			App::abort(404);
+		}
+	}
+
+	/**
+	 * Update a menu type in repo
+	 *
+	 * @param $id
+	 */
+	public function update($id)
+	{
+		try {
+			$menu_item = $this->menuRepo->findById($id);
+			$info = Input::get('item');
+			return $this->saveMenu($info);
+		} catch (NotFoundException $e){
+			App::abort(404);
+		}
+	}
+
+	/**
+	 * Save a menu
+	 *
+	 * @param $info
+	 * @return mixed
+	 */
+	protected function saveMenu($info)
+	{
 		$select = explode('_',$info['ids']);
 		$parentId = null;
 		$typeId = null;
@@ -91,9 +144,18 @@ class MenuController  extends BaseController{
 		}
 	}
 
-	public function delete($id)
+	/**
+	 * Delete a menu from repo
+	 *
+	 * @param $id
+	 */
+	public function destroy($id)
 	{
-
+		try {
+			$this->menuRepo->delete($id);
+			return $this->redirectBack()->with('success_message',Lang::get('messages.operation_success'));
+		}catch (NotFoundException $e){
+			App::abort(404);
+		}
 	}
-
 } 

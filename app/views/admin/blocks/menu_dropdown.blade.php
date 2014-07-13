@@ -1,7 +1,7 @@
 @if(empty($menu['children']))
-    <li><a href="{{URL::to($menu['uri'])}}">{{$menu['title']}}</a></li>
+    <li class="{{!empty($menu['active']) ? 'active' : ''}}"><a href="{{URL::to($menu['uri'])}}" class="{{!empty($menu['active']) ? 'active' : ''}}">{{$menu['title']}}</a></li>
 @else
-    <li class="dropdown">
+    <li class="dropdown {{!empty($menu['active']) ? 'open active' : ''}}">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{$menu['title']}}<b class="caret"></b></a>
         <ul class="dropdown-menu">
             @foreach($menu['children'] as $child)

@@ -40,4 +40,12 @@ interface MenuRepositoryInterface {
 	 * @return \SaleBoss\Models\Menu
 	 */
 	public function findById($id);
+
+	/**
+	 * Delete an item from repository
+	 *
+	 * @param $id
+	 * @return mixed
+	 */
+	public function delete($id);
 }

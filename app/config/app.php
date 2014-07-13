@@ -128,7 +128,8 @@ return array(
         'SaleBoss\Filters\FilterServiceProvider',
         'SaleBoss\Services\ServicesServiceProvider',
         'Miladr\Jalali\JalaliServiceProvider',
-        'SaleBoss\Services\Menu\MenuServiceProvider'
+        'SaleBoss\Services\Menu\MenuServiceProvider',
+		'SaleBoss\Services\Presenters\PresenterServiceProvider'
 	),
 
 	/*
@@ -197,7 +198,8 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'FormGenerator'   => 'SaleBoss\Services\EavSmartAss\Form\Facades\FormGenerator',
-        'MenuBuilder'     => 'SaleBoss\Services\Menu\Facades\MenuBuilder'
+        'MenuBuilder'     => 'SaleBoss\Services\Menu\Facades\MenuBuilder',
+		'CommonPresenter' => 'SaleBoss\Services\Presenters\Facades\CommonPresenter'
 	),
 
 );

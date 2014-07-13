@@ -42,15 +42,14 @@
                                 <button 
                                     type="button"
                                     class="btn btn-danger btn-sm"
-                                    delete-url="{{URL::to('admin/menu/item/' . $type->id . '/' . $item->id)}}"
+                                    delete-url="{{URL::to('menu/' . $item->id)}}"
                                     data-target="#removeModal"
                                     data-toggle="modal"
                                     onclick="Common.setDeleteURL(this,'#delete_form')"
                                 >
                                     حذف
                                 </button>
-                                <a href="{{URL::to('admin/menu/item/' . $type->id . '/' . $item->id . '/edit')}}" class="btn btn-sm btn-warning">ویرایش</a>
-								<a href="{{URL::to('admin/menu/item/' . $type->id . '/' . $item->id)}}" class="btn btn-success btn-sm">مشاهده</a>
+                                <a href="{{URL::to( 'menu/' . $item->id . '/edit')}}" class="btn btn-sm btn-warning">ویرایش</a>
 							</div>
 						</td>
 					</tr>

@@ -1,3 +1,4 @@
+@extends('admin.layouts.default')
 @section('content')
 <div class="row">
 	<div class="col-sm-12">
@@ -5,23 +6,33 @@
 			<thead>
 				<tr>
 					@foreach($columns as $key => $column)
-						<th {{(! empty($column['class']) ? 'class="' . $column['class']. '"')}}>{{$key}}</th>
+						<th>{{CommonPresenter::key($key)}}</th>
 					@endforeach
+					@if(!empty($operationColumn))
+						<th class="languageLeft">
+							عملیات
+						</th>
+					@endif
 				</tr>
 			</thead>
 			<tbody>
 				@foreach($dynamicItems as $key => $item)
 					<tr>
 						@foreach($columns as $key => $column)
-							<td {{(! empty($column['class']) ? 'class="' . $column['class']. '"')}}>
-								{{$item->{$key}}}
+							<td>
+								{{CommonPresenter::decide($column,$item->$key)}}
 							</td>
 						@endforeach
+						@if(!empty($operationColumn))
+							<td class="languageLeft">
+								{{View::make($operationColumn, ['item' => $item])->render()}}
+							</td>
+						@endif
 					</tr>
-					@if(!empty
 				@endforeach
 			</tbody>
 		</table>
 	</div>
 </div>
+@include('admin.blocks.delete_modal')
 @stop

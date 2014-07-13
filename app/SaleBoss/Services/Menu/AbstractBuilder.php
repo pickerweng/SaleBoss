@@ -1,6 +1,7 @@
 <?php namespace SaleBoss\Services\Menu;
 
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Request;
 use SaleBoss\Repositories\Exceptions\RepositoryException;
 use SaleBoss\Repositories\MenuRepositoryInterface;
 use SaleBoss\Repositories\MenuTypeRepositoryInterface;
@@ -107,10 +108,16 @@ abstract class AbstractBuilder {
     protected function add($menu)
     {
 	    if(empty($menu['id'])) return;
+	    if(Request::path() == $menu['uri']){
+		    $menu['active'] = true;
+	    }
         if( empty($menu['parent_id'])){
-            $this->generated[$menu['id']] = $menu;
+	        $this->generated[$menu['id']] = $menu;
             return;
         }
+	    if(!empty($menu['active'])){
+		    $this->menus[$menu['parent_id']]['active'] = true;
+	    }
         $this->menus[$menu['parent_id']]['children'][$menu['id']] = $menu;
         $this->add($this->menus[$menu['parent_id']]); // Traverse to make the parent_id null
     }
@@ -137,7 +144,12 @@ abstract class AbstractBuilder {
 		foreach($items as $item){
 			$select[$item['id']] = $item['display_name'];
 			foreach($item['menus'] as $menu){
-				$select[$item['id'] . '_' . $menu['id']] = strip_tags('-' .$menu['title']);
+				if(is_null($menu['parent_id'])){
+					$prefix = '*';
+				}else {
+					$prefix = '------';
+				}
+				$select[$item['id'] . '_' . $menu['id']] = $prefix . strip_tags($menu['title']);
 			}
 		}
 		return $select;
