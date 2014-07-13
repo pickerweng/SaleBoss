@@ -1,7 +1,7 @@
 	{{-- check if session has message --}}
-	@if (Session::has('Message'))
+	@if (Session::has('message'))
 		<div class="alert alert-info">
-			{{ Session::get('Message') }}
+			{{ Session::get('message') }}
 		</div>
 	@endif
 	{{-- check if session has success_message and print it --}}
@@ -13,7 +13,7 @@
 	@endif
 
 	{{-- check if session has error_message and show it --}}
-	@if (Session::has('error_message') || $errors->all())
+	@if (Session::has('error_message') || $errors->has())
 		<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			@if (Session::has('error_message'))

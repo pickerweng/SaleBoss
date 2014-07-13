@@ -14,4 +14,21 @@ class UserController extends BaseController
 	{
 		return $this->view('admin.pages.dashboard.main');
 	}
+
+	/**
+	 * List of users
+	 *
+	 * @return View
+	 */
+	public function index()
+	{
+		return $this->view(
+			$this->getView(
+					'panel.pages.user.index',
+					'panel.pages.common.index'
+			)
+		);
+	}
+
+
 }

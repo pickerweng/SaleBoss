@@ -66,7 +66,7 @@ return array(
 		"string"  => "The :attribute must be :size characters.",
 		"array"   => "The :attribute must contain :size items.",
 	),
-	"unique"           => "The :attribute has already been taken.",
+	"unique"           => "فیلد :attribute که وارد کردید قبلا گرفته شده است.",
 	"url"              => "The :attribute format is invalid.",
 	"unique_update"				   => "The :attribute has been already taken.",
 
@@ -99,7 +99,9 @@ return array(
 			'password'				=> '<em> پسورد </em>',
 			'auction_title'			=> '<em> نام مناقصه </em>',
 			'auction_description'	=> '<em>  توضیحات مناقصه </em>',
-			'category_name'			=> '<em> نام برچسب </em>'
+			'category_name'			=> '<em> نام برچسب </em>',
+			'display_name'          =>  '<em> نام </em>',
+			'machine_name'          =>  '<em> نام ماشینی</em>'
 		),
 
 );

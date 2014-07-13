@@ -4,5 +4,10 @@
 use Illuminate\Support\Facades\Facade;
 
 class MenuBuilder extends Facade {
-    protected static function getFacadeAccessor(){return "menu_builder";}
+	/**
+	 * Menu Builder IoC
+	 *
+	 * @return string
+	 */
+	protected static function getFacadeAccessor(){return "menu_builder";}
 }

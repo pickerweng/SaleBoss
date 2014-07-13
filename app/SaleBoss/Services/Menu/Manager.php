@@ -26,11 +26,13 @@ class Manager implements ManagerInterface {
      */
     public function __call($method, $arguments)
     {
-        $probClass = "\\SaleBoss\\Services\\Menu\\CustomBuilders\\" . ucfirst(Str::camel($arguments[0]));
-        if(class_exists($probClass)){
-            $custom = App::make($probClass);
-            return call_user_func_array([$custom,$method],$arguments);
-        }
+	    if (!empty($arguments)){
+		    $probClass = "\\SaleBoss\\Services\\Menu\\CustomBuilders\\" . ucfirst(Str::camel($arguments[0]));
+		    if(class_exists($probClass)){
+			    $custom = App::make($probClass);
+			    return call_user_func_array([$custom,$method],$arguments);
+		    }
+	    }
         return call_user_func_array(array($this->builder,$method),$arguments);
     }
 }

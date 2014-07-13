@@ -5,3 +5,4 @@
 <!--<script src="{{asset('assets/admin/js/morris/chart-data-morris.js')}}"></script>-->
 <script src="{{asset('assets/admin/js/tablesorter/jquery.tablesorter.js')}}"></script>
 <script src="{{asset('assets/admin/js/tablesorter/tables.js')}}"></script>
+<script src="{{asset('assets/publicJS/jquery.namespace.js')}}"></script>

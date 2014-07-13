@@ -1,9 +1,3 @@
-/*
-* \Common namespace
-* common functions goes here
-* @author <Reza Shadman>
-* @date <10th,March,2014>
-*/
 (function($){
 	jQuery.namespace('Common');
 	

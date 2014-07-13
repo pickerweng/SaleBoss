@@ -13,4 +13,42 @@ interface MenuTypeRepositoryInterface {
      * @return mixed
      */
     public function findByMachineName($type);
+
+	/**
+	 * All menu types for listing
+	 *
+	 * @return Collection
+	 */
+	public function all();
+
+	/**
+	 * Create a menu type
+	 *
+	 * @param $get
+	 * @return mixed
+	 */
+	public function create($get);
+
+	/**
+	 * Delete a MenuType based on id
+	 *
+	 * @param $id
+	 * @return boolean
+	 */
+	public function delete($id);
+
+	/**
+	 * Find a Repo by id
+	 *
+	 * @param $id
+	 * @return mixed
+	 */
+	public function findById($id);
+
+	/**
+	 * Get all types with menus
+	 *
+	 * @return mixed
+	 */
+	public function getArrayAllWithMenus();
 }

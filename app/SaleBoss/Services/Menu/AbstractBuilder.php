@@ -1,5 +1,6 @@
 <?php namespace SaleBoss\Services\Menu;
 
+use Illuminate\Database\Eloquent\Collection;
 use SaleBoss\Repositories\Exceptions\RepositoryException;
 use SaleBoss\Repositories\MenuRepositoryInterface;
 use SaleBoss\Repositories\MenuTypeRepositoryInterface;
@@ -82,7 +83,6 @@ abstract class AbstractBuilder {
         {
             $menus [$menu['id']] = $menu;
         }
-
         $this->menus = $menus;
     }
 
@@ -106,7 +106,8 @@ abstract class AbstractBuilder {
      */
     protected function add($menu)
     {
-        if( is_null($menu['parent_id'])){
+	    if(empty($menu['id'])) return;
+        if( empty($menu['parent_id'])){
             $this->generated[$menu['id']] = $menu;
             return;
         }
@@ -123,4 +124,22 @@ abstract class AbstractBuilder {
     {
         return $this->generated;
     }
+
+	/**
+	 * Generate select array from db collection
+	 *
+	 * @return array
+	 */
+	public function select()
+	{
+		$items = $this->typeRepo->getArrayAllWithMenus();
+		$select = [];
+		foreach($items as $item){
+			$select[$item['id']] = $item['display_name'];
+			foreach($item['menus'] as $menu){
+				$select[$item['id'] . '_' . $menu['id']] = strip_tags('-' .$menu['title']);
+			}
+		}
+		return $select;
+	}
 }

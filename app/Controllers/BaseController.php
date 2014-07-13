@@ -70,4 +70,13 @@ class BaseController extends Controller
 		View::share($var,$data);
 	}
 
+	protected function getView($view, $fallback)
+	{
+		if (View::exsist($view)){
+			return $view;
+		}else {
+			return $fallback;
+		}
+	}
+
 }

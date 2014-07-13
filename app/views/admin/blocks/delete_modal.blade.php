@@ -24,6 +24,7 @@
 	'class'			=>	'delete_form'
 ))}}
 {{Form::close()}}
-@section('additional_scripts')
-<script src="{{asset('assets/publicJS/Namespaces/Common/Common.js')}}" type="text/javascript"></script>
+@section('scripts')
+	@parent
+	<script src="{{asset('assets/publicJS/Namespaces/Common/Common.js')}}" type="text/javascript"></script>
 @stop
