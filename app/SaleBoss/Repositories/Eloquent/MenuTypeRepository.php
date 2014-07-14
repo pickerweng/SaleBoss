@@ -46,7 +46,7 @@ class MenuTypeRepository extends AbstractRepository implements MenuTypeRepositor
 		return $model->all();
 	}
 
-	public function create($info)
+	public function create(array $info)
 	{
 		$model = $this->model->newInstance();
 		$model->machine_name = $info['machine_name'];

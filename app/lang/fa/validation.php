@@ -31,7 +31,7 @@ return array(
 	"date"             => "The :attribute is not a valid date.",
 	"date_format"      => "The :attribute does not match the format :format.",
 	"different"        => "The :attribute and :other must be different.",
-	"digits"           => "The :attribute must be :digits digits.",
+	"digits"           => "فیلد :attribute باید :digits کارکتر داشته باشد.",
 	"digits_between"   => "The :attribute must be between :min and :max digits.",
 	"email"            => "The :attribute format is invalid.",
 	"exists"           => "The selected :attribute is invalid.",
@@ -49,7 +49,7 @@ return array(
 	"min"              => array(
 		"numeric" => "The :attribute must be at least :min.",
 		"file"    => "The :attribute must be at least :min kilobytes.",
-		"string"  => "The :attribute must be at least :min characters.",
+		"string"  => "فیلد :attribute باید حداقل :min کارکتر باشد.",
 		"array"   => "The :attribute must have at least :min items.",
 	),
 	"not_in"           => "The selected :attribute is invalid.",
@@ -95,13 +95,19 @@ return array(
 	*/
 
 	'attributes' => array(
-			'email'					=> '<em> ایمیل </em>',
-			'password'				=> '<em> پسورد </em>',
-			'auction_title'			=> '<em> نام مناقصه </em>',
-			'auction_description'	=> '<em>  توضیحات مناقصه </em>',
-			'category_name'			=> '<em> نام برچسب </em>',
+			'email'					=>  '<em> ایمیل </em>',
+			'password'				=>  '<em> پسورد </em>',
+			'auction_title'			=>  '<em> نام مناقصه </em>',
+			'auction_description'	=>  '<em>  توضیحات مناقصه </em>',
+			'category_name'			=>  '<em> نام برچسب </em>',
 			'display_name'          =>  '<em> نام </em>',
-			'machine_name'          =>  '<em> نام ماشینی</em>'
+			'machine_name'          =>  '<em> نام ماشینی</em>',
+			'first_name'            =>  '<em>نام</em>',
+			'last_name'             =>  '<em>نام خانوادگی</em>',
+			'mobile'                =>  '<em>موبایل</em>',
+			'tell'                  =>  '<em>تلفن</em>',
+			'national_code'         =>  '<em>کدملی</em>',
+			'name'                  =>  '<em>نام</em>'
 		),
 
 );

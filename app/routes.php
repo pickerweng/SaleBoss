@@ -32,6 +32,8 @@ Route::group(["namespace" => "Controllers"], function(){
 	    Route::resource('menu','MenuController',['except' => ['show','index']]);
 	    Route::resource('menu_type','MenuTypeController',['except' => 'show']);
 	    Route::get('menu_type/{id}','MenuController@index');
+	    Route::resource('groups','GroupController', ['except' => 'show']);
+	    Route::get('users/summary','UserController@getSummary');
 	    Route::resource('users','UserController');
     });
 });

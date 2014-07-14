@@ -1,4 +1,3 @@
-<!-- Content Header Section -->
 <div class="row">
 	<div class="col-lg-12">
 		@include('admin.sections.content.header--title')
@@ -7,4 +6,3 @@
 	</div>
 </div>
 @include('admin.sections.content.header--intro')
-<!-- End of Content Header Section-->

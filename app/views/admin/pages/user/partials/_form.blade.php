@@ -39,15 +39,6 @@
 	</div>
 
 	<div class="form-group">
-		{{Form::label('item[connection_type]','نحوه ارتباط با ما')}}
-		{{Form::text(
-			'item[connection_type]',
-			empty($update) ? null : $user->connection_type,
-			['class' => 'form-control']
-		)}}
-	</div>
-
-	<div class="form-group">
 		{{Form::label('item[business]','نام شرکت')}}
 		{{Form::text(
 			'item[business]',
@@ -79,6 +70,22 @@
 		{{Form::text(
 			'item[national_code]',
 			empty($update) ? null : $user->national_code,
+			['class' => 'form-control languageLeft']
+		)}}
+	</div>
+
+	<div class="form-group">
+		{{Form::label('item[password]','پسورد')}}
+		{{Form::password(
+			'item[password]',
+			['class' => 'form-control languageLeft']
+		)}}
+	</div>
+
+	<div class="form-group">
+		{{Form::label('item[password_confirmation]','تایید پسورد')}}
+		{{Form::password(
+			'item[password_confirmation]',
 			['class' => 'form-control languageLeft']
 		)}}
 	</div>

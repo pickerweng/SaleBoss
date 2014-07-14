@@ -4,6 +4,7 @@ namespace SaleBoss\Repositories\Eloquent;
 
 
 use Illuminate\Database\Eloquent\Model;
+use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 
 class AbstractRepository {
@@ -33,6 +34,13 @@ class AbstractRepository {
 		return $model->delete();
 	}
 
+	/**
+	 * Find a user in DB based on ID
+	 *
+	 * @param $id
+	 * @return \Illuminate\Database\Eloquent\Collection|Model|static
+	 * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
+	 */
 	public function findById($id)
 	{
 		$model = $this->model->newInstance();

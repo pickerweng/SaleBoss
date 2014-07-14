@@ -32,4 +32,11 @@ interface AuthenticatorInterface {
      * @return MessageBag
      */
     public function getErrors();
+
+	/**
+	 * Get logged in user
+	 *
+	 * @return \SaleBoss\Models\User
+	 */
+	public function user();
 }

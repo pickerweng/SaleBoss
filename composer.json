@@ -18,7 +18,8 @@
         "psr-4" : {
             "SaleBoss\\" : "app/SaleBoss",
             "Controllers\\" : "app/Controllers"
-        }
+        },
+        "files" : ["app/helpers.php"]
 	},
 	"scripts": {
 		"post-install-cmd": [

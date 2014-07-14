@@ -16,8 +16,8 @@ class AddFinalFieldsToUserTable extends Migration {
 			$table->integer('creator_id')->unsigned()->nullable()->after('id');
 			$table->string('job')->after('email')->nullable();
 			$table->string('business')->after('email')->nullable();
-			$table->bigInteger('tell')->after('email')->nullable();
-			$table->bigInteger('national_code')->after('email');
+			$table->string('tell',20)->after('email')->nullable();
+			$table->string('national_code',20)->after('email');
 			$table->text('address')->nullable()->after('email');
 			$table->string('connection_way')->nullable()->after('email');
 		});

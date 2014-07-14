@@ -24,10 +24,10 @@ interface MenuTypeRepositoryInterface {
 	/**
 	 * Create a menu type
 	 *
-	 * @param $get
+	 * @param array $data
 	 * @return mixed
 	 */
-	public function create($get);
+	public function create( array $data);
 
 	/**
 	 * Delete a MenuType based on id

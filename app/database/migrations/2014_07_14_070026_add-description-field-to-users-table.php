@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddMobileFieldToUsersTable extends Migration {
+class AddDescriptionFieldToUsersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -13,7 +13,7 @@ class AddMobileFieldToUsersTable extends Migration {
 	public function up()
 	{
 		Schema::table('users',function($table){
-			$table->string('mobile',20)->after('last_name');
+			$table->text('description');
 		});
 	}
 
@@ -25,7 +25,7 @@ class AddMobileFieldToUsersTable extends Migration {
 	public function down()
 	{
 		Schema::table('users',function($table){
-			$table->dropColumn('mobile');
+			$table->dropColumn('description');
 		});
 	}
 
