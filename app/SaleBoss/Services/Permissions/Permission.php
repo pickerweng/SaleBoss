@@ -1,20 +1,29 @@
 <?php namespace SaleBoss\Services\Permissions;
 
 use Illuminate\Support\Facades\Config;
+use SaleBoss\Models\Group;
+use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\GroupRepositoryInterface;
+use SaleBoss\Services\Validator\BulkPermissionValidator;
 
 class Permission {
 
+	protected $groupRepo;
 	protected $groups;
 	protected $permissions = [];
+	protected $defaults = [];
+	protected $pValidator;
 
 	/**
-	 * @param GroupRepositoryInterface $groups
+	 * @param GroupRepositoryInterface $groupRepo
+	 * @param BulkPermissionValidator $pValidator
 	 */
 	public function __construct(
-		GroupRepositoryInterface $groups
+		GroupRepositoryInterface $groupRepo,
+		BulkPermissionValidator $pValidator
 	){
-		$this->groups = $groups;
+		$this->groupRepo = $groupRepo;
+		$this->pValidator = $pValidator;
 	}
 
 	/**
@@ -22,12 +31,9 @@ class Permission {
 	 *
 	 * @return array
 	 */
-	public function getAll()
+	public function run()
 	{
-		$this->addConfigPermissions();
-		$this->addGroupPermissions();
-
-		return $this->getPermissions();
+		$this->runMerger();
 	}
 
 	/**
@@ -48,14 +54,30 @@ class Permission {
 	 */
 	protected function addGroupPermissions()
 	{
-		$groups = $this->groups->getAll();
+		$this->groups = $this->groupRepo->getAll();
 		$permissions = [];
-		foreach($groups as $group)
+		foreach($this->groups as $group)
 		{
 			$permissions = array_merge($permissions,$group->getPermissions());
+			$this->addDefaults($group);
 		}
 		$this->permissions = array_merge($this->permissions, $permissions);
 	}
+
+	/**
+	 * Add group permissions to defaults
+	 *
+	 * @param $group
+	 * @return void
+	 */
+	protected function addDefaults(Group $group)
+	{
+		foreach($group->getPermissions() as $key => $permission)
+		{
+			$this->defaults[$group->id][$key] = $permission;
+		}
+	}
+
 
 	/**
 	 * Get permissions property
@@ -66,4 +88,79 @@ class Permission {
 	{
 		return array_keys($this->permissions);
 	}
+
+	/**
+	 * Available groups
+	 *
+	 * @return Collection | array
+	 */
+	public function getGroups()
+	{
+		return $this->groups;
+	}
+
+	/**
+	 * Default group permissions
+	 *
+	 * @return array
+	 */
+	public function getDefaults()
+	{
+		if (empty($this->defaults)){
+			$this->addGroupPermissions();
+		}
+		return $this->defaults;
+	}
+
+	/**
+	 * Merging user permissions with data
+	 *
+	 * @return void
+	 */
+	protected function runMerger()
+	{
+		$this->addConfigPermissions();
+		$this->addGroupPermissions();
+	}
+
+	/**
+	 * Save Permissions
+	 *
+	 * @param $data
+	 * @param StoreListenerInterface $listener
+	 */
+	public function save(
+		$data,
+		StoreListenerInterface $listener
+	){
+		$valid = $this->pValidator->isValid($data);
+		if(! $valid){
+			return $listener->onStoreFail($this->pValidator->getErrors());
+		}
+		$groups = $this->groupRepo->getAll();
+		$data = $this->removeInvalidData(
+			$data,
+			$groups->lists('id','id')
+		);
+
+	}
+
+	/**
+	 * Remove invalid data from request
+	 *
+	 * @param $data
+	 * @param $groups
+	 * @return array
+	 */
+	protected function removeInvalidData($data,$groups)
+	{
+		foreach($data as $item => $value)
+		{
+			if(empty($groups[$item])){
+				unset($data[$item]);
+			}
+		}
+		return $data;
+	}
+
 } 

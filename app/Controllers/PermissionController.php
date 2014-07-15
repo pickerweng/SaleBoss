@@ -22,77 +22,49 @@ class PermissionController extends BaseController {
 	 */
 	public function index()
 	{
-		dd($this->permission->getAll());
+		$this->permission->run();
+		$list = $this->permission->getPermissions();
+		$groups = $this->permission->getGroups();
+		$defaults = $this->permission->getDefaults();
+		return $this->view(
+				'admin.pages.permission.index',
+				compact('list','groups','defaults')
+			);
 	}
 
-
 	/**
-	 * Show the form for creating a new resource.
 	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
 	 */
 	public function store()
 	{
-		//
+		$input = Input::get('item');
+		if(empty($input)){ return $this->onStoreSuccess();}
+
+		return $this->permission->save($input,$this);
 	}
 
-
 	/**
-	 * Display the specified resource.
+	 * What to do when save fails
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param $errors
+	 * @return Redirect
 	 */
-	public function show($id)
+	public function onStoreFail($errors)
 	{
-		//
+		return $this->redirectBack()->withErrors($errors);
 	}
 
-
 	/**
-	 * Show the form for editing the specified resource.
+	 * What to do when Save succeeds
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @param null $message
+	 * @return Redirect
 	 */
-	public function edit($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id)
-	{
-		//
-	}
-
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+	public function onStoreSuccess($message = null){
+		return $this->redirectBack()->with(
+				'success_message',
+				empty($message) ? Lang::get('messages.operation_success') : $message
+			);
 	}
 
 

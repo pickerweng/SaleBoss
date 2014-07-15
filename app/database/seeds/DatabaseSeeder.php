@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder {
 		// $this->call('MenuTypeTableSeeder');
 		// $this->call('MenuTableSeeder');
 		// $this->call('OpiloOrdersInit');
-        $this->call('MenuTableSeeder');
+        // $this->call('MenuTableSeeder');
 	}
 
 }
