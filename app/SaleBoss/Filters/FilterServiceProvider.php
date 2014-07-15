@@ -13,6 +13,7 @@ class FilterServiceProvider extends ServiceProvider {
     {
         $this->app['router']->filter('auth','SaleBoss\Filters\SimpleAccessFilter@auth');
         $this->app['router']->filter('guest','SaleBoss\Filters\SimpleAccessFilter@guest');
+	    $this->app['router']->filter('hasPermission','SaleBoss\Filters\PermissionFilter@hasPermission');
     }
 
     /**

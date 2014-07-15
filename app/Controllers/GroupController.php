@@ -1,6 +1,7 @@
 <?php namespace Controllers;
 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Lang;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\GroupRepositoryInterface;
 use SaleBoss\Services\Validator\GroupValidator;
@@ -39,7 +40,7 @@ class GroupController extends BaseController
 	 */
 	public function store()
 	{
-		$input = Input::only('item');
+		$input = Input::get('item');
 		if (!$valid = $this->groupValidator->isValid($input)) {
 			return $this->redirectBack()->withErrors($this->groupValidator->getMessages())->withInput();
 		}
@@ -56,13 +57,13 @@ class GroupController extends BaseController
 	public function update($id)
 	{
 		$input = Input::get('item');
-
+		$this->groupValidator->setCurrentIdFor('name',$id);
 		if (!$valid = $this->groupValidator->isValid($input)) {
 			return $this->redirectBack()->withInput()->withErrors($this->groupValidator->getMessages());
 		}
 
 		try {
-			$this->groupRepo->update($id);
+			$this->groupRepo->update($id,$input);
 			return $this->redirectBack()->with('success_message', Lang::get('messages.operation_success'));
 		} catch (NotFoundException $e) {
 			App::abort(404);

@@ -35,6 +35,7 @@ Route::group(["namespace" => "Controllers"], function(){
 	    Route::resource('groups','GroupController', ['except' => 'show']);
 	    Route::get('users/summary','UserController@getSummary');
 	    Route::resource('users','UserController');
+	    Route::resource('permissions','PermissionController');
     });
 });
 

@@ -1,5 +1,5 @@
 @section('intro')
-<div class="row">
+<!--div class="row">
     <div class="col-lg-3">
         <div class="panel panel-info">
             <div class="panel-heading">
@@ -108,5 +108,5 @@
             </a>
         </div>
     </div>
-</div>
+</div-->
 @show

@@ -62,4 +62,16 @@ abstract class AbstractValidator implements ValidatorInterface {
 	{
 		return $this->validator;
 	}
+
+	/**
+	 * Sets unique control except id
+	 *
+	 * @param $key
+	 * @param $id
+	 * @return null
+	 */
+	public function setCurrentIdFor($key,$id)
+	{
+		$this->rules[$key] = $this->rules[$key] . ',' . $id;
+	}
 } 

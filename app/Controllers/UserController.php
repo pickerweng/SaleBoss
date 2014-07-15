@@ -36,6 +36,10 @@ class UserController extends BaseController
 		$this->groupRepo = $groupRepo;
 		$this->creator = $creator;
 		$this->shareJangoolak();
+		$this->beforeFilter('hasPermission:user.create',['only' => 'create']);
+		$this->beforeFilter('hasPermission:user.delete',['only' => 'delete']);
+		$this->beforeFilter('hasPermission:user.edit',['only' => 'edit']);
+		$this->beforeFilter('hasPermission:user.view',['only' => 'index']);
 	}
 
 	/**
@@ -79,7 +83,7 @@ class UserController extends BaseController
 	public function create()
 	{
 		$groups = $this->groupRepo->getAll();
-		$groups = $groups->lists('name', 'id');
+		$groups = $groups->lists('display_name', 'id');
 		return $this->view('admin.pages.user.create', compact('groups'));
 	}
 
@@ -232,7 +236,6 @@ class UserController extends BaseController
 
 	public function getSummary()
 	{
-
 		return $this->view('admin.pages.user.summary');
 	}
 }

@@ -2,7 +2,7 @@
 
 class GroupValidator extends AbstractValidator {
 	protected $rules = [
-		'name'          =>  'required',
+		'name'          =>  'required|unique:groups,name',
 		'display_name'  =>  'required'
 	];
 } 
