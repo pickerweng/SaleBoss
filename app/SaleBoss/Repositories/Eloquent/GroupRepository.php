@@ -94,4 +94,30 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
 		$model->display_name = $data['display_name'];
 		return $model->save();
 	}
+
+    /**
+     * Add Permissions to group
+     *
+     * @param \SaleBoss\Models\Group    $group
+     * @param array                     $permissions
+     *
+     * @return \SaleBoss\Models\Group
+     */
+    public function addPermissions(Group $group, array $permissions)
+    {
+        $group->permissions = $permissions;
+        $group->save();
+        return $group;
+    }
+
+    /**
+     * Get all permissions where id is in array:
+     *
+     * @param $in
+     * @return \SaleBoss\Models\Group;
+     */
+    public function getAllWhereId($in)
+    {
+        return $this->model->newInstance()->whereIn('id',$in)->get();
+    }
 }

@@ -1,8 +1,11 @@
 <?php namespace Controllers;
 
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Lang;
 use SaleBoss\Services\Permissions\Permission;
+use SaleBoss\Services\Permissions\StoreListenerInterface;
 
-class PermissionController extends BaseController {
+class PermissionController extends BaseController implements StoreListenerInterface {
 
 	protected $permission;
 

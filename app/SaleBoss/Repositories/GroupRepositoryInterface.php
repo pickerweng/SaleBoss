@@ -1,5 +1,6 @@
 <?php namespace SaleBoss\Repositories;
 
+use SaleBoss\Models\Group;
 use SaleBoss\Models\User;
 
 interface GroupRepositoryInterface {
@@ -43,4 +44,23 @@ interface GroupRepositoryInterface {
 	 * @return mixed
 	 */
 	public function findById($id);
+
+    /**
+     * Add Permissions to group
+     *
+     * @param Group $group
+     * @param array $permissions
+     *
+     * @return mixed
+     */
+    public function addPermissions(Group $group, array $permissions);
+
+    /**
+     * Get all permissions where id is in array:
+     *
+     * @param $array_keys
+     *
+     * @return \SaleBoss\Models\Group;
+     */
+    public function getAllWhereId($array_keys);
 }

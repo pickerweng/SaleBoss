@@ -1,6 +1,7 @@
 <?php namespace SaleBoss\Services\Permissions;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Lang;
 use SaleBoss\Models\Group;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\GroupRepositoryInterface;
@@ -58,7 +59,10 @@ class Permission {
 		$permissions = [];
 		foreach($this->groups as $group)
 		{
-			$permissions = array_merge($permissions,$group->getPermissions());
+			$permissions = array_merge(
+                $permissions,
+                $group->getPermissions()
+            );
 			$this->addDefaults($group);
 		}
 		$this->permissions = array_merge($this->permissions, $permissions);
@@ -123,29 +127,42 @@ class Permission {
 		$this->addGroupPermissions();
 	}
 
-	/**
-	 * Save Permissions
-	 *
-	 * @param $data
-	 * @param StoreListenerInterface $listener
-	 */
+    /**
+     * Save Permissions
+     *
+     * @param                        $data
+     * @param StoreListenerInterface $listener
+     *
+     * @return mixed
+     */
 	public function save(
 		$data,
 		StoreListenerInterface $listener
 	){
 		$valid = $this->pValidator->isValid($data);
 		if(! $valid){
-			return $listener->onStoreFail($this->pValidator->getErrors());
+			return $listener->onStoreFail(
+                $this->pValidator->getErrors()
+            );
 		}
-		$groups = $this->groupRepo->getAll();
-		$data = $this->removeInvalidData(
-			$data,
-			$groups->lists('id','id')
-		);
 
+        $combinedPermission = $this->getCombinedPermissions($data);
+        $groups = $this->groupRepo->getAllWhereId(array_keys($data));
+        foreach($groups as $group)
+        {
+            if(!empty($combinedPermission[$group->id])){
+                $this->addDataPermissions(
+                    $group,
+                    $combinedPermission[$group->id]
+                );
+            }
+        }
+        return $listener->onStoreSuccess(
+            Lang::get("messages.operation_success")
+        );
 	}
 
-	/**
+    /**
 	 * Remove invalid data from request
 	 *
 	 * @param $data
@@ -163,4 +180,33 @@ class Permission {
 		return $data;
 	}
 
-} 
+    /**
+     * Combine permissions together with groups
+     *
+     * @param $data
+     * @return array
+     */
+    protected function getCombinedPermissions($data)
+    {
+        $permissions = [];
+        foreach($data as $key => $value)
+        {
+                foreach($value as $secKey => $val){
+                    $permissions[$key][$secKey] = true;
+                }
+        }
+        return $permissions;
+    }
+
+    /**
+     * Add data to group permission
+     *
+     * @param $group
+     * @param $permissions
+     */
+    protected function addDataPermissions($group,$permissions)
+    {
+        $this->groupRepo->addPermissions($group,$permissions);
+    }
+
+}

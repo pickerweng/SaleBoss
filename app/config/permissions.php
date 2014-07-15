@@ -9,6 +9,5 @@ return array(
 	'group.delete',
 	'group.view',
 	'group.edit',
-	'user_group.edit',
 	'superuser'
 );

@@ -12,7 +12,7 @@ class BulkPermissionValidator {
 	 */
 	public function isValid($data)
 	{
-		if(is_array($data)){ return false;}
+		if(!is_array($data)){ return false;}
 		foreach($data as $item => $value)
 		{
 			if (!is_numeric($item)){
@@ -42,4 +42,4 @@ class BulkPermissionValidator {
 	{
 		return $this->errors;
 	}
-} 
+}

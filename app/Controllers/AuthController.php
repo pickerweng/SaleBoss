@@ -55,7 +55,7 @@ class AuthController extends BaseController {
             }
 			return $this->redirectTo($redirect)->with(
                 'success_message',
-                Lang::get('messages.welcome', array(':name' => $this->auth->user()))
+                Lang::get('messages.welcome', array('name' => $this->auth->user()->getIdentifier()))
             );
 		}catch (ValidationException $e){
 			return $this->redirectBack()->withErrors($this->auth->getErrors());
