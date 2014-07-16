@@ -58,5 +58,10 @@ class RepositoryServiceProvider extends ServiceProvider {
 			'SaleBoss\Repositories\GroupRepositoryInterface',
 			'SaleBoss\Repositories\Eloquent\GroupRepository'
 		);
+
+		$this->app->bind(
+			'SaleBoss\Repositories\StateRepositoryInterface',
+			'SaleBoss\Repositories\Eloquent\StateRepository'
+		);
 	}
 }
