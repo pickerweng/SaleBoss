@@ -8,6 +8,9 @@
         "cartalyst/sentry": "2.1.*",
         "miladr/jalali": "dev-master"
 	},
+    "require-dev" : {
+        "phploc/phploc": "*"
+    },
 	"autoload": {
 		"classmap": [
 			"app/commands",

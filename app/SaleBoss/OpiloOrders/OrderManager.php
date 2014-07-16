@@ -1,7 +1,4 @@
-<?php
-
-namespace SaleBoss\OpiloOrders;
-
+<?php namespace SaleBoss\OpiloOrders;
 
 use SaleBoss\Services\EavSmartAss\EavManagerInterface;
 
@@ -30,7 +27,7 @@ class OrderManager implements OrderManagerInterface {
 	}
 
 	/**
-	 * @return EavManagerInterface
+	 * @return EavManager
 	 */
 	public function getEavManager()
 	{

@@ -5,6 +5,7 @@ namespace SaleBoss\Repositories\Eloquent;
 
 use SaleBoss\Models\Entity;
 use SaleBoss\Models\EntityType;
+use SaleBoss\Repositories\Collection;
 use SaleBoss\Repositories\EntityTypeRepositoryInterface;
 use SaleBoss\Repositories\Exceptions\EntityTypeNotFoundException;
 
@@ -61,5 +62,15 @@ class EntityTypeRepository implements EntityTypeRepositoryInterface {
 	public function getTypeOfEntity(Entity $entity)
 	{
 		return $entity->entityType()->first();
+	}
+
+	/**
+	 * Get all available Entity Types
+	 *
+	 * @return Collection
+	 */
+	public function getAll()
+	{
+		return $this->model->newInstance()->all();
 	}
 }

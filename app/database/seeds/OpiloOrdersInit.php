@@ -22,17 +22,17 @@ class OpiloOrdersInit extends Seeder {
 	 */
 	public function run()
 	{
-		/*$model = $this->eavManager->createAndSetEntityType([
-			'machine_name'  =>  'opilo_orders',
+		$model = $this->eavManager->createAndSetEntityType([
+			'machine_name'  =>  'orders',
 			'display_name'  =>  'سفارش های اپیلو'
-		]);*/
-		$this->eavManager->setType('opilo_orders')->addAttributes([
-				/*[
+		]);
+		$this->eavManager->setType('orders')->addAttributes([
+				[
 					'display_name'  => 'شماره خط اختصاصی',
 					'machine_name'  =>  'private_number',
 					'form_type'     =>  'text'
-				]*/
-				/*[
+				],
+				[
 					'display_name'  =>  'نوع پرداخت',
 					'machine_name'  =>  'payment_method',
 					'form_type'     =>  'select',
@@ -42,8 +42,7 @@ class OpiloOrdersInit extends Seeder {
 						'pos' =>   'کارتخوان',
 						'cash' => 'نقدی'
 					])
-				]*/
-
+				],
 			]
 		);
 	}

@@ -36,7 +36,9 @@ class GroupController extends BaseController
 	}
 
 	/**
-	 * @return Store a Group in Repo
+	 * Store a
+	 *
+	 * @return Redirect
 	 */
 	public function store()
 	{

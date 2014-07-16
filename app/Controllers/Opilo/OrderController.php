@@ -3,29 +3,49 @@
 namespace Controllers\Opilo;
 
 use Controllers\BaseController;
+use SaleBoss\OpiloOrders\OrderCreator;
 use SaleBoss\Services\EavSmartAss\EavManagerInterface;
 use SaleBoss\Services\EavSmartAss\Form\FormOptionProvider;
 
 class OrderController extends BaseController {
 
-	protected $layout = 'admin.layouts.default';
+	protected $eavManager;
+	protected $option;
+	protected $orderCreator;
 
+	/**
+	 * @param EavManagerInterface $eavManager
+	 * @param FormOptionProvider $option
+	 * @param OrderCreator $orderCreator
+	 */
 	public function __construct(
 		EavManagerInterface $eavManager,
-		FormOptionProvider $option
+		FormOptionProvider $option,
+		OrderCreator $orderCreator
 	)
 	{
 		$this->eavManager = $eavManager;
 		$this->option = $option;
+		$this->orderCreator = $orderCreator;
 	}
 
-	public function getCreate()
+	/**
+	 * Store an order in DB
+	 *
+	 * @return Redirect
+	 */
+	public function store()
 	{
-		$attributes = $this->eavManager->setType('opilo_orders')->getAttributes();
-		$options = $this->option->setAttributes($attributes)->getOptions();
-		$this->view('panel.pages.opilo-orders.create',compact(
-			'attributes',
-			'options'
-		));
+
+	}
+
+	/**
+	 * Order Creation Form
+	 *
+	 * @return View
+	 */
+	public function create()
+	{
+		// return $this->viewMak
 	}
 }

@@ -37,6 +37,7 @@ Route::group(["namespace" => "Controllers"], function(){
 	    Route::resource('users','UserController');
 	    Route::resource('permissions','PermissionController');
 	    Route::resource('states','StateController');
+	    Route::resource('entity_types','EntityTypeController');
     });
 });
 

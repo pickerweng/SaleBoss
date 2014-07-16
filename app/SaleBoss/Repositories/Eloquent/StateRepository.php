@@ -1,9 +1,9 @@
 <?php namespace SaleBoss\Repositories\Eloquent;
 
 use Illuminate\Database\QueryException;
-use Psr\Log\InvalidArgumentException;
 use SaleBoss\Models\State;
 use SaleBoss\Repositories\Collection;
+use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\StateRepositoryInterface;
 
@@ -24,6 +24,7 @@ class StateRepository  extends AbstractRepository implements StateRepositoryInte
 	 *
 	 * @param $id
 	 * @param $input
+	 * @throws \SaleBoss\Repositories\Exceptions\InvalidArgumentException
 	 * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
 	 * @return \SaleBoss\Models\State
 	 */
@@ -47,6 +48,7 @@ class StateRepository  extends AbstractRepository implements StateRepositoryInte
 	 * Saving an State in DB
 	 *
 	 * @param $input
+	 * @throws \SaleBoss\Repositories\Exceptions\InvalidArgumentException
 	 * @return \SaleBoss\Models\State
 	 */
 	public function create($input)

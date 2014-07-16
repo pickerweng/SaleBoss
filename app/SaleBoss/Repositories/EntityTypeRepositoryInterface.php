@@ -45,4 +45,13 @@ interface EntityTypeRepositoryInterface {
 	 */
 	public function getTypeOfEntity(Entity $entity);
 
+	/**
+	 * Get all available Entity Types
+	 *
+	 * @return Collection
+	 */
+	public function getAll();
+
+
+
 } 
