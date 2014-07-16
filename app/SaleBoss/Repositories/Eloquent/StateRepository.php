@@ -71,4 +71,16 @@ class StateRepository  extends AbstractRepository implements StateRepositoryInte
 	{
 		return $this->model->newInstance()->all();
 	}
+
+	/**
+	 * Get all sates sorted in a key
+	 *
+	 * @param $field
+	 * @param string $sort
+	 * @return Collection
+	 */
+	public function getAllSorted($field, $sort = 'asc')
+	{
+		return $this->model->newInstance()->orderBy($field , $sort)->get();
+	}
 }

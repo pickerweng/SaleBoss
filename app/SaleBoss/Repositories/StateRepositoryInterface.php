@@ -33,4 +33,13 @@ interface StateRepositoryInterface {
 	 * @return \SaleBoss\Models\State
 	 */
 	public function findById($id);
+
+	/**
+	 * Get all sates sorted in a key
+	 *
+	 * @param $field
+	 * @param string $sort
+	 * @return Collection
+	 */
+	public function getAllSorted($field , $sort = 'asc');
 }

@@ -191,7 +191,7 @@ class UserController extends BaseController
 	public function onUpdateSuccess($message = null)
 	{
 		return $this->redirectBack()->with(
-			'error_message',
+			'success_message',
 			empty($message) ? Lang::get('messages.operation_success') : $message
 		);
 	}

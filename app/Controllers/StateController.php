@@ -32,7 +32,7 @@ class StateController extends BaseController{
 	 */
 	public function index()
 	{
-		$states = $this->stateRepo->getAll();
+		$states = $this->stateRepo->getAllSorted('priority');
 		return $this->view(
 			'admin.pages.state.index',
 			compact('states')
@@ -102,6 +102,7 @@ class StateController extends BaseController{
 	{
 		try {
 			$input = Input::get('item');
+			$this->sValidator->setCurrentIdFor('title',$id);
 			$valid = $this->sValidator->isValid($input);
 			$this->sValidator->setCurrentIdFor('title',$id);
 			if (!$valid)
@@ -109,6 +110,7 @@ class StateController extends BaseController{
 				return $this->redirectBack()->withErrors($this->sValidator->getMessages());
 			}
 			$this->stateRepo->update($id,$input);
+			return $this->redirectBack()->with('success_message',Lang::get('messages.operation_success'));
 		}catch (NotFoundException $e){
 			App::abort(404);
 		} catch (InvalidArgumentException $e){

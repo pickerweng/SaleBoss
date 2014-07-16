@@ -95,17 +95,21 @@ class Creator {
 		array $info ,
 		UpdateListenerInterface $listener
 	){
+		$this->userValidator->setCurrentIdFor('email',$id);
 		if (!$valid = $this->userValidator->isValid($info))
 		{
 			return $listener->onUpdateFail($this->userValidator->getMessages());
 		}
+		$groups = $info['roles'];
+		$info = $this->filterData($info);
 		try{
-			$this->userRepo->update($id, $info);
+			$user = $this->userRepo->update($id, $info);
+			$this->groupRepo->addGrooupsToUser($user, $groups);
 			return $listener->onUpdateSuccess();
 		}catch (NotFoundException $e){
 			return $listener->onUpdateNotFound();
 		}catch (InvalidArgumentException $e){
-			print $e->getMessage();
+			print $e->getMessage();exit();
 			return $listener->onUpdateFail([Lang::get('messages.operation_failed')]);
 		}
 	}

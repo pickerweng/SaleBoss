@@ -66,7 +66,8 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 			if(is_null($model)){
 				throw new NotFoundException("No item with id : [{$id}] found");
 			}
-			return $model->update($data);
+			$model->update($data);
+			return $model;
 		}catch(QueryException $e){
 			throw new InvalidArgumentException($e->getMessage());
 		}
