@@ -52,6 +52,21 @@ interface EntityTypeRepositoryInterface {
 	 */
 	public function getAll();
 
+	/**
+	 * Update an Entity Type in repository
+	 *
+	 * @param $id
+	 * @param $data
+	 * @return \SaleBoss\Models\EntityType
+	 */
+	public function update($id, $data);
 
+	/**
+	 * Delete an Item from db
+	 *
+	 * @param $id
+	 * @return boolean
+	 */
+	public function delete($id);
 
-} 
+}

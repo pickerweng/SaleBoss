@@ -8,6 +8,7 @@ use SaleBoss\Models\EntityType;
 use SaleBoss\Repositories\Collection;
 use SaleBoss\Repositories\EntityTypeRepositoryInterface;
 use SaleBoss\Repositories\Exceptions\EntityTypeNotFoundException;
+use SaleBoss\Repositories\Exceptions\NotFoundException;
 
 class EntityTypeRepository implements EntityTypeRepositoryInterface {
 
@@ -72,5 +73,42 @@ class EntityTypeRepository implements EntityTypeRepositoryInterface {
 	public function getAll()
 	{
 		return $this->model->newInstance()->all();
+	}
+
+	/**
+	 * Update an Entity Type in repository
+	 *
+	 * @param $id
+	 * @param $data
+	 * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
+	 * @return \SaleBoss\Models\EntityType
+	 */
+	public function update($id ,$data)
+	{
+		$model = $this->model->newInstance()->find($id);
+		if( is_null($model))
+		{
+			throw new NotFoundException("No Entity Type with id : [{$id}] found");
+		}
+		$model->display_name = $data['display_name'];
+		$model->save();
+		return $model;
+	}
+
+	/**
+	 * Delete an Item from db
+	 *
+	 * @param $id
+	 * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
+	 * @return boolean
+	 */
+	public function delete($id)
+	{
+		$item = $this->model->newInstance()->find($id);
+		if (is_null($item))
+		{
+			throw new NotFoundException("No EntityType found with id: [{$id}]");
+		}
+		return $item->delete();
 	}
 }

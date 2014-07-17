@@ -6,7 +6,7 @@ use SaleBoss\Models\Attribute;
 use SaleBoss\Models\EntityType;
 use SaleBoss\Repositories\AttributeRepositoryInterface;
 
-class AttributeRepository implements AttributeRepositoryInterface   {
+class AttributeRepository extends AbstractRepository implements AttributeRepositoryInterface   {
 
 	public function __construct(
 		Attribute $model

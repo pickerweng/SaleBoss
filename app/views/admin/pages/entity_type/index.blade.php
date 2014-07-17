@@ -1,4 +1,11 @@
 @extends('admin.layouts.default')
+@section('title')
+	@parent | لیست محتوا
+@stop
+@section('breadcrumb')
+	@parent
+	<li class="active"> انواع محتوا</li>
+@stop
 @section('content')
 <div class="row">
 	<div class="col-sm-12">

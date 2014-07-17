@@ -21,6 +21,13 @@ abstract class AbstractValidator implements ValidatorInterface {
 	protected $rules = [];
 
 	/**
+	 * Rules for update validation
+	 *
+	 * @var array
+	 */
+	protected $updateRules = [];
+
+	/**
 	 * Inject validator
 	 *
 	 * @param Validator $validator : Illuminate\Validation\Factory
@@ -72,6 +79,26 @@ abstract class AbstractValidator implements ValidatorInterface {
 	 */
 	public function setCurrentIdFor($key,$id)
 	{
-		$this->rules[$key] = $this->rules[$key] . ',' . $id;
+		if (empty($this->updateRules))
+		{
+			$this->rules[$key] = $this->rules[$key] . ',' . $id;
+		}
+		else
+		{
+			$this->rules[$key] = $this->upadteRules[$key] . ',' . $id;
+		}
+	}
+
+	/**
+	 * Validate against update
+	 *
+	 * @param array $input
+	 * @param $messages
+	 * @return boolean
+	 */
+	public function isUpdateValid(array $input, $messages)
+	{
+		$this->validator = $this->validator->make( $input , $this->updateRules, $messages );
+		return $this->validator->passes();
 	}
 } 
