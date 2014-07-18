@@ -20,11 +20,9 @@ class Saver {
 		$this->attrRepo = $attrRepo;
 	}
 
-	public function save($typeId)
+	public function save()
 	{
-		try {
 
-		}
 
 	}
 } 
