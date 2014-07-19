@@ -2,9 +2,11 @@
 
 namespace SaleBoss\Repositories\Eloquent;
 
+use Illuminate\Database\QueryException;
 use SaleBoss\Models\Attribute;
 use SaleBoss\Models\EntityType;
 use SaleBoss\Repositories\AttributeRepositoryInterface;
+use SaleBoss\Repositories\Exceptions\RepositoryException;
 
 class AttributeRepository extends AbstractRepository implements AttributeRepositoryInterface   {
 
@@ -28,14 +30,18 @@ class AttributeRepository extends AbstractRepository implements AttributeReposit
 	/**
 	 * @param EntityType $type
 	 * @param $data
+	 * @throws \SaleBoss\Repositories\Exceptions\RepositoryException
 	 * @return array|EntityType
 	 */
 	public function addAttributes(EntityType $type, $data)
 	{
 		if( empty($data))
 			return $type;
-
-		return $type->attributes()->saveMany($this->prepareAttributes($data));
+		try {
+			return $type->attributes()->saveMany($this->prepareAttributes($data));
+		}catch (QueryException $e){
+			throw new RepositoryException($e->getMessage());
+		}
 	}
 
 	/**

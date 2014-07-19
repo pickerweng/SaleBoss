@@ -38,7 +38,9 @@ Route::group(["namespace" => "Controllers"], function(){
 	    Route::resource('permissions','PermissionController');
 	    Route::resource('states','StateController');
 	    Route::resource('entity_types','EntityTypeController');
+	    Route::post('entity_types/{type_id}/fields','AttributeController@store');
 	    Route::get('entity_types/{type_id}/fields/{attribute_id}/edit','AttributeController@edit');
+	    Route::get('entity_types/{type_id}/fields/create','AttributeController@create');
     });
 });
 

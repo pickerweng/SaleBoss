@@ -1,5 +1,5 @@
 {{Form::open([
-	'url'       =>  empty($update) ? 'entity_type/' . $type->id . '/fields' : 'entity_types/' . $type->id . '/fields/' . $attribute->id ,
+	'url'       =>  empty($update) ? 'entity_types/' . $type->id . '/fields' : 'entity_types/' . $type->id . '/fields/' . $attribute->id ,
 	'method'    =>  empty($update) ? 'post' : 'put'
 ])}}
 	<fieldset>
@@ -23,6 +23,27 @@
 			{{Form::label('item[order]','ترتیب')}}
 			{{Form::text('item[order]',empty($update) ? 0 : $attribute->order,['class' => 'form-control languageLeft'])}}
 		</div>
+		<div class="form-group">
+			<div class="checkbox">
+				<label>
+					نمایش در صفحه موجودیت
+					{{Form::checkbox("item[exclude]", "1", empty($update) ? null : $attribute->exclude)}}
+				</label>
+			</div>
+		</div>
+	</fieldset>
+
+	<fieldset>
+		<legend>اعتبار سنجی</legend>
+		<div class="forrm-group">
+			@foreach($rules as $rule)
+				<label class="checkbox-inline">
+					{{$rule}}
+					{{Form::checkbox("item[rules][]",$rule)}}
+				</label>
+			@endforeach
+		</div>
+		<br>
 	</fieldset>
 
 	<fieldset id="options">
