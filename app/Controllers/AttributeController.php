@@ -43,6 +43,7 @@ class AttributeController  extends BaseController implements SaverListenerInterf
 			$update = true;
 			$formTypes = Config::get('form_types');
 			$attribute = $this->attributeRepo->findById($attributeId);
+			$rules = Config::get('validation_rules');
 			if ($typeId != $attribute->entity_type_id)
 			{
 				App::abort(404);
@@ -51,7 +52,7 @@ class AttributeController  extends BaseController implements SaverListenerInterf
 			$type = $this->manager->setType($typeId)->getEntityType();
 			return $this->view(
 				'admin.pages.attribute.edit',
-				compact('attribute','type','formTypes','options','update')
+				compact('attribute','type','formTypes','options','update','rules')
 			);
 		}catch (NotFoundException $e){
 			App::abort(404);
