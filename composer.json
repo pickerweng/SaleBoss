@@ -6,7 +6,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
         "cartalyst/sentry": "2.1.*",
-        "miladr/jalali": "dev-master"
+        "miladr/jalali": "dev-master",
+        "laracasts/commander": "1.1.*"
 	},
     "require-dev" : {
         "phploc/phploc": "*"

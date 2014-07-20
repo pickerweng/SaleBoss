@@ -45,6 +45,7 @@ class Saver {
 	public function save($typeId, $data, SaverListenerInterface $li)
 	{
 		$this->data = $data;
+
 		if ( ! $this->checkSetType($typeId)){
 			return $li->onSaveFail([Lang::get('messages.item_not_found')]);
 		}
@@ -76,7 +77,6 @@ class Saver {
 	protected  function prepareOptionCollection()
 	{
 		if(empty($this->data['options'])) return;
-
 		$options = [];
 		foreach($this->data['options'] as $key => $option)
 		{

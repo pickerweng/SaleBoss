@@ -50,7 +50,7 @@
 		<legend>مقدار های پیشنهادی <a href="#options" class="btn btn-warning btn-xs pull-left add-option">+ اضافه کن</a></legend>
 		<div class="options">
 			<div class="form-group">
-				{{Form::text('item[options][]',null,['class' => 'form-control add-option'])}}
+				{{Form::text('item[options][0]','',['class' => 'form-control add-option'])}}
 			</div>
 		</div>
 	</fieldset>
@@ -59,9 +59,10 @@
 {{Form::close()}}
 
 <script type="text/javascript">
-	var input = '<div class="form-group"><input type="text" name="item[options][]" class="form-control"></div>';
+	var count = 1;
 	$("a.add-option").click(function(e){
+		var input = '<div class="form-group"><input type="text" name="item[options]['+ count  + ']" class="form-control"></div>';
 		$(".options").append($(input));
-		console.log("Input");
+		count++;
 	});
 </script>

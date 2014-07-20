@@ -46,6 +46,13 @@ class OrderController extends BaseController {
 	 */
 	public function create()
 	{
-		// return $this->viewMak
+		$type = $this->eavManager->setType("orders");
+		$attributes = $type->getAttributes();
+		$formOptions = $this->option->setAttributes($attributes)->getOptions();
+		dd($formOptions);
+		return $this->view(
+			'admin.pages.order.create',
+			compact('type','attributes','formOptions')
+		);
 	}
 }

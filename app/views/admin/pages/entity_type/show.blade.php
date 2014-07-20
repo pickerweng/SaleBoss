@@ -45,7 +45,7 @@
 				<p>{{$type->display_name}} هنوز دارای فیلدی نمیباشد , فیلدها به صورت پویا ایجاد میشوند و میتوانید با توجه به سیستم کاری خود آنها را ایجاد نمایید.</p>
 			</div>
 			<div class="col-sm-12">
-				<a href="{{URL::to('entity_types/' . $type->id . '/addfilds')}}" class="btn btn-danger pull-left">+ ایجاد فیلد</a>
+				<a href="{{URL::to('entity_types/' . $type->id . '/fields/create')}}" class="btn btn-danger pull-left">+ ایجاد فیلد</a>
 			</div>
 		</div>
 		@endif
