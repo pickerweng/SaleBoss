@@ -1,5 +1,6 @@
 <?php namespace Controllers;
 
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
@@ -20,21 +21,25 @@ class UserController extends BaseController
 	protected $userRepo;
 	protected $groupRepo;
 	protected $creator;
+	protected $dash;
 
 	/**
 	 * @param UserRepositoryInterface $userRepo
 	 * @param GroupRepositoryInterface $groupRepo
 	 * @param Creator $creator
+	 * @param Dashboard $dashboard
 	 */
 	public function __construct(
 		UserRepositoryInterface $userRepo,
 		GroupRepositoryInterface $groupRepo,
-		Creator $creator
+		Creator $creator,
+		Dashboard $dashboard
 	)
 	{
 		$this->userRepo = $userRepo;
 		$this->groupRepo = $groupRepo;
 		$this->creator = $creator;
+		$this->dash = $dashboard;
 		$this->shareJangoolak();
 		$this->beforeFilter('hasPermission:user.create',['only' => 'create']);
 		$this->beforeFilter('hasPermission:user.delete',['only' => 'delete']);
@@ -49,6 +54,8 @@ class UserController extends BaseController
 	 */
 	public function getDash()
 	{
+		$this->dash->setUser(Sentry::getUser());
+		$data = $this->dash->getHisDash();
 		return $this->view('admin.pages.dashboard.main');
 	}
 

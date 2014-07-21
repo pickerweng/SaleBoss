@@ -9,5 +9,6 @@ return array(
 	'group.delete',
 	'group.view',
 	'group.edit',
-	'superuser'
+	'superuser',
+	'states.1'
 );

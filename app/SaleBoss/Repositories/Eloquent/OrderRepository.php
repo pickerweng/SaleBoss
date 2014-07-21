@@ -2,7 +2,6 @@
 
 namespace SaleBoss\Repositories\Eloquent;
 
-
 use SaleBoss\Models\Entity;
 use SaleBoss\Models\Order;
 use SaleBoss\Models\User;
@@ -30,5 +29,15 @@ class OrderRepository implements OrderRepositoryInterface {
 		return $model;
 	}
 
-
-} 
+	/**
+	 * Get available possible user orders
+	 *
+	 * @param array $states
+	 * @param int $take
+	 * @return mixed
+	 */
+	public function getAvailableOrders(array $states, $take = 10)
+	{
+		return $this->model->with('entity')->whereIn('state_id',$states)->take($take);
+	}
+}
