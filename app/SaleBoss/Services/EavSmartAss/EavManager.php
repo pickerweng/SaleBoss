@@ -3,6 +3,7 @@
 namespace SaleBoss\Services\EavSmartAss;
 
 use SaleBoss\Repositories\EavRepositoryManagerInterface;
+use Whoops\Example\Exception;
 
 class EavManager implements  EavManagerInterface {
 
@@ -111,6 +112,7 @@ class EavManager implements  EavManagerInterface {
 	 */
 	public function addValue($attributeId, $value)
 	{
+		if ($value === '') return $this;
 		$this->values[$attributeId] = $value;
 		return $this;
 	}

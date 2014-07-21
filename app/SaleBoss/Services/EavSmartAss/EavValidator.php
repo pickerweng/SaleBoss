@@ -14,11 +14,10 @@ class EavValidator {
 	 */
 	public function filterValues($values, $attributes, $key)
 	{
-		$filtered = [];
 		foreach($attributes as $attribute)
 		{
-			if (! empty($values[$attribute->{$key}])){
-				$filtered [$attribute->{$key}] = $values[$attribute->{$key}];
+			if (isset($values[$attribute->$key])){
+				$filtered [$attribute->$key] = $values[$attribute->$key];
 			}
 		}
 		return $filtered;

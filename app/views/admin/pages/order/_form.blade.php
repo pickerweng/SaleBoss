@@ -1,6 +1,6 @@
 {{Form::open([
-	'url'           =>  'orders',
+	'url'           =>  'opilo-orders',
 	'method'        =>  'post'
 ])}}
-	{{FormGenerator::generate($attributes, $formOptions)}}
+	{{FormGenerator::generate($attributes->sortBy('id'), $formOptions)}}
 {{Form::close()}}
