@@ -104,6 +104,7 @@ class Creator {
 		$info = $this->filterData($info);
 		try{
 			$user = $this->userRepo->update($id, $info);
+			$this->groupRepo->removeUserGroups($user);
 			$this->groupRepo->addGrooupsToUser($user, $groups);
 			return $listener->onUpdateSuccess();
 		}catch (NotFoundException $e){

@@ -4,10 +4,12 @@ namespace SaleBoss\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Miladr\Jalali\jDate;
 
 class Entity extends Eloquent {
 
 	use SoftDeletingTrait;
+	use DateTrait;
 
 	protected $table = 'entities';
 
@@ -29,5 +31,10 @@ class Entity extends Eloquent {
 	public function entityValues()
 	{
 		return $this->hasMany('SaleBoss\Models\Value','entity_id');
+	}
+
+	public function diff()
+	{
+		return jDate::forge($this->created_at)->ago();
 	}
 } 

@@ -9,6 +9,7 @@ return array(
 	'group.delete',
 	'group.view',
 	'group.edit',
+	'view_dashboard_chart',
+	'states.1',
 	'superuser',
-	'states.1'
 );

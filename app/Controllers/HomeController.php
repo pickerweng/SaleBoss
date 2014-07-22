@@ -1,30 +1,29 @@
 <?php namespace Controllers;
 
-use Cartalyst\Sentry\Facades\Laravel\Sentry;
+use Miladr\Jalali\jDate;
+use Miladr\Jalali\jDateTime;
 use SaleBoss\Services\Menu\Facades\MenuBuilder;
-use SaleBoss\Services\User\UserQueue;
 
 class HomeController extends BaseController {
 
     public function __construct(
-        MenuBuilder $builder,
-		UserQueue $uQueue
+        MenuBuilder $builder
     ){
         $this->builder = $builder;
-	    $this->uQueue = $uQueue;
     }
 
-
-	/**
-	 *
-	 *
-	 * @return mixed
-	 */
 	public function getIndex()
 	{
-        $this->uQueue->setUser(Sentry::getUser());
-		dd($this->uQueue->summary()->lists('id'));
-
+		$ranges = [];
+		$sql = "CASE    ";
+		for($i=1;$i<=12;$i++)
+		{
+			$year = jDateTime::date('o',null,false);
+			$start = jDateTime::toGregorian(jDateTime::date('o',null,false),$i,1);
+			$end = jDateTime::toGregorian((($i == 12) ? $year + 1  :$year),($i == 12 ? 1 : $i + 1),1);
+			$sql .= " WHEN created_at BETWEEN '" . strtotime(implode('-',$start)) . "' AND '" . strtotime(implode('-',$end)) ."' THEN '" . "' . $i .' ";
+		}
+		return $sql . ' END';
 	}
 
 }

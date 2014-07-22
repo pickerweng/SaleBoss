@@ -120,4 +120,19 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
     {
         return $this->model->newInstance()->whereIn('id',$in)->get();
     }
+
+	/**
+	 * Remove all user groups
+	 *
+	 * @param $user
+	 * @return void
+	 */
+	public function removeUserGroups(User $user)
+	{
+		$groups = $user->getGroups();
+		foreach($groups as $group)
+		{
+			$user->removeGroup($group);
+		}
+	}
 }

@@ -4,13 +4,13 @@ use SaleBoss\Models\User;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\StateRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
+use SaleBoss\Services\EavSmartAss\EavManager;
 
 class Dashboard implements DashboardInterface {
 
 	protected $userRepo;
 	protected $user;
 	protected $stateRepo;
-	protected $permissions;
 	protected $orderRepo;
 	protected $userQueue;
 
@@ -26,12 +26,12 @@ class Dashboard implements DashboardInterface {
 		$this->manager = $manager;
 		$this->orderRepo = $orderRepo;
 		$this->stateRepo = $stateRepo;
+		$this->userQueue = $userQueue;
 	}
 
 	public function setUser(User $user)
 	{
 		$this->user = $user;
-		$this->permissions = $this->user->getPermissions();
 	}
 
 	public function getHisDash(){
@@ -54,17 +54,18 @@ class Dashboard implements DashboardInterface {
 
 	protected function userQueue()
 	{
+		$this->userQueue->setUser($this->user);
 		return $this->userQueue->summary();
 	}
 
 	protected function generatedUsers()
 	{
-
+		return $this->userRepo->getGeneratedUsers($this->user,5);
 	}
 
 	protected function generatedOrders()
 	{
-
+		return $this->orderRepo->getGeneratedOrders($this->user, 5);
 	}
 
 	protected function hisSales()

@@ -10,6 +10,7 @@ use SaleBoss\Repositories\GroupRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
 use SaleBoss\Services\User\Creator;
 use SaleBoss\Services\User\CreatorListenerInterface;
+use SaleBoss\Services\User\Dashboard;
 use SaleBoss\Services\User\UpdateListenerInterface;
 
 class UserController extends BaseController
@@ -50,13 +51,16 @@ class UserController extends BaseController
 	/**
 	 * User Dashboard page
 	 *
-	 * @return mixed
+	 * @return View
 	 */
 	public function getDash()
 	{
 		$this->dash->setUser(Sentry::getUser());
 		$data = $this->dash->getHisDash();
-		return $this->view('admin.pages.dashboard.main');
+		return $this->view(
+				'admin.pages.dashboard.main',
+				$data
+			);
 	}
 
 	/**

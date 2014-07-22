@@ -3,6 +3,8 @@
 namespace SaleBoss\Repositories;
 
 
+use SaleBoss\Models\User;
+
 interface UserRepositoryInterface {
 
 	/**
@@ -58,4 +60,13 @@ interface UserRepositoryInterface {
 	 * @return \SaleBoss\Models\User
 	 */
 	public function getLast();
+
+	/**
+	 * Get generated users in count
+	 *
+	 * @param User $user
+	 * @param int $count
+	 * @return Collection
+	 */
+	public function getGeneratedUsers(User $user,$count = 5);
 }

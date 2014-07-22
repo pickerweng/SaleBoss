@@ -63,4 +63,12 @@ interface GroupRepositoryInterface {
      * @return \SaleBoss\Models\Group;
      */
     public function getAllWhereId($array_keys);
+
+	/**
+	 * Remove all user groups
+	 *
+	 * @param $user
+	 * @return mixed
+	 */
+	public function removeUserGroups(User $user);
 }

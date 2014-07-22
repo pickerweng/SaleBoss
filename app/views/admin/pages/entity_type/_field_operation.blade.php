@@ -7,5 +7,3 @@
 	data-toggle="modal"
 	data-target="#removeModal">حذف
 </button>
-
-_

@@ -15,28 +15,38 @@ class UserQueue {
 	protected $orderRepo;
 
 	/**
-	 * @param UserRepositoryInterface $user
+	 * @param UserRepositoryInterface $userRepo
 	 * @param StateRepositoryInterface $stateRepo
 	 * @param EavManagerInterface $manager
 	 * @param OrderRepositoryInterface $orderRepo
 	 */
 	public function __construct(
-		UserRepositoryInterface $user,
+		UserRepositoryInterface $userRepo,
 		StateRepositoryInterface $stateRepo,
 		EavManagerInterface $manager,
 		OrderRepositoryInterface $orderRepo
 	){
-		$this->user = $user;
+		$this->userRepo = $userRepo;
 		$this->stateRepo = $stateRepo;
 		$this->manager = $manager;
 		$this->orderRepo = $orderRepo;
 	}
 
+	/**
+	 * Set user for working on
+	 *
+	 * @param User $user
+	 */
 	public function setUser(User $user)
 	{
 		$this->user = $user ;
 	}
 
+	/**
+	 * get a summary of user queue
+	 *
+	 * @return mixed
+	 */
 	public function summary()
 	{
 		$perms = $this->getStatePermissions();
@@ -44,6 +54,11 @@ class UserQueue {
 	}
 
 
+	/**
+	 * Get permissions of the state
+	 *
+	 * @return array
+	 */
 	protected function getStatePermissions()
 	{
 		$states = $this->stateRepo->getAll();

@@ -38,6 +38,24 @@ class OrderRepository implements OrderRepositoryInterface {
 	 */
 	public function getAvailableOrders(array $states, $take = 10)
 	{
-		return $this->model->with('entity')->whereIn('state_id',$states)->take($take);
+		if (empty($states))
+		{
+			return [];
+		}
+		return $this->model->with('entity')->whereIn('state_id',$states)->take($take)->get();
+	}
+
+	/**
+	 * orders user has created
+	 *
+	 * @param $user
+	 * @param $int
+	 * @return Collection
+	 */
+	public function getGeneratedOrders($user, $int = 5)
+	{
+		return $this->model->newInstance()->with(['targetUser','state' , 'entity' => function($query) use($user){
+			$query->where('creator_id',$user->id);
+		}])->take($int)->get();
 	}
 }

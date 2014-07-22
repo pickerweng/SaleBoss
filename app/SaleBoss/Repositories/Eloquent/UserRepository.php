@@ -117,4 +117,15 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 		$model = $this->model->orderBy('created_at','desc')->first();
 		return $model;
 	}
+
+	/**
+	 * Get generated users in count
+	 *
+	 * @param $count
+	 * @return mixed
+	 */
+	public function getGeneratedUsers(User $user, $count = 5)
+	{
+		return $user->generatedUsers()->take($count)->orderBy('created_at','DESC')->get();
+	}
 }
