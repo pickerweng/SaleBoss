@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
+use Laracasts\Utilities\JavaScript\Facades\JavaScript;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\GroupRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
@@ -57,6 +58,7 @@ class UserController extends BaseController
 	{
 		$this->dash->setUser(Sentry::getUser());
 		$data = $this->dash->getHisDash();
+		JavaScript::put(['orderChart' => $data['orderChart']]);
 		return $this->view(
 				'admin.pages.dashboard.main',
 				$data

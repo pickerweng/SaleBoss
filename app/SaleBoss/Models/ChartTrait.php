@@ -1,26 +1,25 @@
 <?php namespace SaleBoss\Models;
 
 use Illuminate\Support\Facades\DB;
+use Miladr\Jalali\jDateTime;
 
 trait ChartTrait {
-	public static  function scopeChartedOnDateByMonth($query)
+	public function scopeChartedOnDateByMonth($query)
 	{
-			return $query->select(DB::raw(
-					"CASE
-					WHEN id <  2 Then '1'
-					WHEN id >  2 THEN '2'
-			    End as month,
-			    Count(*) count")
-			)->groupBy(DB::raw(
-				"CASE
-					WHEN id <  2 Then 'lowe than 2'
-					WHEN id >  2 THEN 'bigger than 23'
-			    End"
-			));
+		$case = $this->provideSwitchCase();
+		return $query->select(DB::raw($case . ' as month, COUNT(*) countable '))->groupBy(DB::raw($case));
 	}
 
-	private function provideJalaliDates()
+	private function provideSwitchCase()
 	{
-		$dates = [];
+		$sql = "  CASE    ";
+		for($i=1;$i<=12;$i++)
+		{
+			$year = jDateTime::date('o',null,false);
+			$start = jDateTime::toGregorian(jDateTime::date('o',null,false),$i,1);
+			$end = jDateTime::toGregorian((($i == 12) ? $year + 1  :$year),($i == 12 ? 1 : $i + 1),1);
+			$sql .= " WHEN created_at BETWEEN '" . date("o-m-d",strtotime(implode('-',$start)))  . "' AND '" . date("o-m-d",strtotime(implode('-',$end))) . "' THEN " . "'" . $i . "' ";
+		}
+		return $sql . ' END';
 	}
 } 

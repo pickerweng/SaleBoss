@@ -7,7 +7,7 @@
 		"laravel/framework": "4.2.*",
         "cartalyst/sentry": "2.1.*",
         "miladr/jalali": "dev-master",
-        "laracasts/commander": "1.1.*"
+        "laracasts/utilities": "~1.0"
 	},
     "require-dev" : {
         "phploc/phploc": "*"

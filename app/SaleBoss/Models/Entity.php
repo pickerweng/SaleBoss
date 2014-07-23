@@ -10,6 +10,7 @@ class Entity extends Eloquent {
 
 	use SoftDeletingTrait;
 	use DateTrait;
+	use ChartTrait;
 
 	protected $table = 'entities';
 

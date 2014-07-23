@@ -45,5 +45,7 @@ interface EntityRepositoryInterface {
 	 */
 	public function fullEntityById($id);
 
+	public function countableMonthChart(EntityType $type = null);
+
 
 } 

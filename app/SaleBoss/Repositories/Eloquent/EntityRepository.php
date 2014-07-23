@@ -90,4 +90,17 @@ class EntityRepository implements EntityRepositoryInterface{
 
 		return $entity;
 	}
+
+	/**
+	 * @param EntityType $type
+	 * @return mixed
+	 */
+	public function countableMonthChart(EntityType $type = null)
+	{
+		if (is_null($type)){
+			return $this->model->newInstance()->chartedOnDateByMonth()->where('entity_type_id',$type->id)->get();
+		} else{
+			return $this->model->newInstance()->chartedOnDateByMonth()->where('entity_type_id',$type->id)->get();
+		}
+	}
 }

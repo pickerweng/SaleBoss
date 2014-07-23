@@ -129,7 +129,8 @@ return array(
         'SaleBoss\Services\ServicesServiceProvider',
         'Miladr\Jalali\JalaliServiceProvider',
         'SaleBoss\Services\Menu\MenuServiceProvider',
-		'SaleBoss\Services\Presenters\PresenterServiceProvider'
+		'SaleBoss\Services\Presenters\PresenterServiceProvider',
+		'Laracasts\Utilities\UtilitiesServiceProvider'
 	),
 
 	/*
