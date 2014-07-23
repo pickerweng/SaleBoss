@@ -3,8 +3,19 @@
 	<li class="active"><i class="fa fa-dashboard"></i> داشبورد</li>
 @stop
 @section('content')
+<div class="row" style="margin-bottom:15px;">
+	@if(Sentry::getUser()->hasAnyAccess(['orders.create']))
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<a class="btn btn-success btn-lg btn-block"><i class="fa fa-plus"></i>     ایجاد سفارش جدید</a>
+	</div>
+	@endif
+	@if(Sentry::getUser()->hasAccess('customers.create'))
+	<div class="col-lg-6 col-md-6 col-sm-6">
+		<a class="btn btn-info btn-lg btn-block"><i class="fa fa-plus"></i>     ایجاد مشتری جدید</a>
+	</div>
+	@endif
+</div>
 <div class="row">
-
 	@if(empty($allOrders))
 	<div class="col-lg-12">
 		@include('admin.pages.dashboard.partials._orders_graph')

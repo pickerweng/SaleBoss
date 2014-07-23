@@ -42,7 +42,6 @@ class UserController extends BaseController
 		$this->groupRepo = $groupRepo;
 		$this->creator = $creator;
 		$this->dash = $dashboard;
-		$this->shareJangoolak();
 		$this->beforeFilter('hasPermission:user.create',['only' => 'create']);
 		$this->beforeFilter('hasPermission:user.delete',['only' => 'delete']);
 		$this->beforeFilter('hasPermission:user.edit',['only' => 'edit']);
@@ -231,24 +230,5 @@ class UserController extends BaseController
 		}catch(NotFoundException $e){
 			App::abort(404);
 		}
-	}
-
-	/**
-	 * Jangoolak
-	 *
-	 * @return void
-	 */
-	protected function shareJangoolak()
-	{
-		$jangoolak = [];
-		$jangoolak['number_of_users'] = $this->userRepo->count(null, 120);
-		$jangoolak['number_of_customers'] = $this->userRepo->count('is_customer',120);
-		$jangoolak['last_user_created'] = $this->userRepo->getLast();
-		$this->viewShare('jangoolak',$jangoolak);
-	}
-
-	public function getSummary()
-	{
-		return $this->view('admin.pages.user.summary');
 	}
 }

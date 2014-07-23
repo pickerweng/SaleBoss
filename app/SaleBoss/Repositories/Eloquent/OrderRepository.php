@@ -54,8 +54,8 @@ class OrderRepository implements OrderRepositoryInterface {
 	 */
 	public function getGeneratedOrders($user, $int = 5)
 	{
-		return $this->model->newInstance()->with(['targetUser','state' , 'entity' => function($query) use($user){
-			$query->where('creator_id',$user->id);
-		}])->take($int)->get();
+		return $this->model->newInstance()->whereHas('entity',function($query) use($user){
+			$query->where('creator_id','=',$user->id);
+		})->with(['targetUser','state' , 'entity'])->take($int)->get();
 	}
 }

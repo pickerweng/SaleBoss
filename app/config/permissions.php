@@ -10,6 +10,7 @@ return array(
 	'group.view',
 	'group.edit',
 	'view_dashboard_chart',
+	'orders.create',
 	'states.1',
 	'superuser',
 );

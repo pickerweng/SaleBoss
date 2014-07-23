@@ -324,3 +324,9 @@ table.tablesorter thead tr th:hover {
 p {
     line-height: 28px;
 }
+.navbar-inverse .navbar-nav > li > a {
+}
+.navbar-inverse .navbar-nav > li > a.image-menu-item{
+    padding-top: 8px;
+    font-weight: bold;
+}

@@ -105,7 +105,8 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
      */
     public function addPermissions(Group $group, array $permissions)
     {
-        $group->permissions = $permissions;
+	    $group->permissions = [];
+	    $group->setPermissionsAttribute($permissions);
         $group->save();
         return $group;
     }
