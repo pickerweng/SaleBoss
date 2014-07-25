@@ -3,6 +3,8 @@
 namespace SaleBoss\Models;
 
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
+use Illuminate\Support\Facades\Config;
+use Miladr\Jalali\jDate;
 
 class User extends SentryUser {
 
@@ -40,4 +42,65 @@ class User extends SentryUser {
 	{
 		return "{$this->first_name} {$this->last_name}";
 	}
+
+    /**
+     * User Custom avatar generator
+     *
+     * @return int
+     */
+    public function avatar()
+    {
+        return 'files/avatars/' . (($this->id % 10) + 1) . '.gif';
+    }
+
+    /**
+     * Self relationship between user and it's creator
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function creator()
+    {
+        return $this->belongsTo('SaleBoss\Models\User','creator_id');
+    }
+
+    /**
+     * Accessor for getting connection_way from config
+     *
+     * @return string
+     */
+    public function getConnectionWayAttribute($value)
+    {
+        $config = Config::get('connection_types');
+        if (isset($config[$value]))
+        {
+            return $config[$value];
+        }else
+        {
+            return  $value;
+        }
+    }
+
+    /**
+     * Jalali date
+     *
+     * @return string
+     */
+    public function jalaliDate($attr)
+    {
+        $timestamp = strtotime($this->$attr);
+        return jDate::forge($timestamp)->format('date');
+    }
+
+    /**
+     * Jalali date with ago format
+     *
+     * @param $attr
+     * @return string
+     */
+    public function jalaliAgoDate($attr)
+    {
+        $timestamp = strtotime($this->$attr);
+        return jDate::forge($timestamp)->ago();
+    }
+
 }

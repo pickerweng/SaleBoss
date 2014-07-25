@@ -44,7 +44,7 @@ class UserController extends BaseController
 		$this->dash = $dashboard;
 		$this->beforeFilter('hasPermission:user.create',['only' => 'create']);
 		$this->beforeFilter('hasPermission:user.delete',['only' => 'delete']);
-		$this->beforeFilter('hasPermission:user.edit',['only' => 'edit']);
+		// $this->beforeFilter('hasPermission:user.edit',['only' => 'edit']);
 		$this->beforeFilter('hasPermission:user.view',['only' => 'index']);
 	}
 

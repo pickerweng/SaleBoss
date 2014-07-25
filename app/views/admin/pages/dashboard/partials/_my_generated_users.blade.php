@@ -30,7 +30,7 @@
 			</div>
 		</div>
 		<div class="text-left">
-			<a href="#">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+			<a href="{{URL::to('my/customers')}}">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
 		</div>
 	</div>
 </div>

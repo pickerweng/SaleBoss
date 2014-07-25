@@ -147,15 +147,13 @@ class Permission {
 		}
 
         $combinedPermission = $this->getCombinedPermissions($data);
-        $groups = $this->groupRepo->getAllWhereId(array_keys($data));
+        $groups = $this->groupRepo->getAll();
         foreach($groups as $group)
         {
-            if(!empty($combinedPermission[$group->id])){
                 $this->addDataPermissions(
                     $group,
-                    $combinedPermission[$group->id]
+                    empty($combinedPermission[$group->id]) ? [] : $combinedPermission[$group->id]
                 );
-            }
         }
         return $listener->onStoreSuccess(
             Lang::get("messages.operation_success")
@@ -171,12 +169,6 @@ class Permission {
 	 */
 	protected function removeInvalidData($data,$groups)
 	{
-		foreach($data as $item => $value)
-		{
-			if(empty($groups[$item])){
-				unset($data[$item]);
-			}
-		}
 		return $data;
 	}
 

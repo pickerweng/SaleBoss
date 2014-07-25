@@ -5,7 +5,7 @@ namespace SaleBoss\Models;
 use Cartalyst\Sentry\Groups\Eloquent\Group as SentryGroup;
 
 class Group extends SentryGroup {
-	public function setPermissionsAttribute(array $permissions, $merge = false){
+	public function setPermissionsAttribute(array $permissions, $merge = true){
 		// Merge permissions
 		if ($merge)
 		{
@@ -30,4 +30,4 @@ class Group extends SentryGroup {
 
 		$this->attributes['permissions'] = ( ! empty($permissions)) ? json_encode($permissions) : '';
 	}
-} 
+}

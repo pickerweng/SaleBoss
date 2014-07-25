@@ -34,15 +34,9 @@
         </ul>
     </li-->
     <li>
-        <a href="#"><i class="fa fa-calendar"></i> {{jDate::forge()->format('%B %d، %Y'); }}</a>
+        <a style="min-width:150px;font-size: 18px" href="#"><i class="fa fa-calendar"></i> {{jDate::forge()->format('%B %d، %Y'); }}</a>
     </li>
-    <li class="dropdown user-dropdown">
-        <a class="image-menu-item" href="#" class="dropdown-toggle" data-toggle="dropdown"><img style="width:25px;border-radius:100%;" src="{{URL::to('files/avatars/' . ((Sentry::getUser()->id % 10) + 1) )}}.gif"> {{Sentry::getUser()->getIdentifier()}} <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-            <li><a href="{{URL::to('users/' . Sentry::getUser()->id)}}"><i class="fa fa-user"></i> {{Lang::get('strings.profile')}} </a></li>
-            <li><a href="{{URL::to('users/' . Sentry::getUser()->id . '/edit')}}"><i class="fa fa-gear"></i> {{Lang::get('strings.settings')}} </a></li>
-            <li class="divider"></li>
-            <li><a href="{{URL::to('auth/logout')}}"><i class="fa fa-power-off"></i> {{Lang::get('strings.logout')}} </a></li>
-        </ul>
+    <li>
+        <a href="{{URL::to('auth/logout')}}" style="font-size: 18px"><i class="fa fa-power-off"></i> خروج</a>
     </li>
 </ul>

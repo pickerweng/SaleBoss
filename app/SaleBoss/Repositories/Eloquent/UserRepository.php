@@ -7,6 +7,8 @@ use SaleBoss\Models\User;
 use SaleBoss\Repositories\Collection;
 use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
+use SaleBoss\Repositories\Exceptions\RepositoryException;
+use SaleBoss\Repositories\Model;
 use SaleBoss\Repositories\UserRepositoryInterface;
 
 class UserRepository extends AbstractRepository implements UserRepositoryInterface {
@@ -128,4 +130,73 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 	{
 		return $user->generatedUsers()->take($count)->orderBy('created_at','DESC')->get();
 	}
+
+    /**
+     * Get all customers of a user
+     *
+     * @param User  $user
+     * @param int   $int
+     * @param array $searches
+     *
+     * @return Collection
+     */
+    public function getCustomers(User $user = null, $int = 50, array $searches)
+    {
+        $query= $this->model->newInstance();
+        foreach($searches as $key => $search)
+        {
+            if ($search !== '')
+            {
+                $query = $query->where("{$key}","LIKE",     "%{$search}%");
+            }
+        }
+        $query = $query->where('is_customer',true);
+        if (!is_null($user))
+        {
+           $query = $query->where('creator_id',$user->id);
+        }
+        return $query->with('creator')->paginate($int);
+    }
+
+    /**
+     * Find a customer
+     *
+     * @param $id
+     *
+     * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
+     * @return Model
+     */
+    public function findCustomer($id)
+    {
+        $customer = $this->model
+                         ->newInstance()
+                         ->with('creator')
+                         ->where('id',$id)
+                         ->where('is_customer',true)
+                         ->first();
+        if (is_null($customer))
+        {
+            throw new NotFoundException("No customer with id: [{$id}] found");
+        }
+        return $customer;
+    }
+
+    /**
+     * Perform raw update
+     *
+     * @param $customer
+     * @param $data
+     *
+     * @throws \SaleBoss\Repositories\Exceptions\RepositoryException
+     * @return mixed
+     */
+    public function rawUpdate($customer, $data)
+    {
+        try {
+            return $customer = $customer->update($data);
+        }catch (QueryException $e)
+        {
+            throw new RepositoryException($e->getMessage());
+        }
+    }
 }

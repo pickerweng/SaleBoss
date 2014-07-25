@@ -330,3 +330,15 @@ p {
     padding-top: 8px;
     font-weight: bold;
 }
+li.profile-sum {
+    margin-top:50px;
+    width: 100%;
+}
+.profile-sum img.profile-picture {
+    border-radius: 100%;
+    display: block;
+    margin:10px auto;
+}
+.pretty-form .control-label {
+    margin-top:15px;
+}

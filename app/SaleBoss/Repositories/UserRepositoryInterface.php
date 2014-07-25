@@ -69,4 +69,43 @@ interface UserRepositoryInterface {
 	 * @return Collection
 	 */
 	public function getGeneratedUsers(User $user,$count = 5);
+
+    /**
+     * Create from raw array
+     *
+     * @param $data
+     *
+     * @return Model
+     */
+    public function createRaw(array $data);
+
+    /**
+     * Get all customers of a user
+     *
+     * @param User  $user
+     * @param       $int
+     * @param array $searches
+     *
+     * @return Collection
+     */
+    public function getCustomers( User $user, $int, array $searches);
+
+    /**
+     * Find a customer
+     *
+     * @param $id
+     *
+     * @return Model
+     */
+    public function findCustomer($id);
+
+    /**
+     * Perform raw update
+     *
+     * @param $customer
+     * @param $data
+     *
+     * @return mixed
+     */
+    public function rawUpdate($customer, $data);
 }

@@ -9,5 +9,11 @@ return array(
     'group.delete'                  =>  'حذف گروه کاربری',
     'group.view'                    =>  'مشاهده گروه کاربری',
     'group.edit'                    =>  'ویرایش گروه کاربری',
-    'superuser'                     =>  'همه مجوزها'
+    'superuser'                     =>  'همه مجوزها',
+    'orders.create'                 =>  'ایجاد سفارش',
+    'customers.create'              =>  'ایجاد مشتری',
+    'graphs.order_graph'            =>  'گراف سفارشها',
+    'customers.edit'                =>  'ویرایش همه مشتری ها',
+    'customers.own_edit'            =>  'ویرایش مشتری های خود',
+    'customers.view_all'            =>  'مشاهده همه مشتری ها'
 );

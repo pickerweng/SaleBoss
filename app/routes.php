@@ -51,9 +51,12 @@ Route::group(["namespace" => "Controllers"], function(){
  * @see SlaeBoss\Controllers\Opilo namespace
  */
 Route::group(["namespace" => 'Controllers\Opilo'],function(){
-
-    Route::resource(
-        'opilo-orders',
-        'OrderController'
-    );
+    Route::group(['before' => 'auth'],function() {
+        Route::resource(
+            'opilo-orders',
+            'OrderController'
+        );
+        Route::resource('customers','CustomerController');
+        Route::get('my/customers','CustomerController@myIndex');
+    });
 });

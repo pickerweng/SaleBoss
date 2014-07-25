@@ -48,9 +48,10 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
 	 * @param array $groups
 	 * @return \SaleBoss\Models\User
 	 */
-	public function addGrooupsToUser(User $user, $groups)
+	public function addGroupsToUser(User $user, $groups, $key = 'id')
 	{
-		$groups = $this->model->where('id',$groups)->get();
+        $groups = (array) $groups;
+		$groups = $this->model->whereIn($key,$groups)->get();
 		if ($groups->isEmpty()){
 			return $user;
 		}
@@ -105,8 +106,7 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
      */
     public function addPermissions(Group $group, array $permissions)
     {
-	    $group->permissions = [];
-	    $group->setPermissionsAttribute($permissions);
+	    $group->setPermissionsAttribute($permissions,false);
         $group->save();
         return $group;
     }

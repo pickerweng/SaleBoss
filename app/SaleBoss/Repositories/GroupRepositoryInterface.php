@@ -27,7 +27,7 @@ interface GroupRepositoryInterface {
 	 * @param array $groups
 	 * @return \SaleBoss\Models\User
 	 */
-	public function addGrooupsToUser(User $user,$groups);
+	public function addGroupsToUser(User $user,$groups);
 
 	/**
 	 * Create a group in Repo

@@ -6,17 +6,17 @@
 <div class="row" style="margin-bottom:15px;">
 	@if(Sentry::getUser()->hasAnyAccess(['orders.create']))
 	<div class="col-lg-6 col-md-6 col-sm-6">
-		<a href="{{URL::to('opilo-orders/create')}}" class="btn btn-success btn-lg btn-block"><i class="fa fa-plus"></i>     ایجاد سفارش جدید</a>
+		<a href="{{URL::to('orders/create')}}" class="btn btn-success btn-lg btn-block"><i class="fa fa-plus"></i>     ایجاد سفارش جدید</a>
 	</div>
 	@endif
-	@if(Sentry::getUser()->hasAccess('customers.create'))
+	@if( Sentry::getUser()->hasAnyAccess(['customers.create']) )
 	<div class="col-lg-6 col-md-6 col-sm-6">
-		<a href="{{URL::to('users/create')}}" class="btn btn-info btn-lg btn-block"><i class="fa fa-plus"></i>     ایجاد مشتری جدید</a>
+		<a href="{{URL::to('customers/create')}}" class="btn btn-info btn-lg btn-block"><i class="fa fa-plus"></i>     ایجاد مشتری جدید</a>
 	</div>
 	@endif
 </div>
 <div class="row">
-	@if(empty($allOrders))
+	@if(Sentry::getUser()->hasAnyAccess(['graphs.order_graph']))
 	<div class="col-lg-12">
 		@include('admin.pages.dashboard.partials._orders_graph')
 	</div>

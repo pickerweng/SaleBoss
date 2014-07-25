@@ -74,7 +74,7 @@ class Creator {
 		try {
 			$user = $this->userRepo->create($data);
 			$this->events->fire('user.created',array($user));
-			$this->groupRepo->addGrooupsToUser($user, $groups);
+			$this->groupRepo->addGroupsToUser($user, $groups);
 			return $listener->onCreateSuccess();
 		}catch(InvalidArgumentException $e){
 			Log::error($e->getMessage());
@@ -105,7 +105,7 @@ class Creator {
 		try{
 			$user = $this->userRepo->update($id, $info);
 			$this->groupRepo->removeUserGroups($user);
-			$this->groupRepo->addGrooupsToUser($user, $groups);
+			$this->groupRepo->addGroupsToUser($user, $groups);
 			return $listener->onUpdateSuccess();
 		}catch (NotFoundException $e){
 			return $listener->onUpdateNotFound();
@@ -128,4 +128,4 @@ class Creator {
 		return $data;
 	}
 
-} 
+}

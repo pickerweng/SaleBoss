@@ -1,1 +1,1 @@
-<h2 style="margin-bottom:20px">{{$title or 'پنل فروش اپیلو'}} <small>{{$description or 'داشبورد مدیریتی'}}</small></h2>
+<h2 class="text-info" style="margin-bottom:20px"><strong>{{$title or 'پنل فروش اپیلو'}}</strong> <small>{{$description or 'داشبورد مدیریتی'}}</small></h2>
