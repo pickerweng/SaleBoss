@@ -9,7 +9,7 @@
 	<div class="col-lg-6 col-md-12">
 		{{Form::open(array(
 		'url'		=> 	'menu/' . $menu_item->id,
-		'method'	=>	'post'
+		'method'	=>	'put'
 		))}}
 		<div class="form-group">
 			{{Form::label('item[title]','عنوان منو')}}
@@ -29,7 +29,7 @@
 			{{Form::select('item[ids]', MenuBuilder::select(),$default_value,array('class' => 'form-control'))}}
 		</div>
 		<br>
-		<button type="submit" class="btn btn-success">ایجاد</button>
+		<button type="submit" class="btn btn-success">ویرایش</button>
 		{{Form::close()}}
 	</div>
 </div>
