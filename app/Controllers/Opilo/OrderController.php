@@ -15,15 +15,7 @@ class OrderController extends BaseController implements OrderCreatorListenerInte
 	protected $option;
 	protected $orderCreator;
 
-	/**
-	 * @param EavManagerInterface $eavManager
-	 * @param FormOptionProvider $option
-	 * @param OrderCreator $orderCreator
-	 */
 	public function __construct(
-		EavManagerInterface $eavManager,
-		FormOptionProvider $option,
-		OrderCreator $orderCreator
 	)
 	{
 		$this->eavManager = $eavManager;

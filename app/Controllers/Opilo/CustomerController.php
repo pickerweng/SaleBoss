@@ -145,11 +145,26 @@ class CustomerController extends BaseController
      */
     public function index()
     {
+	    $title = 'لیست همه مشتریان';
+	    $description = 'لیست همه مشتریانی که در سیستم هستند';
+	    $searches = Input::only(
+		    "first_name",
+		    "last_name",
+		    "mobile",
+		    "tell",
+		    "description",
+		    "email",
+		    "id"
+	    );
         if ( ! $this->auth->user()->hasAnyAccess(['customers.view_all']))
         {
             return $this->redirectTo('my/customers');
         }
-        //return $this->view()
+	    $myCustomers = $this->userRepo->getCustomers(null,50,$searches);
+        return $this->view(
+	        'admin.pages.customer.index',
+			compact('title','description','myCustomers')
+        );
     }
 
     /**

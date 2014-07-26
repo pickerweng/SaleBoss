@@ -140,7 +140,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      *
      * @return Collection
      */
-    public function getCustomers(User $user = null, $int = 50, array $searches)
+    public function getCustomers($user = null, $int = 50, array $searches)
     {
         $query= $this->model->newInstance();
         foreach($searches as $key => $search)

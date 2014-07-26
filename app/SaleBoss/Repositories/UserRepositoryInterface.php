@@ -88,7 +88,7 @@ interface UserRepositoryInterface {
      *
      * @return Collection
      */
-    public function getCustomers( User $user, $int, array $searches);
+    public function getCustomers( $user = null, $int, array $searches);
 
     /**
      * Find a customer
