@@ -149,7 +149,7 @@ class CustomerController extends BaseController
         {
             return $this->redirectTo('my/customers');
         }
-        return 'all';
+        //return $this->view()
     }
 
     /**
