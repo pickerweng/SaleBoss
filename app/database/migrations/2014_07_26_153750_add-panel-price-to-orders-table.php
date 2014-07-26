@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateStatesTable extends Migration {
+class AddPanelPriceToOrdersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,8 +12,8 @@ class UpdateStatesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('states',function($table){
-			$table->string('permission_name')->after('title');
+		Schema::table('orders',function($table){
+			$table->integer('panel_price')->after('line_price');
 		});
 	}
 
@@ -24,8 +24,8 @@ class UpdateStatesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('states',function($table){
-			$table->dropColumn('permission_name');
+		Schema::table('orders',function($table){
+			$table->dropColumn('panel_price');
 		});
 	}
 

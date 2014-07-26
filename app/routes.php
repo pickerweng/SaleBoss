@@ -58,5 +58,6 @@ Route::group(["namespace" => 'Controllers\Opilo'],function(){
         );
         Route::resource('customers','CustomerController');
         Route::get('my/customers','CustomerController@myIndex');
+	    Route::get('orders/create/{customer_id}','OrderController@create');
     });
 });

@@ -15,5 +15,7 @@ return array(
     'graphs.order_graph'            =>  'گراف سفارشها',
     'customers.edit'                =>  'ویرایش همه مشتری ها',
     'customers.own_edit'            =>  'ویرایش مشتری های خود',
-    'customers.view_all'            =>  'مشاهده همه مشتری ها'
+    'customers.view_all'            =>  'مشاهده همه مشتری ها',
+	'orders.create'                 =>  'ایجاد سفارش برای هر مشتری ای',
+	'orders.own_create'             =>  'ایجاد سفارش برای مشتری خود'
 );

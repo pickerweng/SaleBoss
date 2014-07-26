@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCreatorIdToEntitiesTable extends Migration {
+class CreateStatesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,8 +12,10 @@ class AddCreatorIdToEntitiesTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('entities',function($table){
-			$table->integer('creator_id')->after('id')->unsigned();
+		Schema::create('states',function($table){
+			$table->increments('id');
+			$table->string('title',255);
+			$table->integer('priority')->default(0);
 		});
 	}
 
@@ -24,9 +26,7 @@ class AddCreatorIdToEntitiesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('entities',function($table){
-			$table->dropColumn('creator_id');
-		});
+		Schema::drop('states');
 	}
 
 }

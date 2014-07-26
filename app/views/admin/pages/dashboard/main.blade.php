@@ -21,13 +21,7 @@
 		@include('admin.pages.dashboard.partials._orders_graph')
 	</div>
 	@endif
-
-	@if ( ! empty($userQueue))
-	<div class="col-sm-12 col-md-6 col-lg-4">
-			@include('admin.pages.dashboard.partials._user_queue')
-	</div>
-	@endif
-
+	
 	@if (! $generatedUsers->isEmpty())
 	<div class="col-sm-12 col-md-6 col-lg-4">
 		@include('admin.pages.dashboard.partials._my_generated_users')

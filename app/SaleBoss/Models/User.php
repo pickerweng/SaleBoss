@@ -103,4 +103,43 @@ class User extends SentryUser {
         return jDate::forge($timestamp)->ago();
     }
 
+	/**
+	 * User Badges
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function badges()
+	{
+		return $this->hasMany('SaleBoss\Models\UserBadge','user_id');
+	}
+
+	/**
+	 * User Rates, each rate contains a date period with this format [x,null) or [x,y]
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function rates()
+	{
+		return $this->hasMany('SaleBoss\Models\UserRate','user_id');
+	}
+
+	/**
+	 * User Change logs on orders
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function changerLogs()
+	{
+		return $this->hasMany('SaleBoss\Models\OrderLog','changer_id');
+	}
+
+	/**
+	 * Previous user change logs
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function previousChangerLogs()
+	{
+		return $this->hasMany('SaleBoss\Models\OrderLog','previous_changer_id');
+	}
 }

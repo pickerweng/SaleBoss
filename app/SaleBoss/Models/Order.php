@@ -8,20 +8,14 @@ class Order extends  Eloquent{
 
 	protected  $table = 'orders';
 
-	public $timestamps = false;
 	/**
-	 * One to one relationship between entity and opilo orders
+	 * One to many relationship between order and it's logs
 	 *
-	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function entity()
-	{
-		return $this->belongsTo('SaleBoss\Models\Entity');
-	}
-
 	public function orderLogs()
 	{
-		//
+		return $this->hasMany('SaleBoss\Models\OrderLog','order_id');
 	}
 
 	/**
@@ -35,12 +29,22 @@ class Order extends  Eloquent{
 	}
 
 	/**
-	 * Relation between order and target user
+	 * Relation between order and customer
 	 *
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
-	public function targetUser()
+	public function customer()
 	{
-		return $this->belongsTo('SaleBoss\Models\User','target_user_id');
+		return $this->belongsTo('SaleBoss\Models\User','customer_id');
+	}
+
+	/**
+	 * Relation between user and it's creator
+	 *
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function creator()
+	{
+		return $this->belongsTo('SaleBoss\Models\User','creator_id');
 	}
 } 

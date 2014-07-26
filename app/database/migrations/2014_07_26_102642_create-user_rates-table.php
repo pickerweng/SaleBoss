@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateOrdersTable extends Migration {
+class CreateUserRatesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,11 @@ class CreateOrdersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('orders',function($table){
+		Schema::create('user_rates',function($table){
 			$table->increments('id');
-			$table->integer('entity_id');
-			$table->integer('target_user_id')->unsigned();
-			$table->integer('state_id')->unsigned();
+			$table->integer('user_id')->unsigned();
+			$table->date('from');
+			$table->date('to')->nullable();
 			$table->softDeletes();
 		});
 	}
@@ -28,7 +28,7 @@ class CreateOrdersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('orders');
+		Schema::drop('user_rates');
 	}
 
 }

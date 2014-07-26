@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddValidationFieldToAttributeTable extends Migration {
+class AddLockedFieldToOrdersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,8 +12,8 @@ class AddValidationFieldToAttributeTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('attributes',function($table){
-			$table->string('rules',600)->after('default_value')->nullable();
+		Schema::table('orders',function($table){
+			$table->boolean('locked')->after('vat')->default(0);
 		});
 	}
 
@@ -24,8 +24,8 @@ class AddValidationFieldToAttributeTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::table('attributes',function($table){
-			$table->dropColumn('rules');
+		Schema::table('orders',function($table){
+			$table->dropColumn('locked');
 		});
 	}
 

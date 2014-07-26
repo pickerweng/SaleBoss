@@ -12,6 +12,6 @@ class State extends Eloquent {
 	 */
 	public function orders()
 	{
-		return $this->belongsToMany('SaleBoss\Models\Order','state_id');
+		return $this->belongsToMany('SaleBoss\Models\Order','state_d');
 	}
 }
