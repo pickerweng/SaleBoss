@@ -20,7 +20,7 @@
 					<tr>
 						<td>{{$order->id}}</td>
 						<td>{{$order->diff()}}</td>
-						<td>{{$order->customer()->first()->name()}}</td>
+						<td></td>
 						<td>{{$order->state->title}}</td>
 						<td class="languageLeft">
 							<a target="_blank" href="{{URL::to('orders/' . $order->id)}}" class="btn btn-success btn-xs">مشاهده</a>
