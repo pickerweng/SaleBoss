@@ -2,6 +2,8 @@
 
 namespace SaleBoss\Repositories;
 
+use SaleBoss\Models\User;
+
 interface OrderRepositoryInterface {
 
     /**
@@ -15,7 +17,7 @@ interface OrderRepositoryInterface {
 
     public function getGeneratedOrders($user, $int);
 
-    public function getAvailableOrders($perms, $int);
+    public function getAvailableOrders(User $user = null,$perms, $int);
 
     public function countableMonthChart();
 }

@@ -47,7 +47,7 @@ class UserQueue {
 	public function summary()
 	{
 		$perms = $this->getStatePermissions();
-		return $this->orderRepo->getAvailableOrders($perms, 5);
+		return $this->orderRepo->getAvailableOrders($this->user,$perms, 5);
 	}
 
 

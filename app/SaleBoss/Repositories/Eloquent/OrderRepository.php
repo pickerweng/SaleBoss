@@ -2,7 +2,6 @@
 
 namespace SaleBoss\Repositories\Eloquent;
 
-use SaleBoss\Models\Entity;
 use SaleBoss\Models\Order;
 use SaleBoss\Models\User;
 use SaleBoss\Repositories\OrderRepositoryInterface;
@@ -29,11 +28,24 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
         return $user->orders()->paginate($int);
     }
 
-    public function getAvailableOrders($perms, $int)
+    /**
+     * @param User $user
+     * @param      $perms
+     * @param      $int
+     *
+     * @return mixed
+     */
+    public function getAvailableOrders(User $user = null,$perms, $int = 5)
     {
-        return $this->model->newInstance()->whereHas('state',function($query) use($perms){
-            $query->where('priority','in',$perms);
-        })->get();
+        $query = $this->model->newInstance();
+        if ( ! is_null($user))
+        {
+            $query = $query->where('creator_id',$user->id);
+        }
+        $orders = $query->with('customer')->whereHas('state',function($q)use($perms){
+            $q->whereIn('id',(array) $perms);
+        });
+        return $orders->paginate($int);
     }
 
     public function countableMonthChart()
