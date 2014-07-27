@@ -168,6 +168,7 @@ class UserController extends BaseController
 	 */
 	public function destroy($id)
 	{
+		return $this->redirectTo('dash')->with('error_message','حذف کاربران موقتا غیر فعال شده است.');
 		try {
 			$this->userRepo->delete($id);
 			return $this->redirectBack()->with('success_message', Lang::get('messages.operation_success'));
@@ -228,6 +229,7 @@ class UserController extends BaseController
 	 */
 	public function show($id)
 	{
+		return $id;
 		try {
 			$user = $this->userRepo->userWithGroups($id);
 			return $this->view('admin.pages.user.show')->withUser($user);
@@ -245,15 +247,15 @@ class UserController extends BaseController
     {
         $current_id = Sentry::getUser()->id;
         $user_id = $id;
+        if (Sentry::getUser()->hasAnyAccess(['users.edit']))
+        {
+            return true;
+        }
         if ($user_id != $current_id)
         {
             return false;
         }else {
             return true;
-        }
-        if (Sentry::getUser()->hasAnyAccess(['users.edit']))
-        {
-            return false;
         }
     }
 }

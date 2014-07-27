@@ -128,7 +128,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 	 */
 	public function getGeneratedUsers(User $user, $count = 5)
 	{
-		return $user->generatedUsers()->take($count)->orderBy('created_at','DESC')->get();
+		return $user->generatedUsers()->where('is_customer',true)->take($count)->orderBy('created_at','DESC')->get();
 	}
 
     /**

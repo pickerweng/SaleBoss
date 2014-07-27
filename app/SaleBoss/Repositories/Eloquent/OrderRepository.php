@@ -25,7 +25,7 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
         {
             return $this->model->newInstance()->paginate($int);
         }
-        return $user->orders()->paginate($int);
+        return $user->orders()->with('customer')->paginate($int);
     }
 
     /**
