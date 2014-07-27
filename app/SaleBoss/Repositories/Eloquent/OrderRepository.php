@@ -3,7 +3,9 @@
 namespace SaleBoss\Repositories\Eloquent;
 
 use SaleBoss\Models\Order;
+use SaleBoss\Models\State;
 use SaleBoss\Models\User;
+use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 
 class OrderRepository extends AbstractRepository implements OrderRepositoryInterface {
@@ -12,11 +14,14 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
 
 	/**
 	 * @param Order $order
+	 * @param State $state
 	 */
 	public function __construct(
-		Order $order
+		Order $order,
+		State $state
 	){
 		$this->model = $order;
+		$this->state = $state;
 	}
 
     public function getGeneratedOrders($user = null, $int)
@@ -53,4 +58,37 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
     {
         return $this->model->newInstance()->chartedOnDateByMonth()->get();
     }
+
+	/**
+	 * @param state $orderId
+	 * @param $int state
+	 * @param $approved
+	 * @param $description
+	 * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
+	 * @internal param $get
+	 * @internal param $get1
+	 * @return mixed
+	 */
+	public function stateUpdate($orderId,$int, $approved, $description)
+	{
+		$model = $this->model->newInstance()->find($orderId);
+		if (is_null($model))
+		{
+			throw new NotFoundException("Order with id : {$orderId} not found");
+		}
+		$state = $this->state->where('priority',$int)->first();
+
+		if (is_null($state))
+		{
+			throw new NotFoundException("State with priority : {$int} not found");
+		}
+		$model->state_id = $state->id;
+		$model->accounter_approved = $approved;
+		if (!empty($description))
+		{
+			$model->description = $description;
+		}
+		$model->save();
+		return $model;
+	}
 }

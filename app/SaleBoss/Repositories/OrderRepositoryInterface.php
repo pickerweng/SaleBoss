@@ -20,4 +20,13 @@ interface OrderRepositoryInterface {
     public function getAvailableOrders(User $user = null,$perms, $int);
 
     public function countableMonthChart();
+
+	/**
+	 * @param $orderId
+	 * @param $int state
+	 * @param $approved
+	 * @param $description
+	 * @return mixed
+	 */
+	public function stateUpdate($orderId,$int, $approved, $description);
 }
