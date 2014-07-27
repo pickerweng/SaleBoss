@@ -108,10 +108,12 @@
 		)}}
 	</div>
 
+    @if (Sentry::getUser()->hasAnyAccess(['user.chage_groups']))
 	<div class="form-group">
 		{{Form::label('item[roles]','انتخاب نقش کاربری')}}
 		{{Form::select('item[roles]',$groups,(empty($update) ? null : $current_groups),['multiple' => true,'class' => 'form-control'])}}
 	</div>
+    @endif
 
 	{{Form::submit('ایجاد کاربر',['class' => 'btn btn-success btn-block btn-lg'])}}
 

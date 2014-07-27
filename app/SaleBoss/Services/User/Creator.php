@@ -9,6 +9,7 @@
 namespace SaleBoss\Services\User;
 
 
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
@@ -75,7 +76,10 @@ class Creator {
             $data['activated'] = true;
 			$user = $this->userRepo->create($data);
 			$this->events->fire('user.created',array($user));
-			$this->groupRepo->addGroupsToUser($user, $groups);
+            if (Sentry::getUser()->hasAnyAccess(['user.chage_groups']))
+            {
+                $this->groupRepo->addGroupsToUser($user, $groups);
+            }
 			return $listener->onCreateSuccess();
 		}catch(InvalidArgumentException $e){
 			Log::error($e->getMessage());
@@ -101,12 +105,15 @@ class Creator {
 		{
 			return $listener->onUpdateFail($this->userValidator->getMessages());
 		}
-		$groups = $info['roles'];
+		$groups = ! empty($info['roles']) ? $info['roles'] : [];
 		$info = $this->filterData($info);
 		try{
 			$user = $this->userRepo->update($id, $info);
-			$this->groupRepo->removeUserGroups($user);
-			$this->groupRepo->addGroupsToUser($user, $groups);
+            if (Sentry::getUser()->hasAnyAccess(['user.chage_groups']))
+            {
+                $this->groupRepo->removeUserGroups($user);
+                $this->groupRepo->addGroupsToUser($user, $groups);
+            }
 			return $listener->onUpdateSuccess();
 		}catch (NotFoundException $e){
 			return $listener->onUpdateNotFound();

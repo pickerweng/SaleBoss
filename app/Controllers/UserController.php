@@ -108,6 +108,10 @@ class UserController extends BaseController
 	public function edit($id)
 	{
 		try {
+            if ( ! $this->editCallback($id))
+            {
+                return $this->redirectTo('dash')->with('error_message','شما اجازه دسترسی به صفحه مورد نظر رد ندارید');
+            }
 			$groups = $this->groupRepo->getAll();
 			$groups = $groups->lists('name', 'id');
 			$user = $this->userRepo->findById($id);
@@ -231,4 +235,25 @@ class UserController extends BaseController
 			App::abort(404);
 		}
 	}
+
+    /**
+     * @param $id
+     *
+     * @return bool
+     */
+    protected function editCallback($id)
+    {
+        $current_id = Sentry::getUser()->id;
+        $user_id = $id;
+        if ($user_id != $current_id)
+        {
+            return false;
+        }else {
+            return true;
+        }
+        if (Sentry::getUser()->hasAnyAccess(['users.edit']))
+        {
+            return false;
+        }
+    }
 }

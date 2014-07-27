@@ -16,4 +16,4 @@ class UserValidator extends AbstractValidator {
 	public function setRules(array $rules){
 		$this->rules = $rules;
 	}
-} 
+}

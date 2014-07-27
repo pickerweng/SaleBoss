@@ -16,6 +16,7 @@ class PermissionController extends BaseController implements StoreListenerInterf
 		Permission $permission
 	){
 		$this->permission = $permission;
+        $this->beforeFilter('hasPermission:group.chage_permissions',['only' => ['index','store']]);
 	}
 
 	/**
@@ -42,7 +43,7 @@ class PermissionController extends BaseController implements StoreListenerInterf
 	{
 		$input = Input::get('item');
 		if(empty($input)){ return $this->onStoreSuccess();}
-        
+
 		return $this->permission->save($input,$this);
 	}
 

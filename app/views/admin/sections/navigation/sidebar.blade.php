@@ -1,7 +1,7 @@
 <ul class="nav navbar-nav side-nav">
 	<li class="profile-sum text-center">
 		<img class="profile-picture" src="{{URL::to('salesboss.jpg')}}">
-		<a class="btn btn-link" href="{{URL::to('users/' . Sentry::getUser()->id . '/edit')}}">پروفایل من</a>
+		<a class="btn btn-link" href="{{URL::to('users/' . Sentry::getUser()->id . '/edit')}}">{{Sentry::getUser()->getIdentifier()}}</a>
 		<a class="btn btn-link" href="{{URL::to('users/' . Sentry::getUser()->id . '/edit')}}">ویرایش پروفایل من</a>
 		<a class="btn btn-link" href="{{URL::to('auth/logout')}}">خروج</a>
 	</li>
