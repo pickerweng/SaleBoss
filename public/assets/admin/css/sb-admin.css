@@ -335,7 +335,6 @@ li.profile-sum {
     width: 100%;
 }
 .profile-sum img.profile-picture {
-    border-radius: 100%;
     display: block;
     margin:10px auto;
 }

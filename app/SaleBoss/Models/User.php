@@ -142,4 +142,9 @@ class User extends SentryUser {
 	{
 		return $this->hasMany('SaleBoss\Models\OrderLog','previous_changer_id');
 	}
+
+    public function orders()
+    {
+        return $this->hasMany('SaleBoss\Models\Order','creator_id');
+    }
 }

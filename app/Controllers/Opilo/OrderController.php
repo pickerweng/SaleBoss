@@ -3,36 +3,41 @@
 namespace Controllers\Opilo;
 
 use Controllers\BaseController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use SaleBoss\OpiloOrders\OrderCreator;
 use SaleBoss\OpiloOrders\OrderCreatorListenerInterface;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
+use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 use SaleBoss\Services\EavSmartAss\EavManagerInterface;
 use SaleBoss\Services\EavSmartAss\Form\FormOptionProvider;
 use SaleBoss\Services\Order\Creator;
+use SaleBoss\Services\Order\CreatorListenerInterface;
 
-class OrderController extends BaseController{
+class OrderController extends BaseController implements CreatorListenerInterface{
 
 	protected $orderCreator;
 	protected $userRepo;
 	protected $auth;
 
-
-	/**
-	 * @param Creator $creator
-	 * @param UserRepositoryInterface $userRepo
-	 * @param AuthenticatorInterface $auth
-	 */
+    /**
+     * @param Creator                  $creator
+     * @param UserRepositoryInterface  $userRepo
+     * @param AuthenticatorInterface   $auth
+     * @param OrderRepositoryInterface $orderRepo
+     */
 	public function __construct(
 		Creator $creator,
 		UserRepositoryInterface $userRepo,
-		AuthenticatorInterface $auth
+		AuthenticatorInterface $auth,
+        OrderRepositoryInterface $orderRepo
 	){
 		$this->orderCreator = $creator;
 		$this->userRepo = $userRepo;
+        $this->orderRepo = $orderRepo;
 		$this->auth = $auth;
 	}
 
@@ -59,6 +64,35 @@ class OrderController extends BaseController{
 			App::abort(404);
 		}
 	}
+
+    /**
+     * Store an order into database
+     *
+     * @param $customerId
+     */
+    public function store($customerId)
+    {
+        try {
+            $data = Input::only(
+                "panel_type",
+                "panel_type",
+                "private_number",
+                "sms_price",
+                "sms_text",
+                "sms_description",
+                "payment_type",
+                "cart_number",
+                "panel_price",
+                "description"
+            );
+            $creator = $this->auth->user();
+            $customer= $this->userRepo->findCustomer($customerId);
+            $this->orderCreator->setListener($this);
+            return $this->orderCreator->sellerCreate($data,$customer,$creator);
+        }catch (NotFoundException $e){
+            App::abort(404);
+        }
+    }
 
 	/**
 	 * Access callback for creating an order
@@ -88,7 +122,7 @@ class OrderController extends BaseController{
 	 */
 	public function onCreateFail($messages)
 	{
-		return $this->redirectBack()->withErrors($messages);
+		return $this->redirectBack()->withErrors($messages)->withInput();
 	}
 
 	/**
@@ -97,8 +131,61 @@ class OrderController extends BaseController{
 	 * @param $message
 	 * @return mixed
 	 */
-	public function onCreateSuccess($message)
+	public function onCreateSuccess($message = null)
 	{
-		return $this->redirectTo('opilo-orders/create')->with('success_message',$message);
+		return $this->redirectBack()->with('success_message',$message);
 	}
+
+    public function myIndex()
+    {
+        $title = 'لیست سفارش های من';
+        $description = 'لیست سفارش هایی که من ایجاد کرده ام';
+        $generatedOrders = $this->orderRepo->getGeneratedOrders($this->auth->user(),50);
+        $noAll = true;
+        return $this->view(
+            'admin.pages.order.my_index',
+            compact('title','description','generatedOrders','noAll')
+        );
+    }
+
+    /**
+     * Showing a customer
+     *
+     * @param $id
+     * @return View
+     */
+    public function show($id)
+    {
+        try
+        {
+            $order = $this->orderRepo->findById($id);
+            $title = "مشاهده سفارش {$order->id}";
+            $description = "این سفارش توسط{$order->creator()->first()->getIdentifier()} ایجاد شده است. ";
+            $customer = $order->customer()->first();
+            $opiloConfig = Config::get('opilo_configs');
+            return $this->view(
+                'admin.pages.order.show',
+                compact('customer','title','description','order','opiloConfig')
+            );
+        }catch (NotFoundException $e)
+        {
+            App::abort(404);
+        }
+    }
+
+    public function index()
+    {
+        $title = 'لیست همه سفارش ها';
+        $description = 'سفارش هایی که توسط کاربران ایجاد شده است.';
+        $noAll = true;
+        if ( ! $this->auth->user()->hasAnyAccess(['orders.view_all']))
+        {
+            return $this->redirectTo('my/orders');
+        }
+        $generatedOrders = $this->orderRepo->getGeneratedOrders(null,50);
+        return $this->view(
+            'admin.pages.order.index',
+            compact('title','description','generatedOrders','noAll')
+        );
+    }
 }

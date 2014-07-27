@@ -1,5 +1,14 @@
 <?php namespace SaleBoss\Repositories;
 
-interface OrderLogRepositoryInterface {
+use SaleBoss\Models\Order;
 
-} 
+interface OrderLogRepositoryInterface {
+    /**
+     * Store a log of order into database
+     *
+     * @param Order $order
+     *
+     * @return mixed
+     */
+    public function store(Order $order,$changer_id , $p_changer_id);
+}

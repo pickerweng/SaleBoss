@@ -72,6 +72,7 @@ class Creator {
 		}
 
 		try {
+            $data['activated'] = true;
 			$user = $this->userRepo->create($data);
 			$this->events->fire('user.created',array($user));
 			$this->groupRepo->addGroupsToUser($user, $groups);

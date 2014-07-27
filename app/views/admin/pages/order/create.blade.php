@@ -5,7 +5,7 @@
 @section('breadcrumb')
 	@parent
 	<li><a href="{{URL::to('my/orders')}}"><i class="fa fa-list"></i> سفارش های من</a></li>
-	<li class="active"><i class="fa fa-plus"></i> ایجاد سفارش برای {{$customer->name()}}</li>
+	<li class="active"><i class="fa fa-plus"></i>ایجاد سفارش</li>
 @stop
 @section('content')
 <div class="row">

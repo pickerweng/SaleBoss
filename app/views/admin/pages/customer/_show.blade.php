@@ -80,14 +80,14 @@
 	</div>
 	<br>
 	<div class="row">
-		<div class="col-md-4 col-sm-12">
+		<div class="col-md-6 col-sm-12">
 			<a href="{{URL::to('customers/' . $customer->id . '/edit')}}" class="btn btn-lg btn-block btn-info to-order-submit">ویرایش کاربر</a>
 		</div>
-		<div class="col-md-4 col-sm-12">
+		<div class="col-md-6 col-sm-12">
 			<a href="{{URL::to('orders/create/' . $customer->id)}}" class="btn btn-lg btn-block btn-success to-order-submit">ایجاد سفارش جدید برای کاربر</a>
 		</div>
-		<div class="col-md-4 col-sm-12">
+		<!--div class="col-md-4 col-sm-12">
 			<a href="{{URL::to('customers/' . $customer->id . '/orders')}}" class="btn btn-lg btn-block btn-warning to-order-submit">مشاهده سفارش های کاربر</a>
-		</div>
+		</div-->
 	</div>
 </fieldset>

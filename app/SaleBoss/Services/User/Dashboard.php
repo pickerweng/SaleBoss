@@ -152,8 +152,7 @@ class Dashboard implements DashboardInterface {
 	 */
 	protected function orderChart()
 	{
-		$type = $this->typeRepo->findByMachineName('orders');
-		$counts =  $this->entityRepo->countableMonthChart($type)->lists('countable','month');
+		$counts =  $this->orderRepo->countableMonthChart()->lists('countable','month');
 		$output = [];
 		$months = Config::get('jalali_months');
 		foreach($months as $key => $month)
@@ -166,4 +165,4 @@ class Dashboard implements DashboardInterface {
 	}
 
 
-} 
+}

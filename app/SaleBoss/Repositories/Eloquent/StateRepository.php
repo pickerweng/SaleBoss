@@ -85,4 +85,9 @@ class StateRepository  extends AbstractRepository implements StateRepositoryInte
 	{
 		return $this->model->newInstance()->orderBy($field , $sort)->get();
 	}
+
+    public function findByPriority($int)
+    {
+        return $this->model->newInstance()->where('priority',$int)->first();
+    }
 }

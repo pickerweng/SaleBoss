@@ -17,5 +17,10 @@ return array(
     'customers.own_edit'            =>  'ویرایش مشتری های خود',
     'customers.view_all'            =>  'مشاهده همه مشتری ها',
 	'orders.create'                 =>  'ایجاد سفارش برای هر مشتری ای',
-	'orders.own_create'             =>  'ایجاد سفارش برای مشتری خود'
+	'orders.own_create'             =>  'ایجاد سفارش برای مشتری خود',
+    'menu.admin'                    =>  'منوی مدیریت',
+    'menu.sales'                    =>  'منوی فروش',
+    'states.1'                      =>  'صف فروش',
+    'states.2'                      =>  'صف حسابداری',
+    'states.3'                      =>  'صف پشتیبانی'
 );

@@ -3,10 +3,14 @@
 namespace SaleBoss\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Miladr\Jalali\jDate;
 
 class Order extends  Eloquent{
 
 	protected  $table = 'orders';
+    protected $guarded = [];
+
+    use ChartTrait;
 
 	/**
 	 * One to many relationship between order and it's logs
@@ -47,4 +51,9 @@ class Order extends  Eloquent{
 	{
 		return $this->belongsTo('SaleBoss\Models\User','creator_id');
 	}
-} 
+
+    public function diff()
+    {
+        return jDate::forge($this->created_at)->ago();
+    }
+}

@@ -1,9 +1,12 @@
 <?php namespace SaleBoss\Services\Validator;
 
-use SaleBoss\Repositories\Eloquent\AbstractRepository;
-
 class OrderValidator extends AbstractValidator {
 	protected $rules = [
-		// 'title' =>  'required'
+		'panel_type'        =>  'required|integer',
+        'sms_price'         =>  'integer|min:0',
+        'sms_quantity'      =>  'integer|min:0',
+        'payment_type'      =>  'integer',
+        'cart_number'       =>  'digits:4',
+        'panel_price'       =>  'required|integer|min:0',
 	];
-} 
+}

@@ -19,11 +19,11 @@
 					@foreach($generatedOrders as $order)
 					<tr>
 						<td>{{$order->id}}</td>
-						<td>{{$order->entity->diff()}}</td>
-						<td>{{$order->targetUser->name()}}</td>
+						<td>{{$order->diff()}}</td>
+						<td>{{$order->customer->name()}}</td>
 						<td>{{$order->state->title}}</td>
 						<td class="languageLeft">
-							<a target="_blank" href="{{URL::to('opilo-orders/' . $order->id)}}" class="btn btn-success btn-xs">مشاهده</a>
+							<a target="_blank" href="{{URL::to('orders/' . $order->id)}}" class="btn btn-success btn-xs">مشاهده</a>
 						</td>
 					</tr>
 					@endforeach
@@ -32,7 +32,9 @@
 			</div>
 		</div>
 		<div class="text-left">
-			<a href="#">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+            @if (empty($noAll))
+			    <a href="{{URL::to('my/orders')}}">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
+            @endif
 		</div>
 	</div>
 </div>

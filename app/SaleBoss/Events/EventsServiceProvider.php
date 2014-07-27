@@ -20,5 +20,10 @@ class EventsServiceProvider extends ServiceProvider {
           'customer.created',
           'SaleBoss\Events\Customer@whenCustomerHasBeenCreated'
         );
+
+        $this->app['events']->listen(
+            'order.updated',
+            'SaleBoss\Events\OrderLog@whenOrderHasBeenUpdated'
+        );
     }
 }

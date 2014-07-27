@@ -17,18 +17,15 @@ class UserQueue {
 	/**
 	 * @param UserRepositoryInterface $userRepo
 	 * @param StateRepositoryInterface $stateRepo
-	 * @param EavManagerInterface $manager
 	 * @param OrderRepositoryInterface $orderRepo
 	 */
 	public function __construct(
 		UserRepositoryInterface $userRepo,
 		StateRepositoryInterface $stateRepo,
-		EavManagerInterface $manager,
 		OrderRepositoryInterface $orderRepo
 	){
 		$this->userRepo = $userRepo;
 		$this->stateRepo = $stateRepo;
-		$this->manager = $manager;
 		$this->orderRepo = $orderRepo;
 	}
 
@@ -66,10 +63,10 @@ class UserQueue {
 		$perms = [];
 		foreach($states as $state)
 		{
-			if( ! empty($userPermissions['states.' . $state->id])){
+			if( ! empty($userPermissions['states.' . $state->priority])){
 				$perms[] = $state->id;
 			}
 		}
 		return $perms;
 	}
-} 
+}

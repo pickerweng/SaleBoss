@@ -76,7 +76,7 @@
                     @if(empty($update))
                         <button type="button" class="btn btn-lg btn-block btn-info to-order-submit">+ ثبت نام مشتری و ایجاد سفارش</button>
                     @else
-                        <a href="{{URL::to('customer/' . $customer->id . '/orders')}}" class="btn btn-lg btn-block btn-info to-order-submit">مشاهده سفارش های مشتری</a>
+                        <!--a href="{{URL::to('customer/' . $customer->id . '/orders')}}" class="btn btn-lg btn-block btn-info to-order-submit">مشاهده سفارش های مشتری</a-->
                     @endif
                 </div>
                 <div class="col-md-6 col-sm-12">

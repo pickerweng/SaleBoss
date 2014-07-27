@@ -42,4 +42,6 @@ interface StateRepositoryInterface {
 	 * @return Collection
 	 */
 	public function getAllSorted($field , $sort = 'asc');
+
+    public function findByPriority($int);
 }
