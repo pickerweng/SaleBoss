@@ -38,6 +38,7 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
     public function getAvailableOrders(User $user = null,$perms, $int = 5)
     {
         $query = $this->model->newInstance();
+        if (empty($perms)) $perm=['asdasdadasdasdadsd'];
         if ( ! is_null($user))
         {
             $query = $query->where('creator_id',$user->id);
