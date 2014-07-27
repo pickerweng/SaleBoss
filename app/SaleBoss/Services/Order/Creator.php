@@ -21,6 +21,8 @@ class Creator {
     protected $customer;
     protected $creator;
     protected $stateRepo;
+    protected $order;
+    protected $accounter;
 
     /**
      * @param OrderRepositoryInterface $orderRepo
@@ -49,11 +51,25 @@ class Creator {
      * @param CreatorListenerInterface $listener
      *
      * @return $this
-     */public function setListener(CreatorListenerInterface $listener)
+     */
+    public function setListener(CreatorListenerInterface $listener)
 	{
 		$this->listener = $listener;
 		return $this;
 	}
+
+    /**
+     * Set listener for accounter
+     *
+     * @param AccounterListenerInterface $listener
+     *
+     * @return mixed
+     */
+    public function setAccounterListener(AccounterListenerInterface $listener)
+    {
+        $this->listener = $listener;
+        return this;
+    }
 
     /**
      * Save an order by seller
@@ -156,6 +172,85 @@ class Creator {
         $this->events->fire('order.updated',array($order));
         $this->events->fire('order.created',array($order));
         $this->events->fire('order.created_by_saler',array($order));
+    }
+
+    /**
+     * Approve Accounting job
+     *
+     * @param Order $order
+     * @param User  $accounter
+     * @param array $data
+     */
+    public function accounterApprove(Order $order, User $accounter,array $data)
+    {
+        $this->setOrder($order);
+        $this->setAccounter($accounter);
+        $this->setData($data);
+        try {
+            $this->doAccounterApprove();
+        }catch(InvalidStateException $e){
+            return $this->li->onInvalidState(
+                "سفارش در مرحله حسابداری قرار ندارد"
+            );
+        }
+    }
+
+    /**
+     * Set order that is currently we are working on
+     *
+     * @param Order $order
+     *
+     * @return $this
+     */
+    public function setOrder(Order $order)
+    {
+        $this->order = $order;
+        return $this;
+    }
+
+    /**
+     * Set accounter that currently works on order
+     *
+     * @param User $accounter
+     *
+     * @return $this
+     */
+    public function setAccounter(User $accounter)
+    {
+        $this->accounter = $accounter;
+        return $this;
+    }
+
+    /**
+     * Do Accounter Approve or Deport
+     *
+     * @return Model
+     */
+    private function doAccounterApprove()
+    {
+        $data = [];
+        if(! empty($this->data['description']))
+        {
+            $data['description'] = $this->data['description'];
+        }
+        $data['accounter_approved'] = $this->data['accounter_approved'];
+        $nextStep = $this->getNextStep();
+        if (!is_null($nextStep)) $data['state_id'] = $nextStep->id;
+        $this->order->update($this->order,$this->data);
+        $this->fireAccounterApproveEvents();
+    }
+
+    public function fireAccounterApproveEvents()
+    {
+        $this->events->fire('order.updated');
+        $this->events->fire('order.changed_state');
+    }
+
+    private function getNextStep()
+    {
+        $nextStep = $this->stateRepo->findById($this->order->state_id);
+        $nextStep = $this->stateRepo->findNextByPriority($nextStep->priority);
+        return $nextStep;
     }
 
 }

@@ -71,24 +71,6 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
 	 */
 	public function stateUpdate($orderId,$int, $approved, $description)
 	{
-		$model = $this->model->newInstance()->find($orderId);
-		if (is_null($model))
-		{
-			throw new NotFoundException("Order with id : {$orderId} not found");
-		}
-		$state = $this->state->where('priority',$int)->first();
 
-		if (is_null($state))
-		{
-			throw new NotFoundException("State with priority : {$int} not found");
-		}
-		$model->state_id = $state->id;
-		$model->accounter_approved = $approved;
-		if (!empty($description))
-		{
-			$model->description = $description;
-		}
-		$model->save();
-		return $model;
 	}
 }

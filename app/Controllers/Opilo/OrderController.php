@@ -38,6 +38,7 @@ class OrderController extends BaseController implements CreatorListenerInterface
 		$this->userRepo = $userRepo;
 		$this->orderRepo = $orderRepo;
 		$this->auth = $auth;
+        $this->beforeFilter('hasPermission:orders.accounter_approve',['only' => 'accounterUpdate']);
 	}
 
 	public function create($id)
@@ -184,43 +185,14 @@ class OrderController extends BaseController implements CreatorListenerInterface
 		);
 	}
 
-	public function accounterEdit($id)
-	{
-		try {
-			$order =$this->orderRepo->findById($id);
-			if ($order->state()->first()->priority != 2)
-			{
-				return $this->redirectTo('dash')->with('error_message','سفارش در صف حسابداری نمیباشد.');
-			}
-			$title = "تایید سفارش شماره {{$order->id}}";
-			$description = "این سفارش توسط {$order->creator->getIdentifier()} انجام شده است.";
-			$opiloConfig = Config::get('opilo_configs');
-			$customer = $order->customer()->first();
-			return $this->view(
-				'admin.pages.order.accounter',
-				compact('title','description','order','opiloConfig','customer')
-			);
-		} catch (NotFoundException $e)
-		{
-			App::abort(404);
-		}
-	}
-
 	public function accounterUpdate($id)
 	{
-		$order = $this->orderRepo->findById($id);
-		if ($order->state()->first()->priority != 2)
-		{
-			return $this->redirectTo('dash')->with('error_message','سفارش در صف حسابداری نمیباشد.');
-		}
-
-		try {
-			$order = $this->orderRepo->stateUpdate($id,3, Input::get('approved'), Input::get('description'));
-			Event::fire('order.updated',array($order));
-			return $this->redirectTo('dash')->with('success_message',Lang::get('messages.operation_success'));
-		}catch (NotFoundException $e){
-			App::abort(404);
-		}
-
+        try {
+            $accounter = $this->auth->user();
+            $order = $this->orderRepo->findById($id);
+            return $this->orderCreator->accounterApprove($order, $accounter);
+        }catch (NotFoundExcption $e){
+            App::abort(404);
+        }
 	}
 }

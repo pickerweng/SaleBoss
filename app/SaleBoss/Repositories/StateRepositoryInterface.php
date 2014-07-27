@@ -43,5 +43,21 @@ interface StateRepositoryInterface {
 	 */
 	public function getAllSorted($field , $sort = 'asc');
 
+    /**
+     * Find Entity by priority
+     *
+     * @param $int
+     *
+     * @return mixed
+     */
     public function findByPriority($int);
+
+    /**
+     * Find next entity by priority
+     *
+     * @param $priority
+     *
+     * @return mixed
+     */
+    public function findNextByPriority($priority);
 }

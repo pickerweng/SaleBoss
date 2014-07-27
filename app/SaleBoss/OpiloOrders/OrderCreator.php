@@ -16,6 +16,8 @@ class OrderCreator {
 	protected $validator;
 	protected $li;
 	protected $entityData;
+    protected $order;
+
 
 	/**
 	 * @param EavManager $manager
@@ -140,4 +142,4 @@ class OrderCreator {
 		$this->manager->saveValues();
 		return $this;
 	}
-} 
+}
