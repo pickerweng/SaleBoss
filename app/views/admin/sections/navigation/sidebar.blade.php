@@ -10,7 +10,11 @@
             @foreach(MenuBuilder::fetch('admin') as $menu_side)
                 {{View::make('admin.blocks.menu_dropdown',['menu' => $menu_side])->render()}}
             @endforeach
-        @elseif(Sentry::getUser()->hasAnyAccess(['menu.sales']))
+        @elseif(Sentry::getUser()->hasAnyAccess(['menu.accounter']))
+			@foreach(MenuBuilder::fetch('accounter') as $menu_dash)
+				{{View::make('admin.blocks.menu_dropdown',['menu' => $menu_dash])->render()}}
+			@endforeach
+		@elseif(Sentry::getUser()->hasAnyAccess(['menu.sales']))
             @foreach(MenuBuilder::fetch('sales') as $menu_dash)
                 {{View::make('admin.blocks.menu_dropdown',['menu' => $menu_dash])->render()}}
             @endforeach

@@ -53,7 +53,8 @@ Route::group(["namespace" => 'Controllers\Opilo'],function(){
         Route::get('my/orders','OrderController@myIndex');
         Route::get('orders/{id}','OrderController@show');
         Route::get('orders','OrderController@index');
-	    Route::get('orders/approve/{id}','OrderController@accounterEdit');
-	    Route::put('orders/approve/{id}','OrderController@accounterUpdate');
+	    Route::put('orders/accounter_approve/{id}','OrderController@accounterUpdate');
+	    Route::put('orders/suspend/{id}','OrderController@suspendUpdate');
+	    Route::put('orders/support_approve/{id}','OrderController@supporterUpdate');
     });
 });

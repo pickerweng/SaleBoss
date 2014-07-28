@@ -3,18 +3,22 @@
 namespace Controllers\Opilo;
 
 use Controllers\BaseController;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Lang;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\OrderRepositoryInterface;
+use SaleBoss\Repositories\StateRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
+use SaleBoss\Services\Order\AccounterListenerInterface;
 use SaleBoss\Services\Order\Creator;
 use SaleBoss\Services\Order\CreatorListenerInterface;
 
-class OrderController extends BaseController implements CreatorListenerInterface
+class OrderController extends BaseController
+	implements CreatorListenerInterface, AccounterListenerInterface
 {
 
 	protected $orderCreator;
@@ -26,19 +30,24 @@ class OrderController extends BaseController implements CreatorListenerInterface
 	 * @param UserRepositoryInterface $userRepo
 	 * @param AuthenticatorInterface $auth
 	 * @param OrderRepositoryInterface $orderRepo
+	 * @param Dispatcher $events
 	 */
 	public function __construct(
 		Creator $creator,
 		UserRepositoryInterface $userRepo,
 		AuthenticatorInterface $auth,
-		OrderRepositoryInterface $orderRepo
+		OrderRepositoryInterface $orderRepo,
+		Dispatcher $events,
+		StateRepositoryInterface $stateRepo
 	)
 	{
 		$this->orderCreator = $creator;
 		$this->userRepo = $userRepo;
 		$this->orderRepo = $orderRepo;
 		$this->auth = $auth;
-        $this->beforeFilter('hasPermission:orders.accounter_approve',['only' => 'accounterUpdate']);
+		$this->events = $events;
+		$this->stateRepo = $stateRepo;
+		$this->beforeFilter('hasPermission:orders.accounter_approve', ['only' => 'accounterUpdate']);
 	}
 
 	public function create($id)
@@ -170,29 +179,131 @@ class OrderController extends BaseController implements CreatorListenerInterface
 		}
 	}
 
+	/**
+	 * List all orders
+	 *
+	 * @return View
+	 */
 	public function index()
 	{
 		$title = 'لیست همه سفارش ها';
 		$description = 'سفارش هایی که توسط کاربران ایجاد شده است.';
 		$noAll = true;
+		$state = $this->stateRepo->getAll();
 		if (!$this->auth->user()->hasAnyAccess(['orders.view_all'])) {
 			return $this->redirectTo('my/orders');
 		}
 		$generatedOrders = $this->orderRepo->getGeneratedOrders(null, 50);
 		return $this->view(
 			'admin.pages.order.index',
-			compact('title', 'description', 'generatedOrders', 'noAll')
+			compact('title', 'description', 'generatedOrders', 'noAll','state')
 		);
 	}
 
+
+	/**
+	 * Update for accounter
+	 *
+	 * @param $id
+	 */
 	public function accounterUpdate($id)
 	{
-        try {
-            $accounter = $this->auth->user();
-            $order = $this->orderRepo->findById($id);
-            return $this->orderCreator->accounterApprove($order, $accounter);
-        }catch (NotFoundExcption $e){
-            App::abort(404);
-        }
+		try {
+			$accounter = $this->auth->user();
+			$order = $this->orderRepo->findById($id);
+			$input = Input::only(
+				'description',
+				'accounter_approved'
+			);
+			$this->orderCreator->setAccounterListener($this);
+			return $this->orderCreator->accounterApprove($order, $accounter, $input);
+		} catch (NotFoundExcption $e) {
+			App::abort(404);
+		}
 	}
+
+	/**
+	 * What to do when order status is not valid
+	 *
+	 * @param $message
+	 *
+	 * @return mixed
+	 */
+	public function onInvalidState($message)
+	{
+		return $this->redirectTo('dash')->with('error_message', $message);
+	}
+
+	/**
+	 * What to do when Approve success
+	 *
+	 * @param $message
+	 *
+	 * @return mixed
+	 */
+	public function onApproveSuccess($message)
+	{
+		return $this->redirectBack()->with('success_message', Lang::get('messages.operation_success'));
+	}
+
+	/**
+	 * What to when order deports
+	 *
+	 * @param $message
+	 *
+	 * @return mixed
+	 */
+	public function onDeport($message)
+	{
+		return $this->redirectBack()->with('success_message', 'سفارش به مرحله ی قبل فرستاده شد.');
+	}
+
+	/**
+	 * @param $id
+	 */
+	public function suspendUpdate($id)
+	{
+		try {
+			$order = $this->orderRepo->findById($id);
+			$input = Input::only('suspended');
+			$this->events->fire('orders.updated', array($order));
+			$this->orderRepo->update($order, $input);
+			return $this->redirectBack()->with('success_message', Lang::get('messages.operation_success'));
+		} catch (NotFoundException $e) {
+			App::abort(404);
+		}
+
+	}
+
+	/**
+	 * Supporter update
+	 */
+	public function supporterUpdate($id)
+	{
+		try {
+			$input = Input::only('completed', 'description');
+			$order = $this->orderRepo->findById($id);
+			$current_state = $this->stateRepo->findById($order->state_id);
+			if ($current_state->priority != 3) {
+				return $this->redirectBack()->with('error_message', 'سفارش در صف پشتیبانی نمیباشد.');
+			}
+			if ($input['completed']) {
+				$order = $this->orderRepo->update($order, $input);
+			} else {
+				$seller_state = $this->stateRepo->findByPriority(1);
+				$input['state_id'] = $seller_state->priority;
+				$order = $this->orderRepo->update($order, $input);
+			}
+			$this->events->fire('order.updated', array($order));
+			return $this->redirectBack()->with('success_message', Lang::get('messages.operation_success'));
+		} catch (NotFoundException $e) {
+			App::abort(404);
+		}
+	}
+
+	public function edit($id)
+	{
+		return 'editing orders';
+	}
+
 }

@@ -17,7 +17,7 @@ interface AccounterListenerInterface {
      *
      * @return mixed
      */
-    public function onApporveSuccess($message);
+    public function onApproveSuccess($message);
 
     /**
      * What to when order deports

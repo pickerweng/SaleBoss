@@ -1,17 +1,17 @@
 <div class="row">
         {{Form::open([
             'method'    =>  'put',
-            'url'       =>  'orders/approve/' . $order->id,
+            'url'       =>  'orders/accounter_approve/' . $order->id,
             'class'     =>  'order-approve-form'
         ])}}
-        {{Form::hidden('approved',null,array('class' => 'approve-order-hidden'))}}
+        {{Form::hidden('accounter_approved',null,array('class' => 'approve-order-hidden'))}}
         <div class="col-md-12 col-lg-6">
-            <button type="button" class="btn btn-success btn-block approve-button">
+            <button type="button" class="btn btn-success btn-block accounter-action-button approve-button" data-toggle="modal" data-target="#orderDesc">
                 <i class="fa fa-check"></i> تایید و ارسال به پشتیبانی
             </button>
         </div>
         <div class="col-lg-6 col-md-12">
-            <button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#orderDesc">
+            <button type="button" class="btn btn-danger btn-block accounter-action-button deport-button" data-toggle="modal" data-target="#orderDesc">
                 <i class="fa fa-error"></i> عدم تایید و بازگشت به فروش
             </button>
         </div>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">بستن</button>
-                        <button type="submit" class="btn btn-success pull-left submit-order">تایید</button>
+                        <button type="submit" class="btn btn-info pull-left submit-order">تایید</button>
                     </div>
                 </div>
             </div>
@@ -38,9 +38,21 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
+
+	        // Approve order
             $('.approve-button').click(function(){
                 $('.approve-order-hidden').val('1');
             });
+
+	        // Deport order
+	        $('.deport-button').click(function(){
+		        $('.approve-order-hidden').removeAttr('value');
+	        });
+
+	        // Submit order by modal button
+	        $('.submit-order').click(function(){
+		        $('form.order-approve-form').submit();
+	        });
         });
     </script>
 </div>

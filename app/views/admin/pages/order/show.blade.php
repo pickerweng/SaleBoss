@@ -12,9 +12,26 @@
         <div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
             <div class="well">
 				@include('admin.pages.order._show')
+
                 @if(Sentry::getUser()->hasAnyAccess(['orders.accounter_approve']))
-                    @include('admin.pages.order._accounter_form')
+	                @if($order->completed)
+	                    این سفارش تکمیل شده است
+	                @elseif($order->state->priority == 2)
+	                    <h3 class="text-center">تایید حسابداری</h3>
+	                    @include('admin.pages.order._accounter_form')
+	                @endif
                 @endif
+				<br>
+	            @if(Sentry::getUser()->hasAnyAccess(['orders.support']))
+	                @if($order->state->priority == 3)
+	                    <h3 class="text-center">تایید پشتیبانی</h3>
+	                    @include('admin.pages.order._support_form')
+	                @endif
+	            @endif
+
+				@if(Sentry::getUser()->hasAnyAccess(['orders.suspend']))
+	                @include('admin.pages.order._suspend_form')
+	            @endif
                 <br>
                 <button class="btn btn-info btn-block" data-toggle="modal" data-target="#customerSummary">مشاهده مشتری</button>
             </div>

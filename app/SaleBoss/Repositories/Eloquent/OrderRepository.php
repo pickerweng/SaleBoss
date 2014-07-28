@@ -2,11 +2,12 @@
 
 namespace SaleBoss\Repositories\Eloquent;
 
+use Illuminate\Database\QueryException;
 use SaleBoss\Models\Order;
-use SaleBoss\Models\State;
 use SaleBoss\Models\User;
-use SaleBoss\Repositories\Exceptions\NotFoundException;
+use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
 use SaleBoss\Repositories\OrderRepositoryInterface;
+use SaleBoss\Repositories\state;
 
 class OrderRepository extends AbstractRepository implements OrderRepositoryInterface {
 
@@ -14,17 +15,21 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
 
 	/**
 	 * @param Order $order
-	 * @param State $state
 	 */
 	public function __construct(
-		Order $order,
-		State $state
+		Order $order
 	){
 		$this->model = $order;
-		$this->state = $state;
 	}
 
-    public function getGeneratedOrders($user = null, $int)
+	/**
+	 * Get generated orders of a user or all
+	 *
+	 * @param null $user
+	 * @param $int
+	 * @return mixed
+	 */
+	public function getGeneratedOrders($user = null, $int)
     {
         if (is_null($user))
         {
@@ -32,6 +37,8 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
         }
         return $user->orders()->with('customer')->paginate($int);
     }
+
+
 
     /**
      * @param User $user
@@ -54,23 +61,32 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
         return $orders->paginate($int);
     }
 
-    public function countableMonthChart()
+	/**
+	 * Count orders by month
+	 *
+	 * @return Collection
+	 */
+	public function countableMonthChart()
     {
         return $this->model->newInstance()->chartedOnDateByMonth()->get();
     }
 
+
 	/**
-	 * @param state $orderId
-	 * @param $int state
-	 * @param $approved
-	 * @param $description
-	 * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
-	 * @internal param $get
-	 * @internal param $get1
+	 * Update order
+	 *
+	 * @param Order $order
+	 * @param array $data
+	 * @throws \SaleBoss\Repositories\Exceptions\InvalidArgumentException
 	 * @return mixed
 	 */
-	public function stateUpdate($orderId,$int, $approved, $description)
+	public function update(Order $order,array $data = [])
 	{
-
+		try {
+			$order->update($data);
+			return $order;
+		}catch (QueryException $e){
+			throw new InvalidArgumentException($e->getMessage());
+		}
 	}
 }

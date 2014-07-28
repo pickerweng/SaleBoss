@@ -10,7 +10,7 @@
 @if( ! $generatedOrders->isEmpty() || ! empty(Input::all()))
     <!--div class="row">
         <div class="col-sm-12">
-            @include('admin.pages.customer._search')
+            @include('admin.pages.order._search')
         </div>
     </div-->
     <div class="row">

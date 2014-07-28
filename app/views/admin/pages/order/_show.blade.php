@@ -1,6 +1,6 @@
 <div>
     <fieldset>
-        <legend><strong>اطلاعات سفارش</strong></legend>
+        <legend><strong>اطلاعات سفارش {{empty($order->suspended)  ? '' : '{معلق}'}}</strong></legend>
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
@@ -59,7 +59,7 @@
         </div>
         <div class="row">
             <div class="col-md-6 col-sm-12">
-                <label class="control-label">مرحله بعدی سفارش</label>
+                <label class="control-label">مرحله سفارش</label>
                 <p class="form-control-static">{{$order->state->title}}</p>
             </div>
             <div class="col-md-6 col-sm-12">

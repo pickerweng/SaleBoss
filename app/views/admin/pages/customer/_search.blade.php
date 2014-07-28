@@ -2,7 +2,7 @@
     <h4><strong>همیشه جستجو کنید!</strong></h4>
     <div class="row">
         <div class="col-sm-12">
-            {{Form::open(['method' => 'get', 'url' => 'my/customers'])}}
+            {{Form::open(['method' => 'get', 'url' => Request::path()])}}
                 <div class="col-sm-12 col-md-4 col-lg-3 form-group">
                     {{Form::label('first_name','مشتری که نام او',['class' => 'control-label'])}}
                     {{Form::text('first_name',Input::get('first_name'),['class' => 'form-control'])}}

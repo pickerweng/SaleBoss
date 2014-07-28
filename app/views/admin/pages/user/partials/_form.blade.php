@@ -115,6 +115,6 @@
 	</div>
     @endif
 
-	{{Form::submit('ایجاد کاربر',['class' => 'btn btn-success btn-block btn-lg'])}}
+	{{Form::submit(empty($update) ? 'ایجاد کاربر' : 'ویرایش کاربر' ,['class' => 'btn btn-success btn-block btn-lg'])}}
 
 {{Form::close()}}

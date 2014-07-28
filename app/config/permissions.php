@@ -12,4 +12,6 @@ return array(
     'states.2',
     'states.3',
 	'superuser',
+	'menu.accounter',
+	'orders.view_all'
 );

@@ -3,6 +3,8 @@
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
+use SaleBoss\Models\Order;
+use SaleBoss\Models\State;
 use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\RepositoryException;
 use SaleBoss\Repositories\OrderRepositoryInterface;
@@ -68,7 +70,7 @@ class Creator {
     public function setAccounterListener(AccounterListenerInterface $listener)
     {
         $this->listener = $listener;
-        return this;
+        return $this;
     }
 
     /**
@@ -174,22 +176,23 @@ class Creator {
         $this->events->fire('order.created_by_saler',array($order));
     }
 
-    /**
-     * Approve Accounting job
-     *
-     * @param Order $order
-     * @param User  $accounter
-     * @param array $data
-     */
+	/**
+	 * Approve Accounting job
+	 *
+	 * @param Order $order
+	 * @param User $accounter
+	 * @param array $data
+	 * @return AccounterListenerInterface
+	 */
     public function accounterApprove(Order $order, User $accounter,array $data)
     {
         $this->setOrder($order);
         $this->setAccounter($accounter);
         $this->setData($data);
         try {
-            $this->doAccounterApprove();
+            return $this->doAccounterApprove();
         }catch(InvalidStateException $e){
-            return $this->li->onInvalidState(
+            return $this->listener->onInvalidState(
                 "سفارش در مرحله حسابداری قرار ندارد"
             );
         }
@@ -221,11 +224,12 @@ class Creator {
         return $this;
     }
 
-    /**
-     * Do Accounter Approve or Deport
-     *
-     * @return Model
-     */
+	/**
+	 * Do Accounter Approve or Deport
+	 *
+	 * @throws InvalidStateException
+	 * @return Model
+	 */
     private function doAccounterApprove()
     {
         $data = [];
@@ -233,24 +237,93 @@ class Creator {
         {
             $data['description'] = $this->data['description'];
         }
-        $data['accounter_approved'] = $this->data['accounter_approved'];
-        $nextStep = $this->getNextStep();
+        $data['accounter_approved'] = empty($this->data['accounter_approved']) ? false : true;
+
+	    $currentStep = $this->getCurrentStep();
+	    if (is_null($currentStep))
+	    {
+		    throw new InvalidStateException("Order is not in your state");
+	    }
+	    if ($currentStep->priority != 2)
+	    {
+		    throw new InvalidStateException("Order is not in your state");
+	    }
+
+	    if ($data['accounter_approved'])
+	    {
+		    $nextStep = $this->getNextStep($currentStep);
+	    }else
+	    {
+			$nextStep = $this->getPreviousStep($currentStep);
+	    }
         if (!is_null($nextStep)) $data['state_id'] = $nextStep->id;
-        $this->order->update($this->order,$this->data);
-        $this->fireAccounterApproveEvents();
+
+	    $order = $this->orderRepo->update($this->order, $data);
+
+	    $this->fireAccounterApproveEvents($data['accounter_approved'], [$order]);
+
+	    if ($data['accounter_approved'])
+	    {
+		    return $this->listener->onApproveSuccess(Lang::get('messages.operation_success'));
+	    }
+	    return $this->listener->onDeport(Lang::get('messages.operation_error'));
     }
 
-    public function fireAccounterApproveEvents()
+	/**
+	 * Fire events when accounts are approved
+	 *
+	 * @param $approved
+	 * @param $data
+	 * @return void
+	 */
+	private  function fireAccounterApproveEvents($approved, array $data)
     {
-        $this->events->fire('order.updated');
-        $this->events->fire('order.changed_state');
+	    if ($approved)
+	    {
+		    $this->events->fire('order.accounter_approved',$data);
+	    } else
+	    {
+		    $this->events->fire('order.accounter_deported',$data);
+	    }
+        $this->events->fire('order.updated',$data);
+        $this->events->fire('order.changed_state',$data);
     }
 
-    private function getNextStep()
+	/**
+	 * Get next order step from current orderd id
+	 *
+	 * @param State $state
+	 * @return mixed|\SaleBoss\Models\State
+	 */
+	private function getNextStep(State $state = null)
     {
-        $nextStep = $this->stateRepo->findById($this->order->state_id);
-        $nextStep = $this->stateRepo->findNextByPriority($nextStep->priority);
+	    if (is_null($state)) return null;
+        $nextStep = $this->stateRepo->findNextByPriority($state->priority);
         return $nextStep;
     }
+
+	/**
+	 * Get current state of the order
+	 *
+	 * @return \SaleBoss\Models\State
+	 */
+	private function getCurrentStep()
+	{
+		$currentStep = $this->stateRepo->findById($this->order->state_id);
+		return $currentStep;
+	}
+
+	/**
+	 * Get previous step of order
+	 *
+	 * @param State $state
+	 * @return null
+	 */
+	private function getPreviousStep(State $state = null)
+	{
+		if(is_null($state)) return null;
+		$previousStep = $this->stateRepo->findPreviousByPriority($state->priority);
+		return $previousStep;
+	}
 
 }

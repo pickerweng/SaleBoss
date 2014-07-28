@@ -60,4 +60,12 @@ interface StateRepositoryInterface {
      * @return mixed
      */
     public function findNextByPriority($priority);
+
+	/**
+	 * Find by previous state
+	 *
+	 * @param $priority
+	 * @return mixed
+	 */
+	public function findPreviousByPriority($priority);
 }

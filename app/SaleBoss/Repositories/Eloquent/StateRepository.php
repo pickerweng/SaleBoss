@@ -92,7 +92,8 @@ class StateRepository  extends AbstractRepository implements StateRepositoryInte
      * @param $int
      *
      * @return mixed
-     */public function findByPriority($int)
+     */
+	public function findByPriority($int)
     {
         return $this->model->newInstance()->where('priority',$int)->first();
     }
@@ -109,4 +110,16 @@ class StateRepository  extends AbstractRepository implements StateRepositoryInte
         $state = $this->model->newInstance()->where('priority','>',$priority)->orderBy('priority','ASC')->first();
         return $state;
     }
+
+	/**
+	 * Find by previous state
+	 *
+	 * @param $priority
+	 * @return mixed
+	 */
+	public function findPreviousByPriority($priority)
+	{
+		$state = $this->model->newInstance()->where('priority','<',$priority)->orderBy('priority','ASC')->first();
+		return $state;
+	}
 }

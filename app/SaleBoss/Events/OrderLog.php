@@ -1,5 +1,6 @@
 <?php namespace SaleBoss\Events;
 
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Support\Facades\Log;
 use SaleBoss\Models\Order as ModelOrder;
 use SaleBoss\Repositories\Exceptions\RepositoryException;
@@ -26,7 +27,8 @@ class OrderLog{
     public function whenOrderHasBeenUpdated(ModelOrder $order)
     {
         try {
-            $this->orderLogRepo->store($order,$order->creator_id,$order->creator_id);
+	        $changer_id = Sentry::getUser()->id;
+            $this->orderLogRepo->store($order,$changer_id,$order->creator_id);
         }catch (RepositoryException $e){
             Log::info($e->getMessage());
         }

@@ -2,6 +2,7 @@
 
 namespace SaleBoss\Repositories;
 
+use SaleBoss\Models\Order;
 use SaleBoss\Models\User;
 
 interface OrderRepositoryInterface {
@@ -15,18 +16,40 @@ interface OrderRepositoryInterface {
      */
     public function createRaw(array $data);
 
-    public function getGeneratedOrders($user, $int);
-
-    public function getAvailableOrders(User $user = null,$perms, $int);
-
-    public function countableMonthChart();
-
 	/**
-	 * @param $orderId
-	 * @param $int state
-	 * @param $approved
-	 * @param $description
+	 * Get generated orders of users ord user
+	 *
+	 * @param null $user
+	 * @param $int
 	 * @return mixed
 	 */
-	public function stateUpdate($orderId,$int, $approved, $description);
+	public function getGeneratedOrders($user = null, $int);
+
+
+
+	/**
+	 * Get available orders of user
+	 *
+	 * @param User $user
+	 * @param $perms
+	 * @param $int
+	 * @return mixed
+	 */
+	public function getAvailableOrders(User $user = null,$perms, $int);
+
+	/**
+	 * Count orders in month
+	 *
+	 * @return mixed
+	 */
+	public function countableMonthChart();
+
+	/**
+	 * Update order
+	 *
+	 * @param $order
+	 * @param $data
+	 * @return mixed
+	 */
+	public function update(Order $order,array $data);
 }
