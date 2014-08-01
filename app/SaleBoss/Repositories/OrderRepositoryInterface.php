@@ -52,4 +52,7 @@ interface OrderRepositoryInterface {
 	 * @return mixed
 	 */
 	public function update(Order $order,array $data);
+
+    public function getSearchableOrders ($int);
+
 }

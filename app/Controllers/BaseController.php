@@ -1,6 +1,8 @@
 <?php namespace Controllers;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Redirect;
 
@@ -60,11 +62,13 @@ class BaseController extends Controller
 		return Redirect::to( $to );
 	}
 
-	/**
-	 * Share a variable through views
-	 *
-	 * @return void
-	 */
+    /**
+     * Share a variable through views
+     *
+     * @param $var
+     * @param $data
+     * @return void
+     */
 	protected function viewShare($var, $data)
 	{
 		View::share($var,$data);
@@ -85,5 +89,37 @@ class BaseController extends Controller
 			return $fallback;
 		}
 	}
+
+    /**
+     * Get title of current page
+     *
+     * @param $for
+     * @return string | boolean
+     */
+    protected function getTitle($for = null)
+    {
+        $title = is_null($for) ? $title = 'titles.' . Request::path() : $for;
+        if (Lang::has($title))
+        {
+            return Lang::get($title);
+        }
+        return false;
+    }
+
+    /**
+     * Get description of currrent page
+     *
+     * @param null $for
+     * @return bool | string
+     */
+    protected function getDescription($for = null)
+    {
+        $description = is_null($for) ? 'descriptions.' . Request::path() : $for;
+        if ( Lang::has($description) )
+        {
+            return Lang::get($description);
+        }
+        return false;
+    }
 
 }

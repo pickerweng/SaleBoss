@@ -6,99 +6,101 @@ namespace SaleBoss\Services\Validator;
 use Illuminate\Validation\Factory as Validator;
 
 abstract class AbstractValidator implements ValidatorInterface {
-	/**
-	 * The validator dependency
-	 *
-	 * @var \Illuminate\Validation\Factory
-	 */
-	protected $validator;
+    /**
+     * The validator dependency
+     *
+     * @var \Illuminate\Validation\Factory
+     */
+    protected $validator;
 
-	/**
-	 * Rules to validate for
-	 *
-	 * @var array
-	 */
-	protected $rules = [];
+    protected $made;
 
-	/**
-	 * Rules for update validation
-	 *
-	 * @var array
-	 */
-	protected $updateRules = [];
+    /**
+     * Rules to validate for
+     *
+     * @var array
+     */
+    protected $rules = [];
 
-	/**
-	 * Inject validator
-	 *
-	 * @param Validator $validator : Illuminate\Validation\Factory
-	 * @return \SaleBoss\Services\Validator\AbstractValidator
-	 */
-	public function __construct ( Validator $validator )
-	{
-		$this->validator = $validator;
-	}
+    /**
+     * Rules for update validation
+     *
+     * @var array
+     */
+    protected $updateRules = [];
 
-	/**
-	 * Do Validation
-	 *
-	 * @param array $input : array
-	 * @param array $messages
-	 * @return bool
-	 */
-	public function isValid( array $input , $messages=[] )
-	{
-		$this->validator = $this->validator->make( $input , $this->rules, $messages );
-		return $this->validator->passes();
-	}
+    /**
+     * Inject validator
+     *
+     * @param Validator $validator : Illuminate\Validation\Factory
+     * @return \SaleBoss\Services\Validator\AbstractValidator
+     */
+    public function __construct ( Validator $validator )
+    {
+        $this->validator = $validator;
+    }
 
-	/**
-	 * Get validation messages
-	 *
-	 * @return MessageBag
-	 */
-	public function getMessages()
-	{
-		return $this->validator->messages();
-	}
+    /**
+     * Do Validation
+     *
+     * @param array $input : array
+     * @param array $messages
+     * @return bool
+     */
+    public function isValid( array $input , $messages=[] )
+    {
+        $this->made = $this->validator->make( $input , $this->rules, $messages );
+        return $this->made->passes();
+    }
 
-	/**
-	 * Get First Messages for view
-	 * @return \Illuminate\Validation\Factory
-	 */
-	public function getFirstMessages()
-	{
-		return $this->validator;
-	}
+    /**
+     * Get validation messages
+     *
+     * @return MessageBag
+     */
+    public function getMessages()
+    {
+        return $this->made->messages();
+    }
 
-	/**
-	 * Sets unique control except id
-	 *
-	 * @param $key
-	 * @param $id
-	 * @return null
-	 */
-	public function setCurrentIdFor($key,$id)
-	{
-		if (empty($this->updateRules))
-		{
-			$this->rules[$key] = $this->rules[$key] . ',' . $id;
-		}
-		else
-		{
-			$this->rules[$key] = $this->upadteRules[$key] . ',' . $id;
-		}
-	}
+    /**
+     * Get First Messages for view
+     * @return \Illuminate\Validation\Factory
+     */
+    public function getFirstMessages()
+    {
+        return $this->made;
+    }
 
-	/**
-	 * Validate against update
-	 *
-	 * @param array $input
-	 * @param $messages
-	 * @return boolean
-	 */
-	public function isUpdateValid(array $input, $messages)
-	{
-		$this->validator = $this->validator->make( $input , $this->updateRules, $messages );
-		return $this->validator->passes();
-	}
+    /**
+     * Sets unique control except id
+     *
+     * @param $key
+     * @param $id
+     * @return null
+     */
+    public function setCurrentIdFor($key,$id)
+    {
+        if (empty($this->updateRules))
+        {
+            $this->rules[$key] = $this->rules[$key] . ',' . $id;
+        }
+        else
+        {
+            $this->updateRules[$key] = $this->updateRules[$key] . ',' . $id;
+        }
+    }
+
+    /**
+     * Validate against update
+     *
+     * @param array $input
+     * @param $messages
+     * @return boolean
+     */
+    public function isUpdateValid(array $input, $messages = [])
+    {
+        $this->made = $this->validator->make( $input , $this->updateRules, $messages );
+        return $this->made->passes();
+    }
 } 

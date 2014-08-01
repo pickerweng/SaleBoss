@@ -36,4 +36,9 @@ class OrderLogRepository extends AbstractRepository implements OrderLogRepositor
         $orderLog->save();
         return $orderLog;
     }
+
+    public function findLastLogFor (Order $order)
+    {
+        return $order->orderLogs()->with('changer')->orderBy('created_at','DESC')->first();
+    }
 }

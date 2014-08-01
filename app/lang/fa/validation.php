@@ -27,7 +27,7 @@ return array(
 		"string"  => "The :attribute must be between :min and :max characters.",
 		"array"   => "The :attribute must have between :min and :max items.",
 	),
-	"confirmed"        => "The :attribute confirmation does not match.",
+	"confirmed"        => "فیلد :attribute باید دارای تاییدیه باشد.",
 	"date"             => "The :attribute is not a valid date.",
 	"date_format"      => "The :attribute does not match the format :format.",
 	"different"        => "The :attribute and :other must be different.",
@@ -57,7 +57,7 @@ return array(
 	"regex"            => "The :attribute format is invalid.",
 	"required"         => "فیلد :attribute باید دارای مقدار باشد.",
 	"required_if"      => "The :attribute field is required when :other is :value.",
-	"required_with"    => "The :attribute field is required when :values is present.",
+	"required_with"    => "فیلد :attribute ضروریست زمانی که :values دارای مقدار میباشد.",
 	"required_without" => "The :attribute field is required when :values is not present.",
 	"same"             => "The :attribute and :other must match.",
 	"size"             => array(
@@ -107,7 +107,9 @@ return array(
 			'mobile'                =>  '<em>موبایل</em>',
 			'tell'                  =>  '<em>تلفن</em>',
 			'national_code'         =>  '<em>کدملی</em>',
-			'name'                  =>  '<em>نام</em>'
+			'name'                  =>  '<em>نام</em>',
+            'password_confirmation' =>  '<em>تایید پسورد</em>',
+            'old_password'          =>  '<em>پسورد قدیمی</em>'
 		),
 
 );

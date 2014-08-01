@@ -7,12 +7,12 @@
 	<li><i class="fa fa-user"></i> مشتریان من</li>
 @stop
 @section('content')
-@if( ! $myCustomers->isEmpty() || ! empty(Input::all()))
-    <div class="row">
-        <div class="col-sm-12">
-            @include('admin.pages.customer._search')
-        </div>
+<div class="row">
+    <div class="col-sm-12">
+        @include('admin.pages.customer._search')
     </div>
+</div>
+@if( ! $myCustomers->isEmpty())
     <div class="row">
         <div class="col-sm-12">
             @if( ! $myCustomers->isEmpty() )
@@ -32,7 +32,7 @@
         <div class="col-sm-12">
             <div class="col-sm-12 alert alert-info">
                 <div class="no-result">
-                    <p style="font-size:"><strong>شما هنوز مشتری ای ایجاد نکرده اید.</strong></p>
+                    <p style="font-size:"><strong>مشتری وجود ندارد.</strong></p>
                 </div>
                 <div class="">
                     <a href="{{URL::to('customers/create')}}" class="btn pull-left btn-danger">+ ایجاد مشتری جدید</a>

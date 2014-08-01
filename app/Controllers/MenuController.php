@@ -24,6 +24,7 @@ class MenuController  extends BaseController{
 		$this->menuRepo = $menuRepo;
 		$this->typeRepo = $typeRepo;
 		$this->menuValidator = $menuValidator;
+        $this->beforeFilter('hasPermission:menu');
 	}
 
 	/**

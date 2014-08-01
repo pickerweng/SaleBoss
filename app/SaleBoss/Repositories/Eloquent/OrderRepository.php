@@ -89,4 +89,14 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
 			throw new InvalidArgumentException($e->getMessage());
 		}
 	}
+
+    public function getSearchableOrders ($int)
+    {
+        return $this->model->with('state','customer')->makeSearchable()->makeSortable()->paginate($int);
+    }
+
+    public function getSearchableCreatorOrders(User $creator,$int)
+    {
+        return $creator->orders()->with('state','customer')->makeSearchable()->makeSortable()->paginate($int);
+    }
 }

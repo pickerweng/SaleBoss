@@ -23,6 +23,7 @@ class GroupController extends BaseController
 	{
 		$this->groupRepo = $groupRepo;
 		$this->groupValidator = $groupValidator;
+        $this->beforeFilter('hasPermission:groups');
 	}
 
 	/**

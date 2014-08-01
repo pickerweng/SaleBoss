@@ -4,7 +4,7 @@
 @stop
 @section('breadcrumb')
 	@parent
-	<li><a href="{{URL::to('admin/user')}}"><i class="fa fa-user"></i> کاربران</a></li>
+	<li><a href="{{URL::to('users')}}"><i class="fa fa-user"></i> کاربران</a></li>
 	<li class="active"><i class="fa fa-plus"></i> ویرایش کاربر {{$user->id}}</li>
 @stop
 @section('content')

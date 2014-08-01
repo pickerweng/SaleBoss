@@ -3,13 +3,16 @@
 namespace SaleBoss\Models;
 
 use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Input;
 use Miladr\Jalali\jDate;
 
 class User extends SentryUser {
 
 	use DateTrait;
 	use ChartTrait;
+    use SoftDeletingTrait;
 
     /**
      * Get user idetifier
@@ -18,7 +21,7 @@ class User extends SentryUser {
      */
     public function getIdentifier()
     {
-        if (!empty($this->first_name)) return $this->first_name;
+        if (!empty($this->first_name)) return "{$this->first_name} {$this->last_name}";
         if (!empty($this->email)) return $this->email;
         return $this->id;
     }
@@ -80,29 +83,6 @@ class User extends SentryUser {
         }
     }
 
-    /**
-     * Jalali date
-     *
-     * @return string
-     */
-    public function jalaliDate($attr)
-    {
-        $timestamp = strtotime($this->$attr);
-        return jDate::forge($timestamp)->format('date');
-    }
-
-    /**
-     * Jalali date with ago format
-     *
-     * @param $attr
-     * @return string
-     */
-    public function jalaliAgoDate($attr)
-    {
-        $timestamp = strtotime($this->$attr);
-        return jDate::forge($timestamp)->ago();
-    }
-
 	/**
 	 * User Badges
 	 *
@@ -143,8 +123,45 @@ class User extends SentryUser {
 		return $this->hasMany('SaleBoss\Models\OrderLog','previous_changer_id');
 	}
 
+    /**
+     * User created orders
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function orders()
     {
         return $this->hasMany('SaleBoss\Models\Order','creator_id');
+    }
+
+    /**
+     * User created leads
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function createdLeads()
+    {
+        return $this->hasMany('SaleBoss\Models\Lead','creator_id');
+    }
+
+    /**
+     * User locked leads
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function lockedLeads(){
+        return $this->hasMany('SaleBoss\Models\Lead','locker_id');
+    }
+
+    public function scopeMakeSortable($q)
+    {
+        $sortBy = Input::get('sort_by');
+        $asc = Input::get('asc');
+        if (in_array($sortBy,['created_at','updated_at','id']))
+        {
+            $q->orderBy($sortBy,empty($asc) ? "DESC" : "ASC");
+        }else
+        {
+            $q->orderBy('created_at','DESC');
+        }
     }
 }

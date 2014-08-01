@@ -163,6 +163,15 @@ class Creator {
     }
 
     /**
+     * @param Order $order
+     * @param       $data
+     */
+    private function doSellerUpdate(Order $order, array $data)
+    {
+        return $this->orderRepo->update($order, $data);
+    }
+
+    /**
      * Fire events on order create
      *
      * @retrun void
@@ -325,5 +334,36 @@ class Creator {
 		$previousStep = $this->stateRepo->findPreviousByPriority($state->priority);
 		return $previousStep;
 	}
+
+    public function sellerUpdate (Order $order, User $updater, $data)
+    {
+        try {
+            $this->setData($data);
+            $this->updater = $updater;
+            if (! $valid = $this->orderValidator->isValid($data))
+            {
+                return $this->listener->onCreateFail($this->orderValidator->getMessages());
+            }
+            if ($order->accounter_approved){
+                $state = $this->stateRepo->findByPriority(3);
+            }else {
+                $state = $this->stateRepo->findByPriority(2);
+            }
+
+            $this->data['state_id'] = $state->id;
+            $order = $this->doSellerUpdate($order, $this->data);
+            $this->fireUpdateEvents($order);
+            return $this->listener->onCreateSuccess(Lang::get('messages.operation_success'));
+        }catch (RepositoryException $e){
+            Log::info($e->getMessage());
+            return $this->listener->onCreateFail(Lang::get('messages.operation_error'));
+        }
+    }
+
+    private function fireUpdateEvents($order)
+    {
+        $this->events->fire('order.updated',array($order));
+        $this->events->fire('order.updated_by_saler',array($order));
+    }
 
 }

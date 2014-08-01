@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
-                    {{Form::label('sms_price', 'قیمت هر پیامک',['class' => 'control-label'])}}
+                    {{Form::label('sms_price', '(تومان)قیمت هر پیامک',['class' => 'control-label'])}}
                     {{Form::text('sms_price',null,['class' => 'form-control languageLeft'])}}
                 </div>
             </div>
@@ -69,7 +69,7 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
-                    {{Form::label('panel_price', 'مبلغ پنل',['class' => 'control-label'])}}
+                    {{Form::label('panel_price', 'مبلغ پنل به تومان',['class' => 'control-label'])}}
                     {{Form::text('panel_price',null ,['class' => 'form-control languageLeft'])}}
                 </div>
             </div>

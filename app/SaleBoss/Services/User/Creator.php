@@ -13,36 +13,47 @@ use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
+use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
+use SaleBoss\Repositories\Exceptions\RepositoryException;
 use SaleBoss\Repositories\GroupRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
+use SaleBoss\Services\Validator\ProfileValidator;
 use SaleBoss\Services\Validator\UserValidator;
 
 class Creator {
 
 	protected $userRepo;
+    protected $groupRepo;
+    protected $userValidator;
+    protected $profileValidator;
+    protected $events;
+    protected $auth;
 
-	/**
-	 * @param UserRepositoryInterface $userRepo
-	 * @param GroupRepositoryInterface $roleRepo
-	 * @param UserValidator $userValidator
-	 * @param AuthenticatorInterface $auth
-	 * @param Dispatcher $event
-	 */
+    /**
+     * @param UserRepositoryInterface                       $userRepo
+     * @param GroupRepositoryInterface                      $roleRepo
+     * @param UserValidator                                 $userValidator
+     * @param AuthenticatorInterface                        $auth
+     * @param Dispatcher                                    $event
+     * @param \SaleBoss\Services\Validator\ProfileValidator $profileValidator
+     */
 	public function __construct(
 		UserRepositoryInterface $userRepo,
 		GroupRepositoryInterface $roleRepo,
 		UserValidator $userValidator,
 		AuthenticatorInterface $auth,
-		Dispatcher $event
+		Dispatcher $event,
+        ProfileValidator $profileValidator
 	){
 		$this->userRepo = $userRepo;
 		$this->groupRepo = $roleRepo;
 		$this->userValidator = $userValidator;
 		$this->auth = $auth;
 		$this->events = $event;
+        $this->profileValidator = $profileValidator;
 	}
 
 	/**
@@ -76,7 +87,7 @@ class Creator {
             $data['activated'] = true;
 			$user = $this->userRepo->create($data);
 			$this->events->fire('user.created',array($user));
-            if (Sentry::getUser()->hasAnyAccess(['user.chage_groups']))
+            if (Sentry::getUser()->hasAnyAccess(['user.change_groups']))
             {
                 $this->groupRepo->addGroupsToUser($user, $groups);
             }
@@ -101,7 +112,7 @@ class Creator {
 		UpdateListenerInterface $listener
 	){
 		$this->userValidator->setCurrentIdFor('email',$id);
-		if (!$valid = $this->userValidator->isValid($info))
+		if (!$valid = $this->userValidator->isUpdateValid($info))
 		{
 			return $listener->onUpdateFail($this->userValidator->getMessages());
 		}
@@ -109,7 +120,7 @@ class Creator {
 		$info = $this->filterData($info);
 		try{
 			$user = $this->userRepo->update($id, $info);
-            if (Sentry::getUser()->hasAnyAccess(['user.chage_groups']))
+            if (Sentry::getUser()->hasAnyAccess(['user.change_groups']))
             {
                 $this->groupRepo->removeUserGroups($user);
                 $this->groupRepo->addGroupsToUser($user, $groups);
@@ -135,5 +146,32 @@ class Creator {
 		unset($data['roles']);
 		return $data;
 	}
+
+    public function updateMe(User $user,array $input, UpdateListenerInterface $listener)
+    {
+        $this->profileValidator->setCurrentIdFor('email',$user->id);
+        if (! $valid = $this->profileValidator->isValid($input))
+        {
+            return $listener->onUpdateFail($this->profileValidator->getMessages());
+        }
+        if (!empty($input['password']))
+        {
+            if (! $user->checkPassword($input['old_password']))
+            {
+                return $listener->onUpdateFail([Lang::get("messages.old_password_incorrect")]);
+            }
+        }
+        unset($input['old_password']);
+        unset($input['password_confirmation']);
+        try {
+            $this->userRepo->update($user->id, $input);
+            return $listener->onUpdateSuccess(Lang::get("messages.operation_success"));
+        }catch (NotFoundException $e){
+            return $listener->onUpdateNotFound();
+        }catch( RepositoryException $e){
+
+            return $listener->onUpdateFail([Lang::get("messages.database_error")]);
+        }
+    }
 
 }

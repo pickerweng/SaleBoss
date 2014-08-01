@@ -36,6 +36,15 @@ Route::group(["namespace" => "Controllers"], function(){
 	    Route::resource('users','UserController');
 	    Route::resource('permissions','PermissionController');
 	    Route::resource('states','StateController');
+        Route::put('leads/take/{id}','LeadController@leadPicker');
+        Route::put('leads/locker/{id}','LeadController@lockerUpdate');
+        Route::get('leads/locker/{id}','LeadController@lockerEdit');
+        Route::delete('leads/locker/{id}','LeadController@lockerRelease');
+        Route::get('leads/bulk','LeadImporterController@create');
+        Route::post('leads/bulk','LeadImporterController@store');
+        Route::resource('leads','LeadController');
+        Route::get("me/edit","UserController@profileEdit");
+        Route::put("me/edit","UserController@profileUpdate");
     });
 });
 
@@ -52,6 +61,8 @@ Route::group(["namespace" => 'Controllers\Opilo'],function(){
         Route::post('orders/sale/{customer_id}','OrderController@store');
         Route::get('my/orders','OrderController@myIndex');
         Route::get('orders/{id}','OrderController@show');
+        Route::get('orders/sale/{id}/edit','OrderController@edit');
+        Route::put('orders/sale/{id}','OrderController@update');
         Route::get('orders','OrderController@index');
 	    Route::put('orders/accounter_approve/{id}','OrderController@accounterUpdate');
 	    Route::put('orders/suspend/{id}','OrderController@suspendUpdate');

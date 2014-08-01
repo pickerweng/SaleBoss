@@ -57,6 +57,7 @@ class UserController extends BaseController
 	{
 		$this->dash->setUser(Sentry::getUser());
 		$data = $this->dash->getHisDash();
+        $data['inDashboard'] = true;
 		JavaScript::put(['orderChart' => $data['orderChart']]);
 		return $this->view(
 				'admin.pages.dashboard.main',
@@ -71,7 +72,7 @@ class UserController extends BaseController
 	 */
 	public function index()
 	{
-		$dynamicItems = $this->userRepo->getAllPaginated(50);
+		$dynamicItems = $this->userRepo->getAllPaginated(50,true);
 		$operationColumn = 'admin.pages.user.partials._operation';
 		$columns = Config::get('dynamic_data/datatables.users');
 		return $this->view(
@@ -113,7 +114,7 @@ class UserController extends BaseController
                 return $this->redirectTo('dash')->with('error_message','شما اجازه دسترسی به صفحه مورد نظر رد ندارید');
             }
 			$groups = $this->groupRepo->getAll();
-			$groups = $groups->lists('name', 'id');
+			$groups = $groups->lists('display_name', 'id');
 			$user = $this->userRepo->findById($id);
 			$current_groups = $this->groupRepo->getUserGroups($user);
 			$current_groups = $current_groups->lists('id');
@@ -168,7 +169,10 @@ class UserController extends BaseController
 	 */
 	public function destroy($id)
 	{
-		return $this->redirectTo('dash')->with('error_message','حذف کاربران موقتا غیر فعال شده است.');
+        if(! Sentry::getUser()->hasAnyAccess(['users.delete']))
+        {
+            return $this->redirectTo('dash')->with('error_message',Lang::get("messages.permission_denied"));
+        }
 		try {
 			$this->userRepo->delete($id);
 			return $this->redirectBack()->with('success_message', Lang::get('messages.operation_success'));
@@ -229,13 +233,7 @@ class UserController extends BaseController
 	 */
 	public function show($id)
 	{
-		return $id;
-		try {
-			$user = $this->userRepo->userWithGroups($id);
-			return $this->view('admin.pages.user.show')->withUser($user);
-		}catch(NotFoundException $e){
-			App::abort(404);
-		}
+        return $this->redirectTo('users/'. $id . '/edit');
 	}
 
     /**
@@ -257,5 +255,21 @@ class UserController extends BaseController
         }else {
             return true;
         }
+    }
+
+    public function profileEdit()
+    {
+        $user = Sentry::getUser();
+        $title = $this->getTitle();
+        $description = $this->getDescription();
+        return $this->view(
+            'admin.pages.user.profile_edit',
+            compact('user','title','description')
+        );
+    }
+
+    public function profileUpdate()
+    {
+        return $this->creator->updateMe(Sentry::getUser(), Input::get("item"), $this);
     }
 }

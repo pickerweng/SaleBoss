@@ -5,9 +5,9 @@
 ])}}
 	@if(! $order->suspended)
 		{{Form::hidden('suspended',true)}}
-		{{Form::submit('معلق کردن سفارش',['class' => 'btn btn-warning btn-block'])}}
+		{{Form::submit('معلق کردن سفارش',['class' => 'btn pull-left btn-xs btn-default operation-margin'])}}
 	@else
 		{{Form::hidden('suspended',null)}}
-		{{Form::submit('فعال کردن سفارش',['class' => 'btn btn-warning btn-block'])}}
+		{{Form::submit('فعال کردن سفارش',['class' => 'btn pull-left btn-xs btn-default operation-margin'])}}
 	@endif
 {{Form::close()}}

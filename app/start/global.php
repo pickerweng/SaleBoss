@@ -49,6 +49,7 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
+    return Redirect::to('dash')->with('error_message','مشکلی در پردازش درخواست شما وجود دارد. لطفا به بخش نرم افزار اطلاع دهید.');
 });
 
 /*
@@ -105,4 +106,5 @@ Event::listen('illuminate.query', function($query, $bindings, $time, $name)
 	}
 });
 
+View::share('opiloConfig',Config::get('saleboss/opilo_configs'));
 require app_path().'/filters.php';

@@ -6,12 +6,12 @@
         ])}}
         {{Form::hidden('accounter_approved',null,array('class' => 'approve-order-hidden'))}}
         <div class="col-md-12 col-lg-6">
-            <button type="button" class="btn btn-success btn-block accounter-action-button approve-button" data-toggle="modal" data-target="#orderDesc">
+            <button type="button" class="btn btn-success btn-lg btn-block accounter-action-button approve-button" data-toggle="modal" data-target="#orderDesc">
                 <i class="fa fa-check"></i> تایید و ارسال به پشتیبانی
             </button>
         </div>
         <div class="col-lg-6 col-md-12">
-            <button type="button" class="btn btn-danger btn-block accounter-action-button deport-button" data-toggle="modal" data-target="#orderDesc">
+            <button type="button" class="btn btn-danger btn-block btn-lg accounter-action-button deport-button" data-toggle="modal" data-target="#orderDesc">
                 <i class="fa fa-error"></i> عدم تایید و بازگشت به فروش
             </button>
         </div>

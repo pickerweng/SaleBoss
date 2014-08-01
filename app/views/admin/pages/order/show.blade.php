@@ -9,13 +9,13 @@
 @stop
 @section('content')
 <div class="row">
-        <div class="col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+        <div class="col-sm-12 col-md-12 col-lg-8 col-lg-offset-2">
             <div class="well">
 				@include('admin.pages.order._show')
 
                 @if(Sentry::getUser()->hasAnyAccess(['orders.accounter_approve']))
 	                @if($order->completed)
-	                    این سفارش تکمیل شده است
+	                    <strong><code>این سفارش تکمیل شده است</code></strong>
 	                @elseif($order->state->priority == 2)
 	                    <h3 class="text-center">تایید حسابداری</h3>
 	                    @include('admin.pages.order._accounter_form')
@@ -32,8 +32,10 @@
 				@if(Sentry::getUser()->hasAnyAccess(['orders.suspend']))
 	                @include('admin.pages.order._suspend_form')
 	            @endif
-                <br>
-                <button class="btn btn-info btn-block" data-toggle="modal" data-target="#customerSummary">مشاهده مشتری</button>
+                @if(Sentry::getUser()->hasAnyAccess(['orders.own_edit','orders.edit']))
+                    <a href="{{URL::to('orders/sale/'. $order->id .'/edit')}}" class="btn btn-default btn-xs operation-margin pull-left">ویرایش سفارش</a>
+                @endif
+                <button class="btn btn-default btn-xs pull-left" data-toggle="modal" data-target="#customerSummary">مشاهده مشتری</button><br>
             </div>
         </div>
 </div>

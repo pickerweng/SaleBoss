@@ -5,16 +5,22 @@
 	'class'     =>  'order-approve-form'
 	])}}
 	{{Form::hidden('completed',null,array('class' => 'approve-order-hidden'))}}
-	<div class="col-md-12 col-lg-6">
-		<button type="button" class="btn btn-success btn-block accounter-action-button approve-button" data-toggle="modal" data-target="#orderDesc">
+    {{Form::hidden('to_accounter',null,array('class' => 'to-accounter-hidden'))}}
+	<div class="col-lg-4 col-md-6 col-sm-12">
+		<button type="button" class="btn btn-success btn-block btn-lg accounter-action-button approve-button" data-toggle="modal" data-target="#orderDesc">
 			<i class="fa fa-check"></i> تایید نهایی
-		</button>
+		</button><br>
 	</div>
-	<div class="col-lg-6 col-md-12">
-		<button type="button" class="btn btn-danger btn-block accounter-action-button deport-button" data-toggle="modal" data-target="#orderDesc">
-			<i class="fa fa-error"></i> عدم تایید بازگشت به فروش
-		</button>
+	<div class="col-lg-4 col-md-6 col-sm-12">
+		<button type="button" class="btn btn-default btn-block btn-lg accounter-action-button to-accounter-deport-button" data-toggle="modal" data-target="#orderDesc">
+			<i class="fa fa-error"></i> بازگشت به حسابداری
+		</button><br>
 	</div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <button type="button" class="btn btn-danger btn-block btn-lg accounter-action-button deport-button" data-toggle="modal" data-target="#orderDesc">
+            <i class="fa fa-error"></i> عدم تایید بازگشت به فروش
+        </button><br>
+    </div>
 	<div class="modal fade" id="orderDesc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -46,8 +52,15 @@
 
 			// Deport order
 			$('.deport-button').click(function(){
-				$('.approve-order-hidden').removeAttr('value');
+				$('.to-accounter-hidden').removeAttr('value');
+                $('.approve-order-hidden').removeAttr('value');
 			});
+
+            // Set return to accounter
+            $('.to-accounter-deport-button').click(function(){
+                $('.to-accounter-hidden').val('1');
+                $('.approve-order-hidden').removeAttr('value');
+            })
 
 			// Submit order by modal button
 			$('.submit-order').click(function(){

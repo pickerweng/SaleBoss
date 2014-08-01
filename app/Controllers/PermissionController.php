@@ -16,7 +16,7 @@ class PermissionController extends BaseController implements StoreListenerInterf
 		Permission $permission
 	){
 		$this->permission = $permission;
-        $this->beforeFilter('hasPermission:group.chage_permissions',['only' => ['index','store']]);
+        $this->beforeFilter('hasPermission:group.change_permissions',['only' => ['index','store']]);
 	}
 
 	/**

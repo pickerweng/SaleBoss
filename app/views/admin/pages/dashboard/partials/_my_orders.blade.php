@@ -1,6 +1,12 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">
-		<h3 class="panel-title"><i class="fa fa-check"></i> سفارش هایی که من ایجاد کرده ام</h3>
+		<h3 class="panel-title"><i class="fa fa-check"></i>
+            @if(! empty($inMyOrders))
+                سفارش هایی که من ایجاد کرده ام
+            @else
+                سفارش ها
+            @endif
+        </h3>
 	</div>
 	<div class="panel-body">
 		<div class="list-group">
@@ -20,7 +26,13 @@
 					<tr>
 						<td>{{$order->id}}</td>
 						<td>{{$order->diff()}}</td>
-						<td>{{$order->customer->name()}}</td>
+						<td>
+                            @if(! empty($inMyOrders))
+                                <a href="{{URL::to('my/orders?customer_id=' . $order->customer->id)}}">{{$order->customer->name()}}</a>
+                            @else
+                                <a href="{{URL::to('orders?customer_id=' . $order->customer->id)}}">{{$order->customer->name()}}</a>
+                            @endif
+                        </td>
 						<td>{{$order->state->title}}</td>
 						<td class="languageLeft">
 							<a target="_blank" href="{{URL::to('orders/' . $order->id)}}" class="btn btn-success btn-xs">مشاهده</a>
@@ -32,7 +44,7 @@
 			</div>
 		</div>
 		<div class="text-left">
-            @if (empty($noAll))
+            @if (! empty($inDashboard))
 			    <a href="{{URL::to('my/orders')}}">مشاهده همه <i class="fa fa-arrow-circle-left"></i></a>
             @endif
 		</div>

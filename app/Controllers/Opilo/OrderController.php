@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
+use SaleBoss\Repositories\OrderLogRepositoryInterface;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\StateRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
@@ -24,21 +25,25 @@ class OrderController extends BaseController
 	protected $orderCreator;
 	protected $userRepo;
 	protected $auth;
+    protected $orderLogRepo;
 
-	/**
-	 * @param Creator $creator
-	 * @param UserRepositoryInterface $userRepo
-	 * @param AuthenticatorInterface $auth
-	 * @param OrderRepositoryInterface $orderRepo
-	 * @param Dispatcher $events
-	 */
+    /**
+     * @param Creator                                            $creator
+     * @param UserRepositoryInterface                            $userRepo
+     * @param AuthenticatorInterface                             $auth
+     * @param OrderRepositoryInterface                           $orderRepo
+     * @param Dispatcher                                         $events
+     * @param \SaleBoss\Repositories\StateRepositoryInterface    $stateRepo
+     * @param \SaleBoss\Repositories\OrderLogRepositoryInterface $orderLogRepo
+     */
 	public function __construct(
 		Creator $creator,
 		UserRepositoryInterface $userRepo,
 		AuthenticatorInterface $auth,
 		OrderRepositoryInterface $orderRepo,
 		Dispatcher $events,
-		StateRepositoryInterface $stateRepo
+		StateRepositoryInterface $stateRepo,
+        OrderLogRepositoryInterface $orderLogRepo
 	)
 	{
 		$this->orderCreator = $creator;
@@ -47,7 +52,10 @@ class OrderController extends BaseController
 		$this->auth = $auth;
 		$this->events = $events;
 		$this->stateRepo = $stateRepo;
+        $this->orderLogRepo = $orderLogRepo;
 		$this->beforeFilter('hasPermission:orders.accounter_approve', ['only' => 'accounterUpdate']);
+        $this->beforeFilter('hasPermission:orders.suspend', ['only' => 'suspendUpdate']);
+        $this->beforeFilter('hasPermission:orders.supporter_approve', ['only' => 'supporterUpdate']);
 	}
 
 	public function create($id)
@@ -141,18 +149,20 @@ class OrderController extends BaseController
 	 */
 	public function onCreateSuccess($message = null)
 	{
-		return $this->redirectBack()->with('success_message', $message);
+		return $this->redirectTo('my/orders')->with('success_message', $message);
 	}
 
 	public function myIndex()
 	{
 		$title = 'لیست سفارش های من';
 		$description = 'لیست سفارش هایی که من ایجاد کرده ام';
-		$generatedOrders = $this->orderRepo->getGeneratedOrders($this->auth->user(), 50);
-		$noAll = true;
+		// $generatedOrders = $this->orderRepo->getGeneratedOrders($this->auth->user(), 50);
+		$generatedOrders = $this->orderRepo->getSearchableCreatorOrders($this->auth->user(),50);
+        $states = ['' => 'همه'] + $this->stateRepo->getAll()->lists('title','id');
+        $inMyOrders = true;
 		return $this->view(
 			'admin.pages.order.my_index',
-			compact('title', 'description', 'generatedOrders', 'noAll')
+			compact('title', 'description', 'generatedOrders', 'inMyOrders','states')
 		);
 	}
 
@@ -169,10 +179,16 @@ class OrderController extends BaseController
 			$title = "مشاهده سفارش {$order->id}";
 			$description = "این سفارش توسط{$order->creator()->first()->getIdentifier()} ایجاد شده است. ";
 			$customer = $order->customer()->first();
+            $currentUser = $this->auth->user();
+            if ($customer->crator_id != $currentUser->id && ! $currentUser->hasAnyAccess(['orders.view']))
+            {
+                return $this->redirectTo('dash')->with('error_message',Lang::get("messages.permission_denied"));
+            }
+            $lastEdited = $this->orderLogRepo->findLastLogFor($order);
 			$opiloConfig = Config::get('opilo_configs');
 			return $this->view(
 				'admin.pages.order.show',
-				compact('customer', 'title', 'description', 'order', 'opiloConfig')
+				compact('customer', 'title', 'description', 'order', 'opiloConfig','lastEdited')
 			);
 		} catch (NotFoundException $e) {
 			App::abort(404);
@@ -188,15 +204,16 @@ class OrderController extends BaseController
 	{
 		$title = 'لیست همه سفارش ها';
 		$description = 'سفارش هایی که توسط کاربران ایجاد شده است.';
-		$noAll = true;
-		$state = $this->stateRepo->getAll();
+		$states = $this->stateRepo->getAll();
+        $states = ['' => 'همه'] + $states ->lists('title','id');
 		if (!$this->auth->user()->hasAnyAccess(['orders.view_all'])) {
 			return $this->redirectTo('my/orders');
 		}
-		$generatedOrders = $this->orderRepo->getGeneratedOrders(null, 50);
+		// $generatedOrders = $this->orderRepo->getGeneratedOrders(null, 50);
+        $generatedOrders = $this->orderRepo->getSearchableOrders(50);
 		return $this->view(
 			'admin.pages.order.index',
-			compact('title', 'description', 'generatedOrders', 'noAll','state')
+			compact('title', 'description','states', 'generatedOrders','state')
 		);
 	}
 
@@ -266,6 +283,10 @@ class OrderController extends BaseController
 		try {
 			$order = $this->orderRepo->findById($id);
 			$input = Input::only('suspended');
+            if ($input['suspended'])
+            {
+                $input['completed'] = false;
+            }
 			$this->events->fire('orders.updated', array($order));
 			$this->orderRepo->update($order, $input);
 			return $this->redirectBack()->with('success_message', Lang::get('messages.operation_success'));
@@ -282,16 +303,24 @@ class OrderController extends BaseController
 	{
 		try {
 			$input = Input::only('completed', 'description');
+            $to_accounter = Input::get('to_accounter');
 			$order = $this->orderRepo->findById($id);
 			$current_state = $this->stateRepo->findById($order->state_id);
 			if ($current_state->priority != 3) {
 				return $this->redirectBack()->with('error_message', 'سفارش در صف پشتیبانی نمیباشد.');
 			}
 			if ($input['completed']) {
+                $input['suspended'] = false;
 				$order = $this->orderRepo->update($order, $input);
 			} else {
-				$seller_state = $this->stateRepo->findByPriority(1);
-				$input['state_id'] = $seller_state->priority;
+                if (!empty($to_accounter))
+                {
+                    $state = $this->stateRepo->findByPriority(2);
+                }else
+                {
+                    $state = $this->stateRepo->findByPriority(1);
+                }
+				$input['state_id'] = $state->priority;
 				$order = $this->orderRepo->update($order, $input);
 			}
 			$this->events->fire('order.updated', array($order));
@@ -303,7 +332,60 @@ class OrderController extends BaseController
 
 	public function edit($id)
 	{
-		return 'editing orders';
+		try {
+            $order = $this->orderRepo->findById($id);
+            $sellerState = $this->stateRepo->findByPriority(1);
+            $currentUser= $this->auth->user();
+            if ($currentUser->id != $order->creator_id && ! $currentUser->hasAnyAccess(['orders.edit']))
+            {
+                return $this->redirectBack()->with('error_message',Lang::get("messages.permission_denied"));
+            }
+            if ($sellerState->id != $order->state_id)
+            {
+                return $this->redirectTo('my/orders')->with('error_message',Lang::get("messages.invalid_state"));
+            }
+            $lastEdited = $this->orderLogRepo->findLastLogFor($order);
+            $customer = $order->customer;
+            return $this->view(
+                "admin.pages.order.edit",
+                compact('order','sellerState','currentUser','lastEdited','customer')
+            );
+        }catch (NotFoundException $e){
+            App::abort(404);
+        }
 	}
+
+    public function update($id)
+    {
+        try {
+            $order = $this->orderRepo->findById($id);
+            $sellerState = $this->stateRepo->findByPriority(1);
+            $currentUser = $this->auth->user();
+            if ($currentUser->id != $order->creator_id && ! $currentUser->hasAnyAccess(['orders.edit']))
+            {
+                return $this->redirectBack()->with('error_message',Lang::get("messages.permission_denied"));
+            }
+            if ($sellerState->id != $order->state_id)
+            {
+                return $this->redirectTo('my/orders')->with('error_message',Lang::get("messages.invalid_state"));
+            }
+            $data = Input::only(
+                "panel_type",
+                "panel_type",
+                "private_number",
+                "sms_price",
+                "sms_text",
+                "sms_description",
+                "payment_type",
+                "cart_number",
+                "panel_price",
+                "description"
+            );
+            $this->orderCreator->setListener($this);
+            return $this->orderCreator->sellerUpdate($order, $currentUser, $data);
+        }catch (NotFoundException $e){
+            App::abort(404);
+        }
+    }
 
 }

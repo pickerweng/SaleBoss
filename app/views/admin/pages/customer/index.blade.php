@@ -7,12 +7,12 @@
 	<li><i class="fa fa-user"></i> مشتریان</li>
 @stop
 @section('content')
-@if( ! $myCustomers->isEmpty() || ! empty(Input::all()))
-    <div class="row">
-        <div class="col-sm-12">
-            @include('admin.pages.customer._search')
-        </div>
+<div class="row">
+    <div class="col-sm-12">
+        @include('admin.pages.customer._search')
     </div>
+</div>
+@if( ! $myCustomers->isEmpty())
     <div class="row">
         <div class="col-sm-12">
             @if( ! $myCustomers->isEmpty() )

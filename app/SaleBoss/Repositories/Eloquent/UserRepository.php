@@ -30,9 +30,13 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 	 * @param $number
 	 * @return Collection
 	 */
-	public function getAllPaginated($number)
+	public function getAllPaginated($number, $internalUser = false)
 	{
 		$model = $this->model->newInstance();
+        if ($internalUser)
+        {
+            $model = $model->where('is_customer',false);
+        }
 		return $model->paginate($number);
 	}
 
@@ -52,14 +56,15 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 		}
 	}
 
-	/**
-	 * Updates a user in db
-	 *
-	 * @param $id
-	 * @param array $data
-	 * @throws \SaleBoss\Repositories\Exceptions\InvalidArgumentException
-	 * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
-	 */
+    /**
+     * Updates a user in db
+     *
+     * @param       $id
+     * @param array $data
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|static
+     * @throws \SaleBoss\Repositories\Exceptions\InvalidArgumentException
+     * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
+     */
 	public function update($id, array $data)
 	{
 		try {
@@ -68,6 +73,10 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
 			if(is_null($model)){
 				throw new NotFoundException("No item with id : [{$id}] found");
 			}
+            if(empty($data['password']))
+            {
+                $data['password'] = $model->password;
+            }
 			$model->update($data);
 			return $model;
 		}catch(QueryException $e){
@@ -142,12 +151,18 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      */
     public function getCustomers($user = null, $int = 50, array $searches)
     {
-        $query= $this->model->newInstance();
+        $query= $this->model->newInstance()->makeSortable();
         foreach($searches as $key => $search)
         {
-            if ($search !== '')
+            if ($search != '')
             {
-                $query = $query->where("{$key}","LIKE",     "%{$search}%");
+                if ($key != 'creator_id')
+                {
+                    $query = $query->where("{$key}","LIKE","%{$search}%");
+                }else
+                {
+                    $query = $query->where('creator_id','=',$search);
+                }
             }
         }
         $query = $query->where('is_customer',true);

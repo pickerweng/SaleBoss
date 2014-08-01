@@ -1,6 +1,17 @@
 <div>
     <fieldset>
-        <legend><strong>اطلاعات سفارش {{empty($order->suspended)  ? '' : '{معلق}'}}</strong></legend>
+        <legend>
+            <strong>
+                اطلاعات سفارش
+            </strong>
+            @if($order->suspended)
+                <label class="label label-danger pull-left">معلق</label>
+            @endif
+            @if($order->completed)
+                <label class="label label-sm label-success pull-left">تکمیل شده</label>
+            @endif
+            <label class="label label-xs label-info pull-left">{{$order->state->title}}</label>
+        </legend>
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
@@ -18,7 +29,7 @@
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
-                    {{Form::label('sms_price', 'قیمت هر پیامک',['class' => 'control-label'])}}
+                    {{Form::label('sms_price', 'قیمت هر پیامک به تومان',['class' => 'control-label'])}}
                     <p class="form-static-control">{{$order->sms_price}}</p>
                 </div>
             </div>
@@ -64,8 +75,19 @@
             </div>
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
-                    {{Form::label('panel_price', 'مبلغ پنل',['class' => 'control-label'])}}
+                    {{Form::label('panel_price', 'مبلغ پنل به تومان',['class' => 'control-label'])}}
                     <p class="form-control-static">{{$order->panel_price}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="form-group">
+                    <br>
+                    {{Form::label('last_edit', 'آخرین ویرایش',['class' => 'control-label'])}}
+                    <p class="form-control-static">
+                        این سفارش آخرین بار توسط {{$lastEdited->changer->getIdentifier()}} ویرایش شده.
+                    </p>
                 </div>
             </div>
         </div>

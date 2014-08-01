@@ -41,16 +41,18 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
 		return $user->getGroups();
 	}
 
-	/**
-	 * Add
-	 *
-	 * @param User $user
-	 * @param array $groups
-	 * @return \SaleBoss\Models\User
-	 */
+    /**
+     * Add
+     *
+     * @param User   $user
+     * @param array  $groups
+     * @param string $key
+     * @return \SaleBoss\Models\User
+     */
 	public function addGroupsToUser(User $user, $groups, $key = 'id')
 	{
         $groups = (array) $groups;
+        $groups = empty($groups) ? [time().uniqid()] : $groups;
 		$groups = $this->model->whereIn($key,$groups)->get();
 		if ($groups->isEmpty()){
 			return $user;

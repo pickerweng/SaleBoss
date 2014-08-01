@@ -19,7 +19,7 @@
             <td class="languageLeft">{{$customer->tell}}</td>
             <td class="languageLeft">{{$customer->mobile}}</td>
             <td class="languageLeft">{{$customer->email}}</td>
-            <td>{{$customer->creator->getIdentifier()}}</td>
+            <td><a href="{{URL::to(Request::path() . '?creator_id='. $customer->creator_id)}}">{{$customer->creator->getIdentifier()}}</a></td>
             <td class="languageLeft">
                 @include('admin.pages.customer._my_operation')
             </td>

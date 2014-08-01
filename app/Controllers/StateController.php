@@ -23,6 +23,7 @@ class StateController extends BaseController{
 	){
 		$this->stateRepo  = $stateRepo;
 		$this->sValidator = $sValidator;
+        $this->beforeFilter('hasPermission:states');
 	}
 
 	/**

@@ -7,12 +7,12 @@
 	<li><i class="fa fa-user"></i> سفارش ها</li>
 @stop
 @section('content')
-@if( ! $generatedOrders->isEmpty() || ! empty(Input::all()))
-    <!--div class="row">
-        <div class="col-sm-12">
-            @include('admin.pages.order._search')
-        </div>
-    </div-->
+<div class="row">
+    <div class="col-sm-12">
+        @include('admin.pages.order._search')
+    </div>
+</div>
+@if( ! $generatedOrders->isEmpty())
     <div class="row">
         <div class="col-sm-12">
             @if( ! $generatedOrders->isEmpty() )

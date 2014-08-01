@@ -11,4 +11,6 @@ interface OrderLogRepositoryInterface {
      * @return mixed
      */
     public function store(Order $order,$changer_id , $p_changer_id);
+
+    public function findLastLogFor (Order $order);
 }

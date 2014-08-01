@@ -22,6 +22,7 @@ class MenuTypeController extends BaseController
 	{
 		$this->menuTypeRepo = $menuTypeRepo;
 		$this->typeValidator = $typeValidator;
+        $this->beforeFilter('hasPermission:menu_type');
 	}
 
 	/**

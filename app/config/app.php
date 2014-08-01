@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://salesboss.opilo.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Tehran',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -132,6 +132,8 @@ return array(
 		'SaleBoss\Services\Presenters\PresenterServiceProvider',
 		'Laracasts\Utilities\UtilitiesServiceProvider',
         'SaleBoss\Events\EventsServiceProvider',
+        'SaleBoss\Services\Leads\LeadServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
 	),
 
 	/*
@@ -201,7 +203,9 @@ return array(
 		'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 		'FormGenerator'   => 'SaleBoss\Services\EavSmartAss\Form\Facades\FormGenerator',
         'MenuBuilder'     => 'SaleBoss\Services\Menu\Facades\MenuBuilder',
-		'CommonPresenter' => 'SaleBoss\Services\Presenters\Facades\CommonPresenter'
+		'CommonPresenter' => 'SaleBoss\Services\Presenters\Facades\CommonPresenter',
+        'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
+        'ThrottleL'       => 'SaleBoss\Services\Leads\Presenter\Facades\ThrottleL'
 	),
 
 );
