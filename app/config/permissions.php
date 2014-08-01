@@ -6,6 +6,7 @@ return array(
     'graphs.order_graph',
     'customers.edit',
     'customers.own_edit',
+    'orders.own_edit',
     'menu.admin',
     'menu.sales',
     'menu.accounter',

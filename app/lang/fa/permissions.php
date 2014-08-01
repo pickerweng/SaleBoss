@@ -19,6 +19,7 @@ return array(
     'users.delete'                          =>  'حذف کاربر',
     'users.edit'                            =>  'ویرایش کابری',
     'orders.view_all'                       =>  'مشاهده همه سفارش ها',
+    'orders.own_edit'                       =>  'ویرایش سفارش خود',
     'orders.view'                           =>  'مشاهده صفحه ی سفارش',
     'orders.supporter_approve'              =>  'تایید پشتیبانی',
     'orders.edit'                           =>  'ویرایش سفارشها',
