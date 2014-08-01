@@ -49,7 +49,7 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
-    //return Redirect::to('dash')->with('error_message','مشکلی در پردازش درخواست شما وجود دارد. لطفا به بخش نرم افزار اطلاع دهید.');
+    return Redirect::to('dash')->with('error_message','مشکلی در پردازش درخواست شما وجود دارد. لطفا به بخش نرم افزار اطلاع دهید.');
 });
 
 /*
