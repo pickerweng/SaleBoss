@@ -22,7 +22,7 @@
 	                @endif
                 @endif
 				<br>
-	            @if(Sentry::getUser()->hasAnyAccess(['orders.support']))
+	            @if(Sentry::getUser()->hasAnyAccess(['orders.supporter_approve']))
 	                @if($order->state->priority == 3)
 	                    <h3 class="text-center">تایید پشتیبانی</h3>
 	                    @include('admin.pages.order._support_form')
