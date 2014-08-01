@@ -75,7 +75,7 @@ class CustomerController extends BaseController
         {
             return $this->redirectBack()->with('success_message',$message);
         }else {
-            return $this->redirectTo('orders')->with('success_message',$message);
+            return $this->redirectTo('orders/create/' . $customer->id)->with('success_message',$message);
         }
     }
 
