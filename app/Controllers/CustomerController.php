@@ -5,6 +5,7 @@ use Controllers\BaseController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
+use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\UserRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
@@ -63,11 +64,11 @@ class CustomerController extends BaseController
     /**
      * What to do when storing in db is successfull
      *
-     * @param null $message
-     *
+     * @param null                  $message
+     * @param \SaleBoss\Models\User $customer
      * @return Redirect
      */
-    public function onStoreSuccess($message = null)
+    public function onStoreSuccess($message = null,User $customer)
     {
         $message = is_null($message) ? Lang::get('messages.operation_success') : $message;
         if (! Input::has('to_orders'))

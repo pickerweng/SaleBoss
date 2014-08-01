@@ -79,8 +79,8 @@ class CustomerCreator {
 
         try
         {
-            $this->doStore();
-            return $this->listener->onStoreSuccess(Lang::get('messages.operation_success'));
+            $customer = $this->doStore();
+            return $this->listener->onStoreSuccess(Lang::get('messages.operation_success'),$customer);
         }catch ( RepositoryException $e)
         {
             Log::info($e->getMessage());
@@ -110,6 +110,7 @@ class CustomerCreator {
         $this->data['creator_id'] = $this->auth->user()->id;
         $customer = $this->userRepo->createRaw($this->data);
         $this->events->fire('customer.created',array($customer));
+        return $customer;
     }
 
     /**
