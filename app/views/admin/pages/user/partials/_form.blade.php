@@ -62,7 +62,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <br>
-                    @if(! empty($update))
+                    @if(empty($update))
                         <button type="submit" class="btn btn-lg btn-success btn-block"><i class="fa fa-plus"></i> ایجاد کاربر جدید</button>
                     @else
                         <button type="submit" class="btn btn-lg btn-success btn-block"><i class="fa fa-edit"></i> ویرایش کاربر</button>
