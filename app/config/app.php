@@ -133,7 +133,7 @@ return array(
 		'Laracasts\Utilities\UtilitiesServiceProvider',
         'SaleBoss\Events\EventsServiceProvider',
         'SaleBoss\Services\Leads\LeadServiceProvider',
-        'Maatwebsite\Excel\ExcelServiceProvider',
+        //'Maatwebsite\Excel\ExcelServiceProvider',
 	),
 
 	/*
