@@ -20,7 +20,7 @@ return array(
     'users.edit'                            =>  'ویرایش کابری',
     'orders.view_all'                       =>  'مشاهده همه سفارش ها',
     'orders.view'                           =>  'مشاهده صفحه ی سفارش',
-    'orders.supporter_approve'              =>  'تایید پشتیبانی'
+    'orders.supporter_approve'              =>  'تایید پشتیبانی',
     'orders.edit'                           =>  'ویرایش سفارشها',
     'user.change_groups'                    =>  'تغییر گروه کاربری کاربران',
     'leads.edit'                            =>  'ویرایش لیدها',
