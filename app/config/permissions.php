@@ -24,6 +24,7 @@ return array(
     'leads.edit',
     'orders.accounter_approve',
     'orders.supporter_approve',
+    'orders.view',
     'orders.suspend',
     'superuser',
 );
