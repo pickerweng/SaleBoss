@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{URL::to('admin/photo')}}" target="_blank">
+            <a href="{{URL::to('leads?my_leads=1')}}" target="_blank">
                 <div class="panel-footer announcement-bottom">
                     <div class="row">
                         <div class="col-xs-6">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{URL::to('admin/car')}}">
+            <a href="{{URL::to('leads?my_leads=1&status=-1')}}">
                 <div class="panel-footer announcement-bottom">
                     <div class="row">
                         <div class="col-xs-6">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{URL::to('admin/brand')}}">
+            <a href="{{URL::to('leads?my_leads=1&status=1')}}">
                 <div class="panel-footer announcement-bottom">
                     <div class="row">
                         <div class="col-xs-6">
