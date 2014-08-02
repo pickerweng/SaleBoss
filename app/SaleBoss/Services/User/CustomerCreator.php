@@ -106,7 +106,7 @@ class CustomerCreator {
     protected function doStore()
     {
         $this->data['is_customer'] = true;
-        $this->data['password'] = $this->data['mobile'];
+        $this->data['password'] = $this->data['email'];
         $this->data['creator_id'] = $this->auth->user()->id;
         $customer = $this->userRepo->createRaw($this->data);
         $this->events->fire('customer.created',array($customer));
