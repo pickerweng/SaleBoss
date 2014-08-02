@@ -126,6 +126,8 @@ class CustomerCreator {
         $this->setCustomer($customer);
         $this->setData($data);
         $this->validator->setCurrentIdFor('email',$customer->id);
+	    $this->validator->setCurrentIdFor('mobile',$customer->id);
+	    $this->validator->setCurrentIdFor('tell',$customer->id);
         if (! $valid = $this->validator->isValid($data))
         {
             return $this->updateListener->onUpdateFail($this->validator->getMessages());

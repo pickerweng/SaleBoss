@@ -350,6 +350,7 @@ class Creator {
                 $state = $this->stateRepo->findByPriority(2);
             }*/
 			$state = $this->stateRepo->findByPriority(2);
+
             $this->data['state_id'] = $state->id;
             $order = $this->doSellerUpdate($order, $this->data);
             $this->fireUpdateEvents($order);

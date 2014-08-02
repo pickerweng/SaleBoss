@@ -72,6 +72,22 @@
                     </label>
                 </div>
             </div>
+	        <div class="col-sm-12 col-md-3 col-lg-2 form-group">
+		        <div class="checkbox">
+			        <label class="control-label">
+				        {{Form::checkbox('completed','1',Input::get('completed'))}}
+				        سفارش های تکمیل شده
+			        </label>
+		        </div>
+	        </div>
+	        <div class="col-sm-12 col-md-3 col-lg-2 form-group">
+		        <div class="checkbox">
+			        <label  class="text-danger control-label">
+				        {{Form::checkbox('completed','0',(Input::get('completed') === '0' ? true : false) )}}
+				        سفارش های تکمیل نشده
+			        </label>
+		        </div>
+	        </div>
             <div class="col-sm-12 col-md-3 col-lg-2 form-group">
                 <div class="checkbox">
                     <label class="control-label">

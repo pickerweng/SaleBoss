@@ -110,9 +110,9 @@ class Order extends  Eloquent{
         {
             $q = $q->where('accounter_approved',true);
         }
-        if(!empty($input['completed']))
+        if(isset($input['completed']) && !is_null($input['completed']))
         {
-            $q = $q->where('completed',true);
+            $q = $q->where('completed',$input['completed']);
         }
         if(!empty($input['suspended']))
         {
