@@ -33,7 +33,16 @@
                                 <a href="{{URL::to('orders?customer_id=' . $order->customer->id)}}">{{$order->customer->name()}}</a>
                             @endif
                         </td>
-						<td>{{$order->state->title}}</td>
+						<td>
+							{{$order->state->title}}
+							@if($order->completed)
+								<label class="label label-success">تکمیل شده</label>
+							@elseif($order->suspended)
+								<label class="label label-danger">معلق شده</label>
+							@else
+								<label class="label label-info">تکمیل نشده</label>
+							@endif
+						</td>
 						<td class="languageLeft">
 							<a target="_blank" href="{{URL::to('orders/' . $order->id)}}" class="btn btn-success btn-xs">مشاهده</a>
 						</td>
