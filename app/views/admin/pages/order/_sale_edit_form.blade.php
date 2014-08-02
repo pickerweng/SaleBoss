@@ -100,11 +100,7 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                @if($order->accounter_approved)
-                    <button type="submit" class="btn btn-lg btn-block btn-info">ثبت سفارش و ارسال به پشتیبانی</button>
-                @else
-                    <button type="submit" class="btn btn-lg btn-block btn-info">ثبت سفارش و ارسال به حسابدار</button>
-                @endif
+				<button type="submit" class="btn btn-lg btn-block btn-info">ثبت سفارش و ارسال به حسابدار</button>
             </div>
         </div>
     </fieldset>

@@ -344,12 +344,12 @@ class Creator {
             {
                 return $this->listener->onCreateFail($this->orderValidator->getMessages());
             }
-            if ($order->accounter_approved){
+            /*if ($order->accounter_approved){
                 $state = $this->stateRepo->findByPriority(3);
             }else {
                 $state = $this->stateRepo->findByPriority(2);
-            }
-
+            }*/
+			$state = $this->stateRepo->findByPriority(2);
             $this->data['state_id'] = $state->id;
             $order = $this->doSellerUpdate($order, $this->data);
             $this->fireUpdateEvents($order);
