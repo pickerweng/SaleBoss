@@ -79,8 +79,7 @@ class Order extends  Eloquent{
         if(! empty($input['creator']))
         {
             $q = $q->whereHas('creator',function($q) use ($input){
-               $q->where(DB::raw("CONCAT(first_name,' ',last_name)"),'LIKE',"%{$input['customer']}%")
-                 ->orWhere('email','LIKE',$input['creator']);
+               $q->where(DB::raw("CONCAT(first_name,' ',last_name)"),'LIKE',"%{$input['creator']}%");
             });
         }
         if(!empty($input['creator_id']))
