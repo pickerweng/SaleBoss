@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration {
 			$table->integer('sms_quantity');
 			$table->text('sms_description')->nullable();
 			$table->string('payment_type');
-			$table->integer('cart_number')->nullable();
+			$table->string('cart_number')->nullable();
 			$table->integer('state_id')->unsigned();
 			$table->integer('final_price');
 			$table->integer('line_price');
