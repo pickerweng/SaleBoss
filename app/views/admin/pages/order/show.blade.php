@@ -36,7 +36,7 @@
                     <a href="{{URL::to('orders/sale/'. $order->id .'/edit')}}" class="btn btn-default btn-xs operation-margin pull-left">ویرایش سفارش</a>
                 @endif
                 <button class="btn btn-default btn-xs operation-margin pull-left" data-toggle="modal" data-target="#customerSummary">مشاهده مشتری</button>
-	            @if(Sentry::getUser()->hasAnyAccess(['orders.accounter_approve'])
+	            @if(Sentry::getUser()->hasAnyAccess(['orders.accounter_approve']))
 	            <button class="btn btn-default btn-xs pull-left print-button">پرینت سفارش</button>
 	            @endif
 	            </br>
