@@ -50,7 +50,7 @@
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">
                     {{Form::label('sms_description', 'توضیحات پیامک',['class' => 'control-label'])}}
-                    <p class="form-static-control">{{$order->description}}</p>
+                    <p class="form-static-control">{{$order->sms_description}}</p>
                 </div>
             </div>
         </div>
