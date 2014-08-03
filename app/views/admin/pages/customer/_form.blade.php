@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="control-label">نام سازنده</label>
-                    <p class="form-control-static">{{Sentry::getUser()->getIdentifier()}}</p>
+                    <p class="form-control-static">{{$customer->creator->getIdentifier()}}</p>
                 </div>
             </div>
             <div class="row">
