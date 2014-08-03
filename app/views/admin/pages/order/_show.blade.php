@@ -26,6 +26,16 @@
                 </div>
             </div>
         </div>
+	    <div class="row">
+		    <div class="col-md-6 col-sm-12">
+			    {{Form::label('customer', 'نام مشتری',['class' => 'control-label'])}}
+			    <p class="form-static-control">{{$order->customer->getIdentifier()}} ({{$order->customer->id}})</p>
+		    </div>
+		    <div class="col-md-6 col-sm-12">
+			    {{Form::label('creator', 'نام سازنده',['class' => 'control-label'])}}
+			    <p class="form-static-control">{{$order->creator->getIdentifier()}} ({{$order->creator->id}})</p>
+		    </div>
+	    </div>
         <div class="row">
             <div class="col-md-6 col-sm-12">
                 <div class="form-group">

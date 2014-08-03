@@ -10,7 +10,7 @@
 @section('content')
 <div class="row">
         <div class="col-sm-12 col-md-12 col-lg-8 col-lg-offset-2">
-            <div class="well">
+            <div class="well printable" >
 				@include('admin.pages.order._show')
 
                 @if(Sentry::getUser()->hasAnyAccess(['orders.accounter_approve']))
@@ -35,7 +35,11 @@
                 @if(Sentry::getUser()->hasAnyAccess(['orders.own_edit','orders.edit']))
                     <a href="{{URL::to('orders/sale/'. $order->id .'/edit')}}" class="btn btn-default btn-xs operation-margin pull-left">ویرایش سفارش</a>
                 @endif
-                <button class="btn btn-default btn-xs pull-left" data-toggle="modal" data-target="#customerSummary">مشاهده مشتری</button><br>
+                <button class="btn btn-default btn-xs operation-margin pull-left" data-toggle="modal" data-target="#customerSummary">مشاهده مشتری</button>
+	            @if(Sentry::getUser()->hasAnyAccess(['orders.accounter_approve'])
+	            <button class="btn btn-default btn-xs pull-left print-button">پرینت سفارش</button>
+	            @endif
+	            </br>
             </div>
         </div>
 </div>
@@ -57,4 +61,15 @@
         </div>
     </div>
 </div>
+@section('scripts')
+	@parent
+	<script src="{{asset('assets/admin/js/printThis.js')}}"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".print-button").bind('click',function(){
+				$('.printable').printThis();
+			});
+		});
+	</script>
+@stop
 @stop
