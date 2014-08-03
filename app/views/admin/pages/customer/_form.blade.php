@@ -27,7 +27,7 @@
                 <div class="col-md-6 col-sm-12">
                     <label class="control-label">نام سازنده</label>
                     <p class="form-control-static">
-	                    @if(is_null($customer->creator_id))
+	                    @if(!empty($customer->creator_id))
 	                        {{Sentry::getUser()->getIdentifier()}}
 	                    @else
 	                        {{$customer->creator->getIdentifier()}}
