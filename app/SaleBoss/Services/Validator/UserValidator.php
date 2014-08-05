@@ -15,7 +15,7 @@ class UserValidator extends AbstractValidator {
         'first_name'        =>  'required',
         'last_name'         =>  'required',
         'mobile'            =>  'required|digits:11',
-        'password'          =>  'confirmed'
+        'password'          =>  'confirmed|required'
     ];
 
 	/**

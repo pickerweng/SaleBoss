@@ -37,7 +37,8 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-12">
-                    {{Form::label('user[tell]', 'شماره تلفن',['class' => 'control-label'])}}
+                    {{Form::label('u
+	                ser[tell]', 'شماره تلفن',['class' => 'control-label'])}}
                     {{Form::text('user[tell]',empty($update) ? null : $customer->tell,['class' => 'form-control languageLeft' , 'placeholder' => 'Example: 22327800'])}}
                 </div>
                 <div class="col-md-6 col-sm-12">
