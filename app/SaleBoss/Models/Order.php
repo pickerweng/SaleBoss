@@ -90,9 +90,12 @@ class Order extends  Eloquent{
         {
             $q = $q->where('customer_id','=',$input['customer_id']);
         }
-        if(!empty($input['panel_type']))
+        if(isset($input['panel_type']))
         {
-            $q = $q->where('panel_type','=',$input['panel_type']);
+	        if ($input['panel_type'] !== '')
+	        {
+		        $q = $q->where('panel_type','=',$input['panel_type']);
+	        }
         }
         if(!empty($input['cart_number']))
         {
