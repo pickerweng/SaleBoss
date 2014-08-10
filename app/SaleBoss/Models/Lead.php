@@ -31,12 +31,7 @@ class Lead extends Eloquent {
         return $this->belongsTo('SaleBoss\Models\User','creator_id');
     }
 
-    /**
-     * Check input for search
-     *
-     * @param $q
-     */
-    public function scopeMakeSearchable($q)
+    public function tags()
     {
 
     }

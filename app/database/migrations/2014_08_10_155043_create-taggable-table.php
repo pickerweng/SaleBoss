@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTagsTable extends Migration {
+class CreateTaggableTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,9 +12,10 @@ class CreateTagsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('tags',function($table){
-			$table->increments('id');
-			$table->string('name');
+		Schema::create('taggable',function($t){
+			$t->increments('id');
+			$t->integer('taggable_id')->unsigned();
+			$t->string('taggable_type');
 		});
 	}
 
@@ -25,7 +26,7 @@ class CreateTagsTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('tags');
+		//
 	}
 
 }

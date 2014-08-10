@@ -2,12 +2,9 @@
 
 use Illuminate\Support\Facades\Config;
 use SaleBoss\Models\User;
-use SaleBoss\Repositories\EntityRepositoryInterface;
-use SaleBoss\Repositories\EntityTypeRepositoryInterface;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\StateRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
-use SaleBoss\Services\EavSmartAss\EavManager;
 
 class Dashboard implements DashboardInterface {
 
@@ -23,30 +20,21 @@ class Dashboard implements DashboardInterface {
 	 * @TODO too much injection
 	 *
 	 * @param UserRepositoryInterface $userRepo
-	 * @param EavManager $manager
 	 * @param StateRepositoryInterface $stateRepo
 	 * @param OrderRepositoryInterface $orderRepo
 	 * @param UserQueue $userQueue
-	 * @param EntityTypeRepositoryInterface $typeRepo
-	 * @param EntityRepositoryInterface $entityRepo
 	 */
 	public function __construct(
 		UserRepositoryInterface $userRepo,
-		EavManager $manager,
 		StateRepositoryInterface $stateRepo,
 		OrderRepositoryInterface $orderRepo,
-		UserQueue $userQueue,
-		EntityTypeRepositoryInterface $typeRepo,
-		EntityRepositoryInterface $entityRepo
+		UserQueue $userQueue
 	)
 	{
 		$this->userRepo = $userRepo;
-		$this->manager = $manager;
 		$this->orderRepo = $orderRepo;
 		$this->stateRepo = $stateRepo;
 		$this->userQueue = $userQueue;
-		$this->typeRepo = $typeRepo;
-		$this->entityRepo = $entityRepo;
 	}
 
 	/**

@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -123,8 +123,6 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
 		'SaleBoss\Repositories\RepositoryServiceProvider',
-		'SaleBoss\Services\EavSmartAss\EavSmartAssServiceProvider',
-		'SaleBoss\Services\EavSmartAss\Form\FormServiceProvider',
         'SaleBoss\Filters\FilterServiceProvider',
         'SaleBoss\Services\ServicesServiceProvider',
         'Miladr\Jalali\JalaliServiceProvider',
