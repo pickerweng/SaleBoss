@@ -211,7 +211,7 @@ class OrderController extends BaseController
 			return $this->redirectTo('my/orders');
 		}
 		// $generatedOrders = $this->orderRepo->getGeneratedOrders(null, 50);
-        $generatedOrders = $this->orderRepo->getSearchableOrders(50);
+        $generatedOrders = $this->orderRepo->getSearchableOrders(25);
 		return $this->view(
 			'admin.pages.order.index',
 			compact('title', 'description','states', 'generatedOrders','state')

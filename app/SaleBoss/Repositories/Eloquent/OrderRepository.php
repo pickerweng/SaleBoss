@@ -92,11 +92,14 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
 
     public function getSearchableOrders ($int)
     {
-        return $this->model->with('state','customer')->makeSearchable()->makeSortable()->paginate($int);
+        return $this->model->with('state','customer','creator')
+	                        ->makeSearchable()
+	                        ->makeSortable()
+	                        ->paginate($int);
     }
 
     public function getSearchableCreatorOrders(User $creator,$int)
     {
-        return $creator->orders()->with('state','customer')->makeSearchable()->makeSortable()->paginate($int);
+        return $creator->orders()->with('state','customer','creator')->makeSearchable()->makeSortable()->paginate($int);
     }
 }

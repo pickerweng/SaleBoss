@@ -17,6 +17,7 @@
 						<th>شناسه # <i class="fa fa-sort"></i></th>
 						<th>تاریخ ایجاد</th>
 						<th>برای کی؟ <i class="fa fa-sort"></i></th>
+						<th>توسط کی؟ <i class="fa fa-sort"></i></th>
 						<th><i class="fa fa-sort"></i> صف کاری</th>
 						<th class="languageLeft">عملیات</th>
 					</tr>
@@ -33,6 +34,7 @@
                                 <a href="{{URL::to('orders?customer_id=' . $order->customer->id)}}">{{$order->customer->name()}}</a>
                             @endif
                         </td>
+                        <td>{{$order->creator->getIdentifier()}}</td>
 						<td>
 							{{$order->state->title}}
 							@if($order->completed)

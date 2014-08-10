@@ -65,8 +65,7 @@ class AbstractRepository {
     {
         try {
             return $this->model->newInstance()->create($data);
-        }catch (QueryException $e)
-        {
+        } catch (QueryException $e) {
             throw new RepositoryException($e->getMessage());
         }
     }
