@@ -36,8 +36,16 @@
                 <div class="col-sm-12 col-md-3 col-lg-2 form-group">
                     <div class="checkbox">
                         <label class="control-label">
-                            {{Form::checkbox('my_leads','1',Input::get('my_leads'))}}
+                            {{Form::checkbox('my_locked_leads','1',Input::get('my_locked_leads'))}}
                             فقط لیدهای من
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3 col-lg-2 form-group">
+                    <div class="checkbox">
+                        <label class="control-label">
+                            {{Form::checkbox('my_created_leads','1',Input::get('my_created_leads'))}}
+                           	فقط لیدهای ایجاد شده توسط من
                         </label>
                     </div>
                 </div>

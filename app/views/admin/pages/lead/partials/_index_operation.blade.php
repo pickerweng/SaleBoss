@@ -19,6 +19,3 @@
         <a href="#" disabled="true" class="btn operation-margin btn-xs pull-left btn-danger"><i class="fa fa-exclamation-triangle"></i></a>
     @endif
 @endif
-@if($currentUser->hasAnyAccess(['leads.edit']) || $lead->creator_id == $currentUser->id)
-    <a href="{{URL::to('leads/' .  $lead->id . '/edit' )}}" class="btn operation-margin btn-xs pull-left btn-info">ویرایش</a>
-@endif

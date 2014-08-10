@@ -27,11 +27,29 @@ class Lister {
     public function listIt ()
     {
         $input = Input::all();
-        if (! empty($input['my_leads']))
+	    $input ['shared'] = true;
+        if (Sentry::getUser()->hasAnyAccess(['leads.view_all']))
         {
-            $input['locker_id'] = Sentry::getUser()->id;
+	        $input ['shared'] = false;
         }
-        return $this->leadRepo->getPaginated(25,true, $input, Input::get('sort_by'), Input::get('asc'));
+
+	    if (! empty($input['my_created_leads']))
+	    {
+		    $input ['creator_id'] = Sentry::getUser()->id;
+		    $input ['shared'] = false;
+	    }
+
+	    if (! empty($input['my_locked_leads']))
+	    {
+		    $input['locker_id'] = Sentry::getUser()->id;
+	    }
+        return $this->leadRepo->getPaginated(
+	        25,
+	        true,
+	        $input,
+	        (Input::get('sort_by') ? Input::get('sort_by') : 'created_at'),
+	        Input::get('asc')
+        );
     }
 
 

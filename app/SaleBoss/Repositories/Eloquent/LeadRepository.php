@@ -1,5 +1,6 @@
 <?php namespace SaleBoss\Repositories\Eloquent;
 
+use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use SaleBoss\Models\Lead;
@@ -35,7 +36,7 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         DB::beginTransaction();
            try {
                $this->model->newInstance()->insert($data);
-           }catch (QueryException $e){
+           } catch(QueryException $e) {
                DB::rollback();
                throw new RepositoryException($e->getMessage());
            }
@@ -70,43 +71,45 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
      */
     public function getPaginated ($int = 50, $withLocker = true, array $search = [], $sort = 'created_at', $asc = false)
     {
-        $leads = $this->model->newInstance();
-        $leads = empty($withLocker) ? $leads : $leads->with('locker');
-        if (! empty($search['id']))
-        {
-            $leads = $leads->where('id','=',$search['id']);
-        }
-        if (! empty($search['locker_id']))
-        {
-            $leads = $leads->where('locker_id','=',$search['locker_id']);
-        }
-        if (! empty($search['locker']))
-        {
-            $leads = $leads->whereHas('locker',function($q) use($search){
-               $q->where(DB::raw("CONCAT(first_name,' ',last_name)"),'LIKE','%' . $search['locker'] . "%")
-                 ->orWhere("email","LIKE", "%{$search['locker']}%");
-            });
-        }
-        if (!empty($search['description']))
-        {
-            $leads = $leads->where('description','LIKE','%'. $search['description'] . '%');
-        }
-        if (!empty($search['priority']))
-        {
-            $leads = $leads->where('priority','=',$search['priority']);
-        }
-        if(!empty($search['status']))
-        {
-           $leads = $leads->where('status','=',$search['status']);
-        }
-        if( ! empty($search['has_remind_at']))
-        {
-            $leads = $leads->whereNotNull('remind_at');
-        }
-        if (in_array($sort,['created_at','updated_at','locked_at','locker_id','priority','status']))
-        {
-            $leads = $leads->orderBy($sort, empty($asc) ? 'DESC' : 'ASC');
-        }
+	    $leads = $this->model->newInstance();
+	    $leads = empty($withLocker) ? $leads : $leads->with('locker');
+	    if (!empty($search['id'])) {
+		    $leads = $leads->where('id', '=', $search['id']);
+	    }
+	    if (!empty($search['locker_id'])) {
+		    $leads = $leads->where('locker_id', '=', $search['locker_id']);
+	    }
+	    if (!empty($search['locker'])) {
+		    $leads = $leads->whereHas('locker', function ($q) use ($search) {
+			    $q->where(DB::raw("CONCAT(first_name,' ',last_name)"), 'LIKE', '%' . $search['locker'] . "%")
+				    ->orWhere("email", "LIKE", "%{$search['locker']}%");
+		    });
+	    }
+	    if (!empty($search['description'])) {
+		    $leads = $leads->where('description', 'LIKE', '%' . $search['description'] . '%');
+	    }
+	    if (!empty($search['priority'])) {
+		    $leads = $leads->where('priority', '=', $search['priority']);
+	    }
+	    if (!empty($search['status'])) {
+		    $leads = $leads->where('status', '=', $search['status']);
+	    }
+	    if (!empty($search['has_remind_at'])) {
+		    $leads = $leads->whereNotNull('remind_at');
+	    }
+	    if (in_array($sort, ['created_at', 'updated_at', 'locked_at', 'locker_id', 'priority', 'status'])) {
+		    $leads = $leads->orderBy($sort, empty($asc) ? 'DESC' : 'ASC');
+	    }
+
+	    if (!empty($search['creator_id']))
+	    {
+		    $leads = $leads->where('creator_id',$search['creator_id']);
+	    }
+	    elseif (! empty($search['shared']))
+	    {
+		    $leads = $leads->where('shared',true)->orWhere('creator_id', Sentry::getUser()->id);
+	    }
+
         return $leads->paginate($int);
     }
 
