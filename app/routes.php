@@ -45,6 +45,7 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::resource('leads','LeadController');
         Route::get("me/edit","UserController@profileEdit");
         Route::put("me/edit","UserController@profileUpdate");
+	    Route::get('me/leads','MyLeadsController@index');
     });
 });
 

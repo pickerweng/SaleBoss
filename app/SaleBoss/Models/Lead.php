@@ -33,7 +33,24 @@ class Lead extends Eloquent {
 
     public function tags()
     {
-
+		return $this->morphToMany(
+			'SaleBoss\Models\Tag',
+			'taggable',
+			'taggables',
+			'tag_id',
+			'taggable_id'
+		);
     }
+
+	public function phones()
+	{
+		return $this->morphsToMany(
+			'SaleBoss\Models\Phone',
+			'phonable',
+			'phonables',
+			'phone_id',
+			'phonable_id'
+		);
+	}
 
 } 

@@ -12,10 +12,14 @@ class CreateTaggableTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('taggable',function($t){
+		Schema::create('taggables',function($t){
 			$t->increments('id');
-			$t->integer('taggable_id')->unsigned();
-			$t->string('taggable_type');
+
+			$t->integer('tag_id')->unsigned();
+			$t->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+
+			$t->integer('taggable_id')->unsigned()->index();
+			$t->string('taggable_type')->index();
 		});
 	}
 
@@ -26,7 +30,7 @@ class CreateTaggableTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('taggables');
 	}
 
 }

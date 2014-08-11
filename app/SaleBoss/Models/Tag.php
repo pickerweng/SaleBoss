@@ -16,7 +16,13 @@ class Tag extends Eloquent {
 	 */
 	public function lead ()
 	{
-		return $this->morphedByMany('SaleBoss\Models\Lead','taggable','taggable','taggable_id','');
+		return $this->morphedByMany(
+			'SaleBoss\Models\Lead',
+			'taggable',
+			'taggables',
+			'tag_id',
+			'taggable_id'
+		);
 	}
 
 } 
