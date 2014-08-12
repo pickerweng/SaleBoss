@@ -132,6 +132,8 @@ return array(
         'SaleBoss\Events\EventsServiceProvider',
         'SaleBoss\Services\Leads\LeadServiceProvider',
         'Maatwebsite\Excel\ExcelServiceProvider',
+		'Laracasts\Commander\CommanderServiceProvider',
+		'Laracasts\Validation\ValidationServiceProvider'
 	),
 
 	/*

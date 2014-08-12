@@ -17,8 +17,8 @@ class Phone extends \Eloquent {
 			'SaleBoss\Models\Lead',
 			'phonable',
 			'phonables',
-			'phone_id',
-			'phonable_id'
+			'phonable_id',
+			'phone_id'
 		);
 	}
 } 

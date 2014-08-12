@@ -5,7 +5,9 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Tag extends Eloquent {
 
-	protected $table = 'field_tags';
+	protected $table = 'tags';
+
+	protected $guarded = ['id'];
 
 	public $timestamps = false;
 
@@ -20,8 +22,8 @@ class Tag extends Eloquent {
 			'SaleBoss\Models\Lead',
 			'taggable',
 			'taggables',
-			'tag_id',
-			'taggable_id'
+			'taggable_id',
+			'tag_id'
 		);
 	}
 

@@ -18,6 +18,7 @@
           @yield('content')
         </div>
       </div>
+		@yield('footer')
       @show
   </body>
 </html>

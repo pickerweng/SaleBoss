@@ -60,4 +60,13 @@ interface LeadRepositoryInterface {
     public function getUserLeadsWithStatus (User $user,$int);
 
     public function countLockedForUser (User $user, $status = null);
+
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Create lead from raw unfiltered data
+	 *
+	 * @param array $data
+	 * @return mixed
+	 */
+	public function createRaw(array $data);
 } 

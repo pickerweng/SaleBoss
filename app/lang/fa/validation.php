@@ -109,7 +109,9 @@ return array(
 			'national_code'         =>  '<em>کدملی</em>',
 			'name'                  =>  '<em>نام</em>',
             'password_confirmation' =>  '<em>تایید پسورد</em>',
-            'old_password'          =>  '<em>پسورد قدیمی</em>'
+            'old_password'          =>  '<em>پسورد قدیمی</em>',
+			'description'           =>  '<em>توضیحات</em>',
+			'phone'                 =>  '<em>شماره</em>'
 		),
 
 );

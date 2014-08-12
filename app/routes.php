@@ -46,6 +46,7 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::get("me/edit","UserController@profileEdit");
         Route::put("me/edit","UserController@profileUpdate");
 	    Route::get('me/leads','MyLeadsController@index');
+	    Route::post('me/leads','MyLeadsController@store');
     });
 });
 

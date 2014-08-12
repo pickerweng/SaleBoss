@@ -5,9 +5,12 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Redirect;
+use Laracasts\Commander\CommanderTrait;
 
 class BaseController extends Controller
 {
+
+	use CommanderTrait;
 
 	/**
 	 * Setup the layout used by the controller.

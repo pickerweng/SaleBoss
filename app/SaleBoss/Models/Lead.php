@@ -37,19 +37,19 @@ class Lead extends Eloquent {
 			'SaleBoss\Models\Tag',
 			'taggable',
 			'taggables',
-			'tag_id',
-			'taggable_id'
+			'taggable_id',
+			'tag_id'
 		);
     }
 
 	public function phones()
 	{
-		return $this->morphsToMany(
+		return $this->morphToMany(
 			'SaleBoss\Models\Phone',
 			'phonable',
 			'phonables',
-			'phone_id',
-			'phonable_id'
+			'phonable_id',
+			'phone_id'
 		);
 	}
 

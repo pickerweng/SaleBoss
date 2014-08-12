@@ -5,6 +5,7 @@ namespace SaleBoss\Repositories\Eloquent;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Str;
 use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\Exceptions\RepositoryException;
@@ -17,6 +18,75 @@ class AbstractRepository {
 	public function __construct(Model $model)
 	{
 		$this->model = $model;
+	}
+
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Add the ability to find by property
+	 *
+	 * @param $method
+	 * @param $args
+	 * @return mixed
+	 */
+	public function __call($method, $args)
+	{
+		if ($this->isFindable($method))
+		{
+			$property = $this->getFindByProperty($method);
+			return call_user_func_array([$this, 'findBy'], [$property, $args[0]]);
+		}
+	}
+
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Find a model by property
+	 *
+	 * @param $property
+	 * @param $value
+	 * @throws \SaleBoss\Repositories\Exceptions\RepositoryException
+	 * @return mixed
+	 */
+	public function findBy ($property, $value)
+	{
+		try {
+			$model =  $this->model->where($property,'=',$value)->first();
+		}catch (QueryException $e){
+			dd($e->getMessage());
+			throw new RepositoryException($e->getMessage());
+		}
+		if (is_null($model))
+		{
+			throw new NotFoundException("No model with {$property} = {$value} found");
+		}
+		return $model;
+	}
+
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Check that if a magic method argument is findable or not
+	 *
+	 * @param $method
+	 * @return bool
+	 */
+	private function isFindable($method)
+	{
+		if (Str::startsWith($method, 'findBy'))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Get property from findBy magic method
+	 *
+	 * @param $method
+	 * @return mixed
+	 */
+	private function getFindByProperty($method)
+	{
+		return strtolower(str_replace('findBy','',$method));
 	}
 
 	/**
