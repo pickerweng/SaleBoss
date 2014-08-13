@@ -69,4 +69,6 @@ interface LeadRepositoryInterface {
 	 * @return mixed
 	 */
 	public function createRaw(array $data);
+
+	public function getAllForLead(Lead $lead);
 } 

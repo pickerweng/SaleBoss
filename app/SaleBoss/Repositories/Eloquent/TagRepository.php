@@ -23,7 +23,7 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
 	 */
 	public function addTagToLead(Lead $lead, Tag $tag)
 	{
-		$lead->tags()->attach($tag->id);
+		$lead->tags()->attach($tag);
 		return $lead;
 	}
 }

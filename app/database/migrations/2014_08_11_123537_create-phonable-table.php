@@ -16,6 +16,7 @@ class CreatePhonableTable extends Migration {
 			$table->increments('id');
 			$table->integer('phone_id')->unsigned()->index();
 			$table->foreign('phone_id')->references('id')->on('phones')->onDelete('cascade');
+			$table->integer('phonable_id')->unsigned()->index();
 			$table->string('phonable_type')->index();
 		});
 	}

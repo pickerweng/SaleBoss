@@ -181,7 +181,15 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         return $lead;
     }
 
-    public function countLockedForUser(User $user, $status = '')
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Count locked
+	 *
+	 * @param User $user
+	 * @param string $status
+	 * @return mixed
+	 */
+	public function countLockedForUser(User $user, $status = '')
     {
         if ($status !== '')
         {
@@ -189,4 +197,16 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         }
         return $user->lockedLeads()->count();
     }
+
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Add relationships to a lead
+	 *
+	 * @param Lead $lead
+	 * @return \Illuminate\Database\Eloquent\Collection|static[]
+	 */
+	public function getAllForLead(Lead $lead)
+	{
+		return $lead->with('phones','tags')->get();
+	}
 }

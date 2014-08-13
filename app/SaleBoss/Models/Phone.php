@@ -4,7 +4,7 @@ class Phone extends \Eloquent {
 
 	protected $table = 'phones';
 
-	public $timestmps = false;
+	public $timestamps = false;
 
 	/**
 	 * Polymorphic relation of laravel

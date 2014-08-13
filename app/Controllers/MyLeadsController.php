@@ -16,13 +16,16 @@ class MyLeadsController extends BaseController {
 
 	public function store()
 	{
+		\DB::beginTransaction();
 		try {
 			$created = $this->execute(StoreLeadCommand::class);
 			return Response::json($created);
 		}catch (FormValidationException $e) {
 			return Response::json($e->getErrors(),422);
 		}catch (RepositoryException $e) {
-			return Response::json(['errors' => [0 => trans('messages.database_error')]],422);
+			\Log::info($e);
+			\DB::rollBack();
+			return Response::json(['errors' => [[trans('messages.database_error')]]],422);
 		}
 
 	}

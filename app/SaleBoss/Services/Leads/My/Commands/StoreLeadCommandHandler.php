@@ -53,9 +53,12 @@ class StoreLeadCommandHandler implements CommandHandler {
 		$lead = $this->leadCreate($command);
 		$tag = $this->getTag($tag);
 		$lead = $this->tagRepo->addTagToLead($lead, $tag);
+
 		$lead = $this->phoneRepo->addPhoneToLead($lead, $phone);
 
 		$this->events->fire('my.leads.created',array($lead));
+
+		$lead = $this->leadRepo->getAllForLead($lead);
 
 		return $lead;
 	}
@@ -86,7 +89,7 @@ class StoreLeadCommandHandler implements CommandHandler {
 	 */
 	private function leadCreate($command)
 	{
-		$command = $this->filterForLeadRepo($command);
+		$command = $this->prepareForLeadRepo($command);
 		return $this->leadRepo->createRaw(get_object_vars($command));
 	}
 
@@ -96,8 +99,9 @@ class StoreLeadCommandHandler implements CommandHandler {
 	 *
 	 * @param $command
 	 */
-	private function filterForLeadRepo($command)
+	private function prepareForLeadRepo($command)
 	{
+		$command->creator_id = $this->auth->user()->id;
 		unset($command->phone);
 		unset($command->tag);
 		return $command;
