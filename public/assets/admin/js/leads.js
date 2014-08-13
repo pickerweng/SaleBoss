@@ -1,13 +1,13 @@
 $(document).ready(function(){
     rowTemplate = _.template($(".lead-row-template").html());
-    $(".lead-store-messages").html('');
-    $(".lead-store-messages").hide();
     submitBtn = $(".submit_button");
 
     leadStoreForm = $("#lead-store-form");
 
     leadStoreForm.submit(function(e){
         e.preventDefault();
+        $(".lead-store-messages").html('');
+        $(".lead-store-messages").hide();
 
         submitBtn.button('loading');
         request = doRequest(

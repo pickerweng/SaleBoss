@@ -22,7 +22,7 @@ return array(
 	"array"            => "The :attribute must be an array.",
 	"before"           => "The :attribute must be a date before :date.",
 	"between"          => array(
-		"numeric" => "The :attribute must be between :min and :max.",
+		"numeric" => "فیلد :attribute باید بین :min و :max. باشد",
 		"file"    => "The :attribute must be between :min and :max kilobytes.",
 		"string"  => "The :attribute must be between :min and :max characters.",
 		"array"   => "The :attribute must have between :min and :max items.",
@@ -32,7 +32,7 @@ return array(
 	"date_format"      => "The :attribute does not match the format :format.",
 	"different"        => "The :attribute and :other must be different.",
 	"digits"           => "فیلد :attribute باید :digits کارکتر داشته باشد.",
-	"digits_between"   => "The :attribute must be between :min and :max digits.",
+	"digits_between"   => "فیلد :attribute باید بین :min و :max کارکتر باشد.",
 	"email"            => "The :attribute format is invalid.",
 	"exists"           => "The selected :attribute is invalid.",
 	"image"            => "The :attribute must be an image.",

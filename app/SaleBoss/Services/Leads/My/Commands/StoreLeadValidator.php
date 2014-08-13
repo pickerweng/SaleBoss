@@ -3,8 +3,7 @@ use Laracasts\Validation\FormValidator;
 
 class StoreLeadValidator extends FormValidator {
 	protected $rules = [
-		'name'  =>  'required',
-		'description'   =>  'required',
-		'phone'        =>  'required|digits_between:3,20',
+		'phone'        =>  'required|digits_between:3,20|unique:phones,number',
+		'remind_at'    =>   'numeric'
 	];
-} 
+}

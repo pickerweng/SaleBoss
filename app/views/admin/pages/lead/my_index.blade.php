@@ -36,6 +36,14 @@
 			</ul>
 		</div>
 	</script>
+	<script class="success-template" type="text/template">
+		<div class="alert alert-success">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<ul>
+				<li>لید با موفقیت ایجاد شد.</li>
+			</ul>
+		</div>
+	</script>
 	<script type="text/template" class="lead-row-template">
 		<tr>
 			<td><%= id %></td>

@@ -53,4 +53,9 @@ class Lead extends Eloquent {
 		);
 	}
 
+	public function getDates()
+	{
+		return array_merge(parent::getDates(),['remind_at']);
+	}
+
 } 

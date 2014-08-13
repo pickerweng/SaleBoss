@@ -29,7 +29,8 @@
 				<td> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control'])}}</td>
 				<td>{{Form::text('remind_at',null,['class' => 'form-control', 'placeholder' => 'به یادآوری در چندروز بعد؟','size' => '10'])}}</td>
 				<td>
-					<button type="submit" data-loading-text="لطفا صبر کنید..." class="btn btn-success btn pull-left submit_button"><i class="fa fa-plus"></i></button>
+					<button type="submit" data-loading-text="لطفا صبر کنید..." class="btn operation-margin btn-success btn pull-left submit_button"><i class="fa fa-plus"></i></button>
+					<button type="reset" class="btn btn-warning pull-left"><i class="fa fa-list"></i></button>
 				</td>
 				{{Form::close()}}
 			</tr>

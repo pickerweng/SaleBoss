@@ -4,6 +4,8 @@ class Phone extends \Eloquent {
 
 	protected $table = 'phones';
 
+	protected $guarded = ['number'];
+
 	public $timestamps = false;
 
 	/**

@@ -46,7 +46,7 @@ class PhoneRepository extends AbstractRepository implements PhoneRepositoryInter
 	 */
 	private function addPhoneModelToLead(Lead $lead,Phone $phone)
 	{
-		$lead->phones()->attach($phone->id);
+		$lead->phones()->attach($phone);
 		return $lead;
 	}
 
