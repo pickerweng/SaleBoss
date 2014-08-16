@@ -49,7 +49,6 @@ class StoreLeadCommandHandler implements CommandHandler {
 		$phone = $command->phone;
 		$tag = $command->tag;
 		$command->remind_at = $this->getRemindAtFromDays($command->remind_at);
-
 		$lead = $this->leadCreate($command);
 		$tag = $this->getTag($tag);
 		$lead = $this->tagRepo->addTagToLead($lead, $tag);
@@ -57,6 +56,7 @@ class StoreLeadCommandHandler implements CommandHandler {
 		$lead = $this->phoneRepo->addPhoneToLead($lead, $phone);
 
 		$this->events->fire('my.leads.created',array($lead));
+
 
 		$lead = $this->leadRepo->getAllForLead($lead);
 
@@ -116,7 +116,7 @@ class StoreLeadCommandHandler implements CommandHandler {
 	 */
 	private function getRemindAtFromDays($remindAt)
 	{
-		if (is_null($remindAt)) return null;
+		if (empty($remindAt)) return null;
 		return $remindAt = jDate::forge("now + {$remindAt} days")->time();
 	}
 }

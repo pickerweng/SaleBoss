@@ -11,6 +11,8 @@ class Lead extends Eloquent {
     use DateTrait;
     use SoftDeletingTrait;
 
+    protected $dates = ['created_at','updated_at','remind_at'];
+
     /**
      * The Lead is locked by
      *
@@ -51,11 +53,6 @@ class Lead extends Eloquent {
 			'phonable_id',
 			'phone_id'
 		);
-	}
-
-	public function getDates()
-	{
-		return array_merge(parent::getDates(),['remind_at']);
 	}
 
 } 

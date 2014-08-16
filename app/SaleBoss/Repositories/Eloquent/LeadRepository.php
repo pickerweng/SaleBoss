@@ -1,5 +1,6 @@
 <?php namespace SaleBoss\Repositories\Eloquent;
 
+use Carbon\Carbon;
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
@@ -59,76 +60,6 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         return $data;
     }
 
-    /**
-     * Get paginated list of leads
-     *
-     * @param int    $int
-     * @param bool   $withLocker
-     * @param array  $search
-     * @param string $sort
-     * @param bool   $asc
-     * @return mixed
-     */
-    public function getPaginated ($int = 50, $withLocker = true, array $search = [], $sort = 'created_at', $asc = false)
-    {
-	    $leads = $this->model->newInstance();
-	    $leads = empty($withLocker) ? $leads : $leads->with('locker');
-	    if (!empty($search['id'])) {
-		    $leads = $leads->where('id', '=', $search['id']);
-	    }
-	    if (!empty($search['locker_id'])) {
-		    $leads = $leads->where('locker_id', '=', $search['locker_id']);
-	    }
-	    if (!empty($search['locker'])) {
-		    $leads = $leads->whereHas('locker', function ($q) use ($search) {
-			    $q->where(DB::raw("CONCAT(first_name,' ',last_name)"), 'LIKE', '%' . $search['locker'] . "%")
-				    ->orWhere("email", "LIKE", "%{$search['locker']}%");
-		    });
-	    }
-	    if (!empty($search['description'])) {
-		    $leads = $leads->where('description', 'LIKE', '%' . $search['description'] . '%');
-	    }
-	    if (!empty($search['priority'])) {
-		    $leads = $leads->where('priority', '=', $search['priority']);
-	    }
-	    if (!empty($search['status'])) {
-		    $leads = $leads->where('status', '=', $search['status']);
-	    }
-	    if (!empty($search['has_remind_at'])) {
-		    $leads = $leads->whereNotNull('remind_at');
-	    }
-	    if (in_array($sort, ['created_at', 'updated_at', 'locked_at', 'locker_id', 'priority', 'status'])) {
-		    $leads = $leads->orderBy($sort, empty($asc) ? 'DESC' : 'ASC');
-	    }
-
-	    if (!empty($search['creator_id']))
-	    {
-		    $leads = $leads->where('creator_id',$search['creator_id']);
-	    }
-	    elseif (! empty($search['shared']))
-	    {
-		    $leads = $leads->where('shared',true)->orWhere('creator_id', Sentry::getUser()->id);
-	    }
-
-        return $leads->paginate($int);
-    }
-
-    /**
-     * Get users last lead
-     *
-     * @param User $user
-     * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
-     * @return Lead
-     */
-    public function getUserLastLockedLead (User $user)
-    {
-        $lastLead = $user->lockedLeads()->orderBy('locked_at','DESC')->first();
-        if (is_null($lastLead))
-        {
-            throw new NotFoundException("No Leads found for user");
-        }
-        return $lastLead;
-    }
 
     /**
      * Count available leads
@@ -163,41 +94,6 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         }
     }
 
-    /**
-     * Get user leads that has argument status
-     *
-     * @param \SaleBoss\Models\User $user
-     * @param                       $int
-     * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
-     * @return mixed
-     */
-    public function getUserLeadsWithStatus (User $user,$int)
-    {
-        $lead = $user->lockedLeads()->where('status','=',$int)->first();
-        if (is_null($lead))
-        {
-            throw new NotFoundException("User with id: [{$user->id}] has no leads with status: [{$int}]");
-        }
-        return $lead;
-    }
-
-	/**
-	 * @author bigsinoos <pcfeeler@gmail.com>
-	 * Count locked
-	 *
-	 * @param User $user
-	 * @param string $status
-	 * @return mixed
-	 */
-	public function countLockedForUser(User $user, $status = '')
-    {
-        if ($status !== '')
-        {
-            return $user->lockedLeads()->where('status',$status)->count();
-        }
-        return $user->lockedLeads()->count();
-    }
-
 	/**
 	 * @author bigsinoos <pcfeeler@gmail.com>
 	 * Add relationships to a lead
@@ -207,6 +103,19 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
 	 */
 	public function getAllForLead(Lead $lead)
 	{
-		return $lead->with('phones','tags')->get();
+		return $lead->load('phones','tags');
 	}
+
+    public function getUserLeads(User $user, $int = 25)
+    {
+        return $user->createdLeads()->with('tags','phones')->orderBy('created_at','DESC')->paginate($int);
+    }
+
+    public function getUserLeadsBetween(User $user, $todayStart, $todayEnd)
+    {
+        return $user->createdLeads()
+                    ->with('tags','phones')
+                    ->whereBetween('remind_at',array($todayStart, $todayEnd))
+                    ->get();
+    }
 }

@@ -45,13 +45,16 @@
 		</div>
 	</script>
 	<script type="text/template" class="lead-row-template">
-		<tr>
-			<td><%= id %></td>
+		<tr class="injected">
+			<td>#<%= id %></td>
 			<td class="text-center"><%= name %></td>
-			<td><%= name %></td>
-			<td class="text-center"><%= 'salam' %></td>
-			<td>s</td>
-			<td>s</td>
+			<td><%= phones[0].number %></td>
+			<td><%= tags[0].name %></td>
+			<td><%= description %></td>
+			<td><%= priority %></td>
+			<td><%= status %></td>
+			<td></td>
+			<td></td>
 		</tr>
 	</script>
 @stop

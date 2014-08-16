@@ -1,8 +1,8 @@
 $(document).ready(function(){
-    rowTemplate = _.template($(".lead-row-template").html());
-    submitBtn = $(".submit_button");
+    var rowTemplate = _.template($(".lead-row-template").html());
+    var submitBtn = $(".submit_button");
 
-    leadStoreForm = $("#lead-store-form");
+    var leadStoreForm = $("#lead-store-form");
 
     leadStoreForm.submit(function(e){
         e.preventDefault();
@@ -10,13 +10,14 @@ $(document).ready(function(){
         $(".lead-store-messages").hide();
 
         submitBtn.button('loading');
-        request = doRequest(
+        var request = doRequest(
             leadStoreForm.attr('action'),
             leadStoreForm.serialize(),
             leadStoreForm.attr('method')
         );
 
         request.error(function(data){
+            var errors;
             submitBtn.button('reset');
             if (data.status == 422)
             {
@@ -32,12 +33,13 @@ $(document).ready(function(){
 
         request.done(function(data){
             submitBtn.button('reset');
-            item = data.responseJSON;
-            console.log(item);
+            leadStoreForm[0].reset();
+            injectNewCreatedData(data);
         });
-
-        request.always(function(){
-            submitBtn.button('reset');
-        })
     });
+
+    function injectNewCreatedData(data)
+    {
+        $(".inline-form-tr").after(_.template($(".lead-row-template").html(),data));
+    }
 });
