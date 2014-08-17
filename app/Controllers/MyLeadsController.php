@@ -8,6 +8,7 @@ use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 use SaleBoss\Services\Leads\My\Commands\ListCommand;
 use SaleBoss\Services\Leads\My\Commands\StoreLeadCommand;
 use SaleBoss\Services\Leads\My\Commands\TodayListCommand;
+use SaleBoss\Services\Leads\My\Commands\WeekListCommand;
 
 class MyLeadsController extends BaseController {
 
@@ -22,11 +23,16 @@ class MyLeadsController extends BaseController {
 	public function index()
 	{
         $todayList = $this->execute(TodayListCommand::class);
+		$weekList = $this->execute(WeekListCommand::class);
+		$todayListView = $this->view('admin.pages.lead.period_lister')->with('items',$todayList);
+		$weekListView = $this->view('admin.pages.lead.period_lister')->with('items',$weekList);
 		$list = $this->execute(ListCommand::class);
 		return $this->view('admin.pages.lead.my_index')
                     ->withList($list)
                     ->withCurrentUser($this->auth->user())
-                    ->with('todayList',$todayList);
+                    ->with('todayList',$todayList)
+					->with('todayListView',$todayListView)
+					->with('weekListView', $weekListView);
 	}
 
 	public function store()
@@ -36,7 +42,7 @@ class MyLeadsController extends BaseController {
 			return Response::json($created);
 		}catch (FormValidationException $e) {
 			return Response::json($e->getErrors(),422);
-		}catch (RepositoryException $e) {
+		} catch (RepositoryException $e) {
 			return Response::json(['errors' => [[trans('messages.database_error')]]],422);
 		}
 	}

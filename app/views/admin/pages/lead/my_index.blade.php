@@ -40,7 +40,7 @@
 		<div class="alert alert-success">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<ul>
-				<li>لید با موفقیت ایجاد شد.</li>
+				<li>لید شماره <%= id %> با موفقیت ایجاد شد.</li>
 			</ul>
 		</div>
 	</script>

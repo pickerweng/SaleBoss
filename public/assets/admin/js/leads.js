@@ -17,7 +17,6 @@ $(document).ready(function(){
         );
 
         request.error(function(data){
-            var errors;
             submitBtn.button('reset');
             if (data.status == 422)
             {
@@ -32,11 +31,22 @@ $(document).ready(function(){
         });
 
         request.done(function(data){
+            showLeadSuccessMessage(data);
             submitBtn.button('reset');
             leadStoreForm[0].reset();
             injectNewCreatedData(data);
         });
     });
+
+    function showLeadSuccessMessage(lead)
+    {
+        $(".lead-store-messages ").hide();
+        $(".lead-store-messages").html(_.template(
+            $('.success-template').html(),
+            lead
+        ));
+        $(".lead-store-messages").fadeIn(400);
+    }
 
     function injectNewCreatedData(data)
     {

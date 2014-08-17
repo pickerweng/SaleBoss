@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-hover table-stripped my-lead-table table-bordered">
+    <table class="table table-hover table-stripped my-lead-table">
         <thead>
         <tr>
             <th><i class="fa fa-flag"></i> شناسه</th>
@@ -14,17 +14,17 @@
         </tr>
         </thead>
         <tbody>
-			<tr class="inline-form-tr">
+			<tr class="inline-form-tr warning">
 				{{Form::open([
 					'url'		=>	'me/leads',
 					'method'	=>	'post',
 					'id'		=>	'lead-store-form'
 				])}}
 				<td>__</td>
-				<td>{{Form::text('name',null,['class' => 'form-control bulkable', 'size' => '10'])}}</td>
-				<td>{{Form::text('phone',null,['class' => 'form-control languageLeft bulkable','size' => '10'])}}</td>
-				<td>{{Form::text('tag',null,['class' => 'form-control bulkable','size' => '10'])}}</td>
-				<td>{{Form::text('description',null,['class' => 'form-control bulkable','size' => '10'])}}</td>
+				<td>{{Form::text('name',null,['placeholder' => 'نام شخص یا شرکت','class' => 'form-control bulkable', 'size' => '10'])}}</td>
+				<td>{{Form::text('phone',null,['placeholder' => 'شماره تماس','class' => 'form-control languageLeft bulkable','size' => '10'])}}</td>
+				<td>{{Form::text('tag',null,['placeholder' => 'دسته بندی','class' => 'form-control bulkable','size' => '10'])}}</td>
+				<td>{{Form::text('description',null,['placeholder' => 'توضیحات','class' => 'form-control bulkable','size' => '10'])}}</td>
 				<td>{{Form::select( 'priority',array(0,1,2,3,4,5),0,['class' => 'form-control languageLeft bulkable'])}}</td>
 				<td> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control'])}}</td>
 				<td>{{Form::text('remind_at',null,['class' => 'form-control', 'placeholder' => 'به یادآوری در چندروز بعد؟','size' => '10'])}}</td>
@@ -63,4 +63,7 @@
             @endforeach
         </tbody>
     </table>
+</div>
+<div class="row">
+	{{$list->appends(Input::except('page'))->links()}}
 </div>
