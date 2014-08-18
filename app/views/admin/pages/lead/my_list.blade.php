@@ -54,10 +54,12 @@
                     <td>
                         @if(!is_null($lead->remind_at))
                             <i class="fa fa-calendar"></i> {{$lead->jalaliDate('remind_at')}} ({{$lead->jalaliAgoDate('remind_at')}})
+                        @else
+                        	<code>ندارد</code>
                         @endif
                     </td>
                     <td class="languageLeft">
-
+						@include('admin.pages.lead.partials._my_list_operation')
                     </td>
                 </tr>
             @endforeach
@@ -67,3 +69,4 @@
 <div class="row">
 	{{$list->appends(Input::except('page'))->links()}}
 </div>
+@include('admin.blocks.delete_modal')

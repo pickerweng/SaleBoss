@@ -26,6 +26,9 @@
 	<script src="{{asset('assets/admin/js/underscore-min.js')}}" type="text/javascript"></script>
 	<script src="{{asset('assets/admin/js/saleboss.js')}}" type="text/javascript"></script>
 	<script src="{{asset('assets/admin/js/leads.js')}}" type="text/javascript"></script>
+	<script type="text/javascript">
+		var baseUrl = "{{URL::to('/')}}";
+	</script>
 	<script class="message-template" type="text/template">
 		<div class="alert alert-danger">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -51,10 +54,25 @@
 			<td><%= phones[0].number %></td>
 			<td><%= tags[0].name %></td>
 			<td><%= description %></td>
-			<td><%= priority %></td>
-			<td><%= status %></td>
+			<td class="text-center">
+				<% for(p=1; p <= ( Number(priority) + 1); p++){ %>
+					<i class="fa fa-star"></i>
+				<% }  %>
+			</td>
+			<td>
+				<span class="label label-<%= getStatusClass(status) %>"><%= translated_status %></span>
+			</td>
 			<td></td>
-			<td></td>
+			<td>
+				<button
+						type="button"
+						class="btn btn-xs pull-left margin-right btn-danger"
+						delete-url="<%= baseUrl %>/me/leads/<%= id %>"
+						onclick="Common.setDeleteURL(this,'#delete_form')"
+						data-toggle="modal"
+						data-target="#removeModal"><i class="fa fa-times"></i>
+				</button>
+             </td>
 		</tr>
 	</script>
 @stop

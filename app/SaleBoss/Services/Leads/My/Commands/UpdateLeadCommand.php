@@ -1,6 +1,12 @@
-<?php  namespace SaleBoss\Services\Leads\My\Commands;
+<?php  namespace SaleBoss\Services\Leads\My\Commands; 
+class UpdateLeadCommand {
 
-class StoreLeadCommand {
+	public $name;
+	public $description;
+	public $phone;
+	public  $priority;
+	public  $tag;
+	public  $remind_at;
 
 	public function __construct(
 		$name,
@@ -8,15 +14,13 @@ class StoreLeadCommand {
 		$phone,
 		$priority,
 		$tag,
-		$status,
 		$remind_at
-	) {
+	){
 		$this->name = $name;
 		$this->description = $description;
 		$this->phone = $phone;
 		$this->priority = $priority;
-		$this->remind_at = $remind_at;
 		$this->tag = $tag;
-		$this->status = $status;
+		$this->remind_at = $remind_at;
 	}
-}
+} 

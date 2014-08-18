@@ -106,12 +106,29 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
 		return $lead->load('phones','tags');
 	}
 
-    public function getUserLeads(User $user, $int = 25)
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Get user leads
+	 *
+	 * @param User $user
+	 * @param int $int
+	 * @return mixed
+	 */
+	public function getUserLeads(User $user, $int = 25)
     {
         return $user->createdLeads()->with('tags','phones')->orderBy('created_at','DESC')->paginate($int);
     }
 
-    public function getUserLeadsBetween(User $user, $todayStart, $todayEnd)
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Get user leads between a date
+	 *
+	 * @param User $user
+	 * @param $todayStart
+	 * @param $todayEnd
+	 * @return mixed
+	 */
+	public function getUserLeadsBetween(User $user, $todayStart, $todayEnd)
     {
         return $user->createdLeads()
                     ->with('tags','phones')

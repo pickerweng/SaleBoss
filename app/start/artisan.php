@@ -11,3 +11,5 @@
 |
 */
 
+Artisan::add(App::make('SaleBoss\Services\Tag\ImportTagCommand'));
+

@@ -1,5 +1,6 @@
 <?php namespace SaleBoss\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
 use SaleBoss\Models\Lead;
 use SaleBoss\Models\User;
 
@@ -47,4 +48,8 @@ interface LeadRepositoryInterface {
     public function getUserLeads(User $user, $int);
 
     public function getUserLeadsBetween(User $user, $todayStart, $todayEnd);
+
+	public function deleteByModel(Model $model);
+
+	public function deleteById($id);
 } 

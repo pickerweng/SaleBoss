@@ -140,4 +140,36 @@ class AbstractRepository {
         }
     }
 
+	/**
+	 * Delete a model with instance of model given
+	 *
+	 * @param Model $model
+	 * @throws \Exception
+	 * @throws \SaleBoss\Repositories\Exceptions\RepositoryException
+	 * @return Model
+	 */
+	public function deleteByModel(Model $model)
+	{
+		try {
+			$model->delete();
+			return $model;
+		}catch (QueryException $e) {
+			throw new RepositoryException($e->getMessage());
+		}
+	}
+
+	/**
+	 * Delete an eloquent model based on id
+	 *
+	 * @param $id
+	 * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
+	 * @throws \SaleBoss\Repositories\Exceptions\RepositoryException
+	 * @return null
+	 */
+	public function deleteById($id)
+	{
+		return $this->delete($id);
+	}
+
+
 }
