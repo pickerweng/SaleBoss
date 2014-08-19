@@ -14,4 +14,13 @@ interface PhoneRepositoryInterface {
 	 * @return mixed
 	 */
 	public function addPhoneToLead(Lead $lead, $phone);
+
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Delete lead phone number
+	 *
+	 * @param $toBeDeleted
+	 * @return mixed
+	 */
+	public function deleteLeadPhones(Lead $toBeDeleted);
 }

@@ -73,7 +73,11 @@ class StoreLeadCommandHandler implements CommandHandler {
 	private function getTag($tagName)
 	{
 		try{
-			$tag = $this->tagRepo->findByName($tagName);
+			if (is_numeric($tagName)) {
+				$tag = $this->tagRepo->findById($tagName);
+			}else {
+				$tag = $this->tagRepo->findByName($tagName);
+			}
 			return $tag;
 		}catch (NotFoundException $e){
 			return $tag = $this->tagRepo->createRaw(['name' => $tagName]);

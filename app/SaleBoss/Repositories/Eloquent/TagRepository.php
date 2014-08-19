@@ -26,4 +26,9 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
 		$lead->tags()->attach($tag);
 		return $lead;
 	}
+
+	public function getTagList ($count = null)
+	{
+		return $this->model->getTagList($count);
+	}
 }

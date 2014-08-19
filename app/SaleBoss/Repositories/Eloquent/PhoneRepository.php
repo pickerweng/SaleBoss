@@ -65,4 +65,20 @@ class PhoneRepository extends AbstractRepository implements PhoneRepositoryInter
 		$lead->phones()->save($phoneModel);
 		return $lead;
 	}
+
+	/**
+	 * @author bigsinoos <pcfeeler@gmail.com>
+	 * Delete lead phone number
+	 *
+	 * @param $toBeDeleted
+	 * @return mixed
+	 */
+	public function deleteLeadPhones(Lead $toBeDeleted)
+	{
+		$deleteQueue = $toBeDeleted->phones()->get();
+		foreach($deleteQueue as $item)
+		{
+			$item->delete();
+		}
+	}
 }

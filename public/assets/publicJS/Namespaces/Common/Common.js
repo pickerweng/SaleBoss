@@ -13,7 +13,19 @@
 		$(formElem).attr('action',url);
 	}
 
+    Common.setUpdateURL = function(elem, formElem, data){
+        var url = $(elem).attr('update-url');
+        $(".modal-body").html(data);
+        $(formElem).attr('update-url');
+    }
+
 	Common.submitDeleteForm = function(elem){
 		$(elem).submit();
 	}
-})(jQuery); 
+
+    Common.submitUpdateForm = function(elem){
+        $(elem).submit();
+    }
+})(jQuery);
+
+Common.setDeleteURL()

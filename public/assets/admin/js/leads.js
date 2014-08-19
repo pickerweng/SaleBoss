@@ -56,8 +56,6 @@ $(document).ready(function() {
         data.translated_status = leadStatuses[data.status];
         $(".inline-form-tr").after(_.template($(".lead-row-template").html(), data));
     }
-
-
 });
 
 function getStatusClass(status)
@@ -76,3 +74,20 @@ function getStatusClass(status)
             return 'default';
     }
 }
+
+function leadUpdateClosure(elem)
+{
+    elem = $(elem);
+    updateForm = new Object();
+    updateForm = {
+        phone : elem.attr('phone'),
+        tag : elem.attr('tag'),
+        name : elem.attr('name'),
+        description : elem.attr('description'),
+        status: elem.status,
+        priority : elem.attr('priority'),
+        remind_at : elem.attr('remind_at')
+    }
+    return _.template($(".lead-update-modal-form").html(), updateForm);
+}
+

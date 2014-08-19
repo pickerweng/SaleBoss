@@ -1,9 +1,11 @@
 <?php namespace SaleBoss\Services\Tag;
 
+use Config;
 use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\FileNotFoundException;
 use Laracasts\Commander\CommanderTrait;
+use SaleBoss\Services\CommandBus\ArtisanCommanderTrait;
 use SaleBoss\Services\Tag\Commands\BulkTagStoreCommand;
 use Symfony\Component\Console\Input\InputArgument;
 
@@ -11,9 +13,7 @@ class ImportTagCommand extends Command {
 
 	protected $configRepo;
 
-	use CommanderTrait {
-		execute as ;
-	}
+	use ArtisanCommanderTrait;
 
 	/**
 	 * The console command name.
@@ -50,11 +50,10 @@ class ImportTagCommand extends Command {
 	public function fire()
 	{
 		$file = $this->argument('file');
-		$this->checkFileBeing($file);
-		$data = $this->configRepo->get($file,[]);
+		$data = $this->configRepo->get($file, []);
 		$data = $this->buildTagData($data);
-
-		$this->commanderExecute(BulkTagStoreCommand::class);
+		$this->commanderExecute(BulkTagStoreCommand::class, ['data' => $data]);
+		$this->info("Tags where imported successfully from [{$file}]");
 	}
 
 	/**
@@ -80,15 +79,6 @@ class ImportTagCommand extends Command {
 		);
 	}
 
-	private function checkFileBeing($file)
-	{
-		if (! file_exists($file))
-		{
-			$message = "File with address : [{$file}] not found";
-			throw new FileNotFoundException($message);
-		}
-	}
-
 	private function buildTagData(&$data)
 	{
 		$configuredData = [];
@@ -96,6 +86,7 @@ class ImportTagCommand extends Command {
 		{
 			$tmpTag = [];
 			$tmpTag['name'] = $tag;
+			$configuredData [] = $tmpTag;
 			unset($tag);
 		}
 		return $configuredData;

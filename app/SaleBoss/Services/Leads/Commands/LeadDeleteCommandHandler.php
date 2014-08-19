@@ -1,19 +1,24 @@
 <?php  namespace SaleBoss\Services\Leads\Commands; 
 use Laracasts\Commander\CommandHandler;
 use SaleBoss\Repositories\LeadRepositoryInterface;
+use SaleBoss\Repositories\PhoneRepositoryInterface;
 use SaleBoss\Services\Leads\Exceptions\AccessDeniedException;
 
 class LeadDeleteCommandHandler implements CommandHandler {
 
 	protected $leadRepo;
+	protected $phoneRepo;
 
 	/**
 	 * @param LeadRepositoryInterface $leadRepo
+	 * @param PhoneRepositoryInterface $phoneRepo
 	 */
 	public function __construct(
-		LeadRepositoryInterface $leadRepo
+		LeadRepositoryInterface $leadRepo,
+		PhoneRepositoryInterface $phoneRepo
 	){
 		$this->leadRepo = $leadRepo;
+		$this->phoneRepo = $phoneRepo;
 	}
 
 	/**
@@ -26,6 +31,7 @@ class LeadDeleteCommandHandler implements CommandHandler {
 	public function handle($command)
 	{
 		$toBeDeleted = $this->control($command);
+		$this->phoneRepo->deleteLeadPhones($toBeDeleted);
 		$this->leadRepo->deleteByModel($toBeDeleted);
 		return $toBeDeleted;
 	}

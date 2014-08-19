@@ -49,10 +49,10 @@
 	</script>
 	<script type="text/template" class="lead-row-template">
 		<tr class="injected">
-			<td>#<%= id %></td>
+			<td># <%= id %></td>
 			<td class="text-center"><%= name %></td>
-			<td><%= phones[0].number %></td>
-			<td><%= tags[0].name %></td>
+			<td class="text-center"><%= phones[0].number %></td>
+			<td class="text-center"><%= tags[0].name %></td>
 			<td><%= description %></td>
 			<td class="text-center">
 				<% for(p=1; p <= ( Number(priority) + 1); p++){ %>
@@ -62,7 +62,7 @@
 			<td>
 				<span class="label label-<%= getStatusClass(status) %>"><%= translated_status %></span>
 			</td>
-			<td></td>
+			<td><%= remind_at %></td>
 			<td>
 				<button
 						type="button"
