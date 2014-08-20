@@ -135,4 +135,20 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
                     ->whereBetween('remind_at',array($todayStart, $todayEnd))
                     ->get();
     }
+
+	public function getCountableStatuses(User $user, $before = null)
+	{
+		if (is_null($before))
+		{
+			return $user->createdLeads()
+				        ->getQuery()
+						->groupBy('status')
+						->get(array('status', DB::raw('count(*) as total')));
+		}
+		return $user->createdLeads()
+					->getQuery()
+					->where('created_at','>', $before)
+					->groupBy('status')
+					->get(array('status', DB::raw('count(*) as total')));
+	}
 }

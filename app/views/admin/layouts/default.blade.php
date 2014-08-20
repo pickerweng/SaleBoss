@@ -20,5 +20,6 @@
       </div>
 		@yield('footer')
       @show
+      @include('admin.sections.content.footer')
   </body>
 </html>

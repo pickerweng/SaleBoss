@@ -26,6 +26,11 @@
 		@include('admin.pages.dashboard.partials._orders_graph')
 	</div>
 	@endif
+	@if(Sentry::getUser()->hasAnyAccess(['graphs.own_chart_status_graph']))
+	<div class="col-lg-4 col-md-6 col-sm-12">
+		@include('admin.pages.lead.partials._status_chart')
+	</div>
+	@endif
 	@if (! $generatedUsers->isEmpty())
 	<div class="col-sm-12 col-md-6 col-lg-6">
 		@include('admin.pages.dashboard.partials._my_generated_users')

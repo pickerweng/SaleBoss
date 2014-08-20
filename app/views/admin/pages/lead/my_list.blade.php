@@ -23,10 +23,10 @@
 				<td>__</td>
 				<td>{{Form::text('name',null,['placeholder' => 'نام شخص یا شرکت','class' => 'form-control bulkable resettable', 'size' => '10'])}}</td>
 				<td>{{Form::text('phone',null,['placeholder' => 'شماره تماس','class' => 'form-control languageLeft bulkable resettable','size' => '10'])}}</td>
-				<td>{{Form::select('tag',SaleBoss\Models\Tag::getTagList(),0,['class' => 'form-control stable'])}}</td>
+				<td class="tags">{{Form::select('tag',SaleBoss\Models\Tag::getTagList(),0,['class' => 'form-control stable'])}}</td>
 				<td>{{Form::text('description',null,['placeholder' => 'توضیحات','class' => 'form-control bulkable resettable','size' => '10'])}}</td>
-				<td>{{Form::select( 'priority',array(0,1,2,3,4,5),0,['class' => 'form-control languageLeft bulkable resettable'])}}</td>
-				<td> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable'])}}</td>
+				<td class="priorities">{{Form::select( 'priority',array(0,1,2,3,4,5),0,['class' => 'form-control languageLeft bulkable resettable'])}}</td>
+				<td class="statuses"> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable'])}}</td>
 				<td>{{Form::text('remind_at',null,['class' => 'form-control resettable', 'placeholder' => 'به یادآوری در چندروز بعد؟','size' => '10'])}}</td>
 				<td>
 					<button type="submit" data-loading-text="لطفا صبر کنید..." class="btn operation-margin btn-success btn pull-left submit_button"><i class="fa fa-plus"></i></button>

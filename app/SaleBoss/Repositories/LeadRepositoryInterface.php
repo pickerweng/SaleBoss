@@ -52,4 +52,6 @@ interface LeadRepositoryInterface {
 	public function deleteByModel(Model $model);
 
 	public function deleteById($id);
+
+	public function getCountableStatuses(User $user, $before = null);
 } 

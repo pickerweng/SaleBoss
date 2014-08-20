@@ -58,7 +58,7 @@ class UserController extends BaseController
 		$this->dash->setUser(Sentry::getUser());
 		$data = $this->dash->getHisDash();
         $data['inDashboard'] = true;
-		JavaScript::put(['orderChart' => $data['orderChart']]);
+		JavaScript::put(['orderChart' => $data['orderChart'] , 'myLeadStats' => $data['myLeadStats']]);
 		return $this->view(
 				'admin.pages.dashboard.main',
 				$data

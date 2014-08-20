@@ -25,27 +25,44 @@
     	'class'			=>	'update_form'
     ))}}
     	<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<label class="control-label">نام یا شماره شرکت</label>
+				<input type="text" class="form-control bulkable resettable" placeholder="نام شخص یا شرکت" value="<%= name %>">
+			</div>
+			<div class="col-lg-6 col-sm-12">
+				<label class="control-label">شماره تماس</label>
+				<input type="text" class="form-control languageLeft bulkable resettable" value="<%= phone %>">
+			</div>
+		</div>
+		<br>
+		<div class="row">
     		<div class="col-lg-6 col-md-6 col-sm-12">
-    			{{Form::text('name',"<%= name %>",['placeholder' => 'نام شخص یا شرکت','class' => 'form-control bulkable resettable', 'size' => '10'])}}
-    		</div>
-    		<div class="col-lg-6 col-sm-12">
-    			{{Form::text('phone',"<%= phone %>",['placeholder' => 'شماره تماس','class' => 'form-control languageLeft bulkable resettable','size' => '10'])}}
-    		</div>
-    		<div clss="col-lg-6 col-md-6 col-sm-12">
-    			{{Form::select('tag',SaleBoss\Models\Tag::getTagList(),"<%= tag %>",['class' => 'form-control stable'])}}
-    		</div>
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-    			{{Form::text('description',"<%= description %>",['placeholder' => 'توضیحات','class' => 'form-control bulkable resettable','size' => '10'])}}
-    		</div>
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-    			{{Form::select( 'priority',array(0,1,2,3,4,5),"<%= priority %>",['class' => 'form-control languageLeft bulkable resettable'])}}
-    		</div>
-    		<div class="col-lg-6 col-md-6 col-sm-12">
-    			{{Form::select('status',$opiloConfig['lead_status'],"<%= status %>",['class' => 'form-control stable'])}}
+    			<label class="control-label">زمینه فعالیت</label>
+    			<%= tags %>
     		</div>
     		<div class="col-lg-6 col-md-6 col-sm-12">
-    			{{Form::text('remind_at',"<%= remind_at %>",['class' => 'form-control resettable', 'placeholder' => 'به یادآوری در چندروز بعد؟','size' => '10'])}}
+    			<label class="control-label">توضیحات</label>
+    			<input type="text" class="form-control bulkable resettable" value="<%= description %>">
     		</div>
-    	</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<label class="control-label">اهمیت</label>
+					<%= priorities %>
+			</div>
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<label class="control-label">وضعیت</label>
+				<%= statuses %>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+    		<div class="col-lg-6 col-md-6 col-sm-12">
+    			<label class="control-label">تاریخ به یاد آوری</label>
+    			<input class="form-control" type="text" placeholder="به یاد آوری در چند روز بعد؟">
+    		</div>
+		</div>
+		<br>
 	{{Form::close()}}
 </script>

@@ -1,10 +1,15 @@
 <?php namespace SaleBoss\Services\User;
 
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Input;
+use Laracasts\Commander\CommanderTrait;
 use SaleBoss\Models\User;
+use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\StateRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
+use SaleBoss\Services\Authenticator\AuthenticatorInterface;
+use SaleBoss\Services\Leads\My\Commands\LeadStatisticsCommand;
 
 class Dashboard implements DashboardInterface {
 
@@ -15,6 +20,9 @@ class Dashboard implements DashboardInterface {
 	protected $userQueue;
 	protected $typeRepo;
 	protected $entityRepo;
+	protected $leadRepo;
+
+	use CommanderTrait;
 
 	/**
 	 * @TODO too much injection
@@ -22,12 +30,16 @@ class Dashboard implements DashboardInterface {
 	 * @param UserRepositoryInterface $userRepo
 	 * @param StateRepositoryInterface $stateRepo
 	 * @param OrderRepositoryInterface $orderRepo
+	 * @param LeadRepositoryInterface $leadRepo
+	 * @param AuthenticatorInterface $auth
 	 * @param UserQueue $userQueue
 	 */
 	public function __construct(
 		UserRepositoryInterface $userRepo,
 		StateRepositoryInterface $stateRepo,
 		OrderRepositoryInterface $orderRepo,
+		LeadRepositoryInterface $leadRepo,
+		AuthenticatorInterface $auth,
 		UserQueue $userQueue
 	)
 	{
@@ -35,6 +47,8 @@ class Dashboard implements DashboardInterface {
 		$this->orderRepo = $orderRepo;
 		$this->stateRepo = $stateRepo;
 		$this->userQueue = $userQueue;
+		$this->leadRepo = $leadRepo;
+		$this->auth = $auth;
 	}
 
 	/**
@@ -60,16 +74,17 @@ class Dashboard implements DashboardInterface {
 		$allOrders = $this->allOrders();
 		$openOrders = $this->openOrders();
 		$orderChart = $this->orderChart();
-		return compact(
+		$myLeadStats = $this->ownLeadStats();
+		return compact (
 			'userQueue',
 			'generatedOrders',
 			'generatedUsers',
 			'hisSales',
 			'allOrders',
 			'openOrders',
-			'orderChart'
+			'orderChart',
+			'myLeadStats'
 		);
-
 	}
 
 	/**
@@ -150,6 +165,15 @@ class Dashboard implements DashboardInterface {
 			$output[] = $tmpOutput;
 		}
 		return $output;
+	}
+
+	private function ownLeadStats()
+	{
+		$leadStats = $this->execute(
+			LeadStatisticsCommand::class,
+			['user' => $this->auth->user(), 'period' => Input::get('period')]
+		);
+		return $leadStats;
 	}
 
 

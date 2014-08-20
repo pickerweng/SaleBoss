@@ -53,7 +53,7 @@ $(document).ready(function() {
     }
 
     function injectNewCreatedData(data) {
-        data.translated_status = leadStatuses[data.status];
+        data.translated_status = getStatuses(data.status);
         $(".inline-form-tr").after(_.template($(".lead-row-template").html(), data));
     }
 });
@@ -77,17 +77,41 @@ function getStatusClass(status)
 
 function leadUpdateClosure(elem)
 {
+    var statuses = $(".statuses");
+    var priorities = $(".priorities");
+    var tags = $(".tags");
+
     elem = $(elem);
+
+    statuses = setSelected(statuses, elem.attr('status'));
+    priorities = setSelected(priorities, elem.attr('priority'));
+    tags = setSelected(tags, elem.attr('tag'));
+
     updateForm = new Object();
     updateForm = {
         phone : elem.attr('phone'),
         tag : elem.attr('tag'),
+        tags : tags.html(),
         name : elem.attr('name'),
         description : elem.attr('description'),
-        status: elem.status,
+        status: elem.attr('status'),
+        statuses: statuses.html(),
         priority : elem.attr('priority'),
+        priorities : priorities.html(),
         remind_at : elem.attr('remind_at')
     }
+
     return _.template($(".lead-update-modal-form").html(), updateForm);
+}
+
+function setSelected(selectable, value)
+{
+    selectable.find('select option[value=' + value  + ']').attr('selected','selected');
+    return selectable;
+}
+
+function getStatuses (key)
+{
+    return Common.getStatuses(key);
 }
 
