@@ -24,7 +24,7 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            {{$generatedOrders->links()}}
+            {{$generatedOrders->appends(Input::except('page'))->links()}}
         </div>
     </div>
 @else

@@ -2,7 +2,7 @@
     <fieldset>
         <legend>
             <strong>
-                اطلاعات سفارش
+                اطلاعات سفارش{ {{$order->id}} }
             </strong>
             @if($order->suspended)
                 <label class="label label-danger pull-left">معلق</label>
