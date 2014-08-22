@@ -1,6 +1,7 @@
 <?php namespace Controllers; 
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\OrderRepositoryInterface;
