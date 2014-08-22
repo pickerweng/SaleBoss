@@ -16,4 +16,6 @@ interface TagRepositoryInterface {
 	public function addTagToLead(Lead $lead, Tag $tag);
 
 	public function createRaw(array $tag);
+
+    public function syncLeadTags($lead, $array);
 }

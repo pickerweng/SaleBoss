@@ -171,5 +171,39 @@ class AbstractRepository {
 		return $this->delete($id);
 	}
 
+    /**
+     * Count all
+     *
+     * @param null $before
+     * @return int
+     */
+    public function countAll($before = null)
+    {
+        $q = $this->model->newInstance()->getQuery();
+        if (! empty($before)){
+            $q = $q->where('created_at', '>',$before);
+        }
+        return $q->count();
+    }
+
+    /**
+     * Count with query
+     *
+     * @param null $before
+     * @param array $query
+     * @return
+     */
+    public function countWithQuery($before = null, array $query)
+    {
+        $q= $this->model->newInstance();
+        foreach($query as $key => $value) {
+            $q = $q->where($key, $value);
+        }
+        if ( ! empty($before)) {
+            $q = $q->where('created_at','>',$before);
+        }
+        return $q->count();
+    }
+
 
 }

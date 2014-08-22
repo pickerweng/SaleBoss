@@ -1,13 +1,5 @@
 $(document).ready(function() {
-    var rowTemplate = _.template($(".lead-row-template").html());
     var submitBtn = $(".submit_button");
-    var leadStatuses = {
-        "0": "نا مشخص",
-        "1": "موفق",
-        "2": "بعدا مشخص میشود",
-        "-1": "نا موفق"
-    };
-
     var leadStoreForm = $("#lead-store-form");
 
     leadStoreForm.submit(function (e) {
@@ -16,7 +8,8 @@ $(document).ready(function() {
         $(".lead-store-messages").hide();
 
         submitBtn.button('loading');
-        var request = doRequest(
+
+        var request = Common.doRequest(
             leadStoreForm.attr('action'),
             leadStoreForm.serialize(),
             leadStoreForm.attr('method')
@@ -42,25 +35,9 @@ $(document).ready(function() {
             injectNewCreatedData(data);
         });
     });
-
-    function showLeadSuccessMessage(lead) {
-        $(".lead-store-messages ").hide();
-        $(".lead-store-messages").html(_.template(
-            $('.success-template').html(),
-            lead
-        ));
-        $(".lead-store-messages").fadeIn(400);
-    }
-
-    function injectNewCreatedData(data) {
-        data.translated_status = getStatuses(data.status);
-        $(".inline-form-tr").after(_.template($(".lead-row-template").html(), data));
-    }
 });
 
-function getStatusClass(status)
-{
-    console.log(status);
+function getStatusClass(status) {
     switch (status){
         case "0":
             return 'default';
@@ -75,20 +52,17 @@ function getStatusClass(status)
     }
 }
 
-function leadUpdateClosure(elem)
-{
+function leadUpdateClosure(elem) {
     var statuses = $(".statuses");
     var priorities = $(".priorities");
     var tags = $(".tags");
-
     elem = $(elem);
 
     statuses = setSelected(statuses, elem.attr('status'));
     priorities = setSelected(priorities, elem.attr('priority'));
     tags = setSelected(tags, elem.attr('tag'));
 
-    updateForm = new Object();
-    updateForm = {
+    var updateForm = {
         phone : elem.attr('phone'),
         tag : elem.attr('tag'),
         tags : tags.html(),
@@ -100,18 +74,29 @@ function leadUpdateClosure(elem)
         priorities : priorities.html(),
         remind_at : elem.attr('remind_at')
     }
-
     return _.template($(".lead-update-modal-form").html(), updateForm);
 }
 
-function setSelected(selectable, value)
-{
+function setSelected(selectable, value) {
     selectable.find('select option[value=' + value  + ']').attr('selected','selected');
     return selectable;
 }
 
-function getStatuses (key)
-{
+function getStatuses (key) {
     return Common.getStatuses(key);
+}
+
+function showLeadSuccessMessage(lead) {
+    $(".lead-store-messages ").hide();
+    $(".lead-store-messages").html(_.template(
+        $('.success-template').html(),
+        lead
+    ));
+    $(".lead-store-messages").fadeIn(400);
+}
+
+function injectNewCreatedData(data) {
+    data.translated_status = getStatuses(data.status);
+    $(".inline-form-tr").after(_.template($(".lead-row-template").html(), data));
 }
 

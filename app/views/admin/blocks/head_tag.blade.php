@@ -10,6 +10,7 @@
     @include('admin.blocks.stylesheets')
 @show
 
-@section('scripts')
-    @include('admin.blocks.scripts')
-@show
+<script src="{{asset('assets/admin/js/saleboss.min.js')}}"></script>
+<script type="text/javascript">
+	var baseUrl = "{{URL::to('/')}}";
+</script>

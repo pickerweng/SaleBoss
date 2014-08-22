@@ -102,4 +102,17 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
     {
         return $creator->orders()->with('state','customer','creator')->makeSearchable()->makeSortable()->paginate($int);
     }
+
+    public function sumPanelPrice($before, $query)
+    {
+        $q = $this->model->newInstance();
+        if (!empty($before))
+        {
+            $q = $q->where('created_at','>',$before);
+        }
+        foreach($query as $key => $value){
+            $q = $q->where($key, $value);
+        }
+        return $q->sum('panel_price');
+    }
 }

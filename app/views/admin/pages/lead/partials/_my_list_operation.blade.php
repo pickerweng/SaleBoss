@@ -23,4 +23,5 @@
 	data-target="#updateModal">
 	<i class="fa fa-pencil-square-o"></i>
 </button>
+<a target="_blank" href="{{URL::to('customers/create?lead_id='. $lead->id)}}" class="btn btn-info btn-xs"><i class="fa fa-user"></i></a>
 

@@ -20,18 +20,18 @@
 <script type="text/template" class="lead-update-modal-form">
 	{{Form::open(array(
     	'url'			=>	"#",
-    	'method'		=>	'delete',
+    	'method'		=>	'put',
     	'id'			=>	'update_form',
     	'class'			=>	'update_form'
     ))}}
     	<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<label class="control-label">نام یا شماره شرکت</label>
-				<input type="text" class="form-control bulkable resettable" placeholder="نام شخص یا شرکت" value="<%= name %>">
+				<input name="name" type="text" class="form-control bulkable resettable" placeholder="نام شخص یا شرکت" value="<%= name %>">
 			</div>
 			<div class="col-lg-6 col-sm-12">
 				<label class="control-label">شماره تماس</label>
-				<input type="text" class="form-control languageLeft bulkable resettable" value="<%= phone %>">
+				<input name="phone" type="text" class="form-control languageLeft bulkable resettable" value="<%= phone %>">
 			</div>
 		</div>
 		<br>
@@ -42,7 +42,7 @@
     		</div>
     		<div class="col-lg-6 col-md-6 col-sm-12">
     			<label class="control-label">توضیحات</label>
-    			<input type="text" class="form-control bulkable resettable" value="<%= description %>">
+    			<input name="description" type="text" class="form-control bulkable resettable" value="<%= description %>">
     		</div>
 		</div>
 		<br>
@@ -60,7 +60,7 @@
 		<div class="row">
     		<div class="col-lg-6 col-md-6 col-sm-12">
     			<label class="control-label">تاریخ به یاد آوری</label>
-    			<input class="form-control" type="text" placeholder="به یاد آوری در چند روز بعد؟">
+    			<input name="remind_at" class="form-control" type="text" placeholder="به یاد آوری در چند روز بعد؟">
     		</div>
 		</div>
 		<br>

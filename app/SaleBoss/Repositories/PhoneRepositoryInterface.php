@@ -23,4 +23,8 @@ interface PhoneRepositoryInterface {
 	 * @return mixed
 	 */
 	public function deleteLeadPhones(Lead $toBeDeleted);
+
+    public function syncLeadPhones($lead, $array);
+
+    public function deleteByNumber($number);
 }

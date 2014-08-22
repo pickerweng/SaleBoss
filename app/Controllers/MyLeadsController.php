@@ -2,7 +2,6 @@
 
 use App;
 use Input;
-use Laracasts\Utilities\JavaScript\Facades\JavaScript;
 use Laracasts\Validation\FormValidationException;
 use Response;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
@@ -10,11 +9,10 @@ use SaleBoss\Repositories\Exceptions\RepositoryException;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 use SaleBoss\Services\Leads\Commands\LeadDeleteCommand;
 use SaleBoss\Services\Leads\Exceptions\AccessDeniedException;
-use SaleBoss\Services\Leads\My\Commands\LeadStatisticsCommand;
 use SaleBoss\Services\Leads\My\Commands\ListCommand;
 use SaleBoss\Services\Leads\My\Commands\StoreLeadCommand;
 use SaleBoss\Services\Leads\My\Commands\TodayListCommand;
-use SaleBoss\Services\Leads\My\Commands\UpdateLeadCommandHandler;
+use SaleBoss\Services\Leads\My\Commands\UpdateLeadCommand;
 use SaleBoss\Services\Leads\My\Commands\WeekListCommand;
 
 class MyLeadsController extends BaseController
@@ -66,15 +64,17 @@ class MyLeadsController extends BaseController
 
 	public function update($id)
 	{
-		$input = Input::all();
-		$additionalData = ['id' => $id, 'user' => $this->auth->user()];
+        Input::merge(['id' => $id, 'user' => $this->auth->user()]);
 		try {
-			$this->execute(UpdateLeadCommandHandler::class, array_merge($additionalData, $input));
+			$this->execute(UpdateLeadCommand::class);
 			return $this->redirectBack()->with('success_message',trans('messages.operation_success'));
 		}catch (NotFoundException $e){
 			App::abort(404);
 		}catch (RepositoryException $e){
+            print $e->getMessage();exit();
 			return $this->redirectBack()->with('error_message',trans('messages.database_error'));
-		}
+		}catch (FormValidationException $e){
+            return $this->redirectBack()->withErrors($e->getErrors());
+        }
 	}
 } 

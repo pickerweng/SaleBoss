@@ -9,7 +9,6 @@ class Lead extends Eloquent {
     protected $guarded = [];
 
     use DateTrait;
-    use SoftDeletingTrait;
 
     protected $dates = ['created_at','updated_at','remind_at'];
 

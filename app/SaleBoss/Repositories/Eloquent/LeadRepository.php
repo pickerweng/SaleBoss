@@ -1,13 +1,11 @@
 <?php namespace SaleBoss\Repositories\Eloquent;
 
 use Carbon\Carbon;
-use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use SaleBoss\Models\Lead;
 use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
-use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\Exceptions\RepositoryException;
 use SaleBoss\Repositories\LeadRepositoryInterface;
 
@@ -130,6 +128,8 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
 	 */
 	public function getUserLeadsBetween(User $user, $todayStart, $todayEnd)
     {
+        $todayStart = Carbon::createFromTimestamp($todayStart)->toDateString();
+        $todayEnd = Carbon::createFromTimestamp($todayEnd)->toDateString();
         return $user->createdLeads()
                     ->with('tags','phones')
                     ->whereBetween('remind_at',array($todayStart, $todayEnd))
@@ -145,10 +145,23 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
 						->groupBy('status')
 						->get(array('status', DB::raw('count(*) as total')));
 		}
+        $before = Carbon::createFromTimestamp((int) $before);
 		return $user->createdLeads()
 					->getQuery()
-					->where('created_at','>', $before)
+					->where('created_at','>', $before->toDateString())
 					->groupBy('status')
 					->get(array('status', DB::raw('count(*) as total')));
 	}
+
+    public function getRemindableLeads(User $user, $int = 50)
+    {
+        $todayStart = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->toDateTimeString();
+        return $user->createdLeads()->where('remind_at', '>', $todayStart)
+                    ->with('tags','phones')
+                    ->orWhere(function($q){
+                        $q->where('updated_at','<','remind_at')->whereNotNull('remind_at');
+                    })
+                    ->orderBy('remind_at','ASC')
+                    ->take($int)->get();
+    }
 }

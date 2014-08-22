@@ -3,8 +3,6 @@
 use Config;
 use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\FileNotFoundException;
-use Laracasts\Commander\CommanderTrait;
 use SaleBoss\Services\CommandBus\ArtisanCommanderTrait;
 use SaleBoss\Services\Tag\Commands\BulkTagStoreCommand;
 use Symfony\Component\Console\Input\InputArgument;

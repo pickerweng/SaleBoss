@@ -48,6 +48,9 @@ Route::group(["namespace" => "Controllers"], function(){
 	    Route::get('me/leads','MyLeadsController@index');
 	    Route::post('me/leads','MyLeadsController@store');
 	    Route::delete('me/leads/{lead_id}','MyLeadsController@destroy');
+        Route::put('me/leads/{lead_id}','MyLeadsController@update');
+        Route::get('stats/whole','StatsController@whole');
+        Route::get('stats/user/{user_id}','StatsController@users');
     });
 });
 

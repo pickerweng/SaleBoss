@@ -31,4 +31,10 @@ class TagRepository extends AbstractRepository implements TagRepositoryInterface
 	{
 		return $this->model->getTagList($count);
 	}
+
+    public function syncLeadTags($lead, $array)
+    {
+        $lead->phones()->sync($array);
+        return $lead;
+    }
 }

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
 use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
+use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 use SaleBoss\Services\User\CustomerCreator;
@@ -22,16 +23,28 @@ class CustomerController extends BaseController
     protected $userRepo;
     protected $creator;
     protected $auth;
+    protected $leadRepo;
 
     public function __construct(
         CustomerCreator $creator,
         UserRepositoryInterface $userRepo,
-        AuthenticatorInterface $auth
+        AuthenticatorInterface $auth,
+        LeadRepositoryInterface $leadRepo
     ){
         $this->creator = $creator;
         $this->userRepo = $userRepo;
         $this->auth = $auth;
+        $this->leadRepo = $leadRepo;
         $this->beforeFilter('hasPermission:customers.own_edit',['only' => ['edit','update']]);
+        $lead = Input::get('lead_id');
+        if(!empty($lead)){
+            $user = $this->auth->user();
+            if(! $user->hasAnyAccess(['leads.create_all_user'])){
+                if ($user->id != $lead->creator_id){
+                    return $this->redirectTo('dash')->with('success_message',trans('messages.access_denied'));
+                }
+            }
+        }
     }
 
     /**
@@ -41,11 +54,19 @@ class CustomerController extends BaseController
      */
     public function create()
     {
+        $lead = Input::get('lead_id');
+        if (!empty($lead)){
+            try {
+                $lead = $this->leadRepo->findById($lead);
+            }catch (NotFoundException $e){
+
+            }
+        }
         $title = 'ایجاد مشتری جدید';
         $description = 'مشتری که در این قسمت ایجاد میکنید در سیستم به نام شما ثبت خواهد شد.';
         return $this->view(
             'admin.pages.customer.create',
-            compact('title','description')
+            compact('title','description','lead')
         );
     }
 

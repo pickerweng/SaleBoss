@@ -21,7 +21,6 @@ class CreateLeadsTable extends Migration {
             $t->text('description');
             $t->timestamp('remind_at')->nullable();
             $t->timestamps();
-            $t->softDeletes();
 
             $t->foreign('creator_id')
               ->references('id')

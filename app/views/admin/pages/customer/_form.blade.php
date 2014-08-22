@@ -1,4 +1,7 @@
 <div class="well">
+    @if(! empty($lead))
+        <p class="text-center"><code>این سفارش در حال ایجاد برای لید شماره {{$lead->id}} میباشد.</code></p>
+    @endif
     {{Form::open([
         'url' => empty($update) ? 'customers' : "customers/{$customer->id}" ,
         'method' => empty($update) ? 'post' : 'put',
@@ -6,13 +9,14 @@
     ])}}
         @if(empty($update))
             {{Form::hidden('to_orders',null,['class' => 'to-order'])}}
+            {{Form::hidden('user[lead_id]',Input::get('lead_id'))}}
         @endif
         <fieldset>
             <legend><strong>اطلاعات اولیه</strong></legend>
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     {{Form::label('user[first_name]', 'نام',['class' => 'control-label'])}}
-                    {{Form::text('user[first_name]',empty($update) ? null : $customer->first_name,['class' => 'form-control' , 'placeholder' => 'مثال: علی'])}}
+                    {{Form::text('user[first_name]',empty($update) ? (! empty($lead) ? $lead->name : null) : $customer->first_name,['class' => 'form-control' , 'placeholder' => 'مثال: علی'])}}
                 </div>
                 <div class="col-md-6 col-sm-12">
                     {{Form::label('user[last_name]', 'نام خانوادگی',['class' => 'control-label'])}}
@@ -22,7 +26,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     {{Form::label('user[email]', 'ایمیل',['class' => 'control-label'])}}
-                    {{Form::text('user[email]',empty($update) ? null : $customer->email,['class' => 'form-control languageLeft' , 'placeholder' => 'Example: ali.mohammadi@yahoo.com'])}}
+                    {{Form::text('user[email]',empty($update) ? (empty($lead) ? null : $lead->phones()->first()->number . '@opilo.com') : $customer->email,['class' => 'form-control languageLeft' , 'placeholder' => 'Example: ali.mohammadi@yahoo.com'])}}
                 </div>
                 <div class="col-md-6 col-sm-12">
                     <label class="control-label">نام سازنده</label>
@@ -42,7 +46,7 @@
                 </div>
                 <div class="col-md-6 col-sm-12">
                     {{Form::label('user[mobile]', 'شماره موبایل',['class' => 'control-label'])}}
-                    {{Form::text('user[mobile]',empty($update) ? null : $customer->mobile,['class' => 'form-control languageLeft' , 'placeholder' => 'Example: 09124052061'])}}
+                    {{Form::text('user[mobile]',empty($update) ? (empty($lead) ? null : $lead->phones()->first()->number)  : $customer->mobile,['class' => 'form-control languageLeft' , 'placeholder' => 'Example: 09124052061'])}}
                 </div>
             </div>
             <div class="row">

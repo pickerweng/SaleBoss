@@ -75,6 +75,8 @@ class Dashboard implements DashboardInterface {
 		$openOrders = $this->openOrders();
 		$orderChart = $this->orderChart();
 		$myLeadStats = $this->ownLeadStats();
+        $remindingLeads = $this->getRemindingLeads();
+        $leadStats = $this->leadStats();
 		return compact (
 			'userQueue',
 			'generatedOrders',
@@ -83,7 +85,9 @@ class Dashboard implements DashboardInterface {
 			'allOrders',
 			'openOrders',
 			'orderChart',
-			'myLeadStats'
+			'myLeadStats',
+            'leadStats',
+            'remindingLeads'
 		);
 	}
 
@@ -176,5 +180,14 @@ class Dashboard implements DashboardInterface {
 		return $leadStats;
 	}
 
+    private function leadStats()
+    {
+
+    }
+
+    private function getRemindingLeads()
+    {
+        return  $this->leadRepo->getRemindableLeads($this->auth->user(), 50);
+    }
 
 }

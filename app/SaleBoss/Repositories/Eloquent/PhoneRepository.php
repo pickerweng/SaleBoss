@@ -81,4 +81,19 @@ class PhoneRepository extends AbstractRepository implements PhoneRepositoryInter
 			$item->delete();
 		}
 	}
+
+    public function syncLeadPhones($lead, $phones)
+    {
+        $lead->phones()->sync($phones);
+        return $lead;
+    }
+
+    public function deleteByNumber($number)
+    {
+        $phone = $this->model->where('number','=',$number)->first();
+        if (!is_null($phone))
+        {
+            $phone->delete();
+        }
+    }
 }

@@ -20,6 +20,8 @@
       </div>
 		@yield('footer')
       @show
-      @include('admin.sections.content.footer')
+      @section('footer')
+        @include('admin.sections.content.footer')
+      @show
   </body>
 </html>

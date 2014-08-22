@@ -2,11 +2,13 @@
 
 
 use Illuminate\Events\Dispatcher;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\Exceptions\RepositoryException;
+use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 use SaleBoss\Services\Validator\CustomerCreationValidator;
@@ -20,21 +22,25 @@ class CustomerCreator {
     protected $auth;
     protected $updateListener;
     protected $customer;
+    protected $leadRepo;
 
     /**
-     * @param UserRepositoryInterface   $userRepo
+     * @param UserRepositoryInterface $userRepo
      * @param CustomerCreationValidator $validator
-     * @param Dispatcher                $event
-     * @param AuthenticatorInterface    $auth
+     * @param LeadRepositoryInterface $leadRepo
+     * @param Dispatcher $event
+     * @param AuthenticatorInterface $auth
      */
     public function __construct(
         UserRepositoryInterface $userRepo,
         CustomerCreationValidator $validator,
+        LeadRepositoryInterface $leadRepo,
         Dispatcher $event,
         AuthenticatorInterface $auth
     ){
         $this->userRepo = $userRepo;
         $this->validator = $validator;
+        $this->leadRepo = $leadRepo;
         $this->events = $event;
         $this->auth = $auth;
     }
@@ -69,7 +75,8 @@ class CustomerCreator {
      * @param $data
      *
      * @return
-     */public function create($data)
+     */
+    public function create($data)
     {
         $this->setData($data);
         if (!$valid = $this->validator->isValid($this->data))
@@ -79,6 +86,13 @@ class CustomerCreator {
 
         try
         {
+            if (!empty ($data['lead_id'])){
+                $lead = $this->leadRepo->findById($data['lead_id']);
+                if ($lead->creator_id != $this->auth->user()->id && $this->auth->user()->hasAnyAccess(['create_user_for_lead']) )
+                {
+                    App::abort(404);
+                }
+            }
             $customer = $this->doStore();
             return $this->listener->onStoreSuccess(Lang::get('messages.operation_success'),$customer);
         }catch ( RepositoryException $e)

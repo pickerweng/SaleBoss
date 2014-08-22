@@ -22,3 +22,9 @@
 	@include('admin.pages.lead.partials._scripts')
 @stop
 
+@section('footer')
+    @include('admin.blocks.delete_modal')
+    @include('admin.blocks.update_modal')
+    @parent
+@stop
+

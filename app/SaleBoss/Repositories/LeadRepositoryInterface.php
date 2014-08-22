@@ -54,4 +54,8 @@ interface LeadRepositoryInterface {
 	public function deleteById($id);
 
 	public function getCountableStatuses(User $user, $before = null);
+
+    public function getRemindableLeads(User $user, $int = 50);
+
+    public function countAll($before);
 } 

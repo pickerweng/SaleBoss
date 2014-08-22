@@ -214,4 +214,45 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
             throw new RepositoryException($e->getMessage());
         }
     }
+
+    public function countAllCustomers($before, $query = [])
+    {
+        $q = $this->model->newInstance()->where('is_customer',true);
+        if (! empty($before))
+        {
+            $q = $q->where('created_at', '>', $before);
+        }
+        $q = $this->addQueries($q,$query);
+        return $q->count();
+    }
+
+    public function countAllUsers($before, $query = [])
+    {
+        $q  = $this->model->newInstance()->where('is_customer',false);
+        if (! empty($before)){
+            $q = $q->where('created_at','>',$before);
+        }
+        $q = $this->addQueries($q, $query);
+        return $q->count();
+    }
+
+    public function countWithLead($before, $query = [])
+    {
+        $q = $this->model->newInstance();
+        if(!empty($before))
+        {
+            $q = $q->where('created_at','>',$before);
+        }
+        $q = $q->whereNotNull('lead_id');
+        $q = $this->addQueries($q, $query);
+        return $q->count();
+    }
+
+    private function addQueries($q,$queries)
+    {
+        foreach($queries as $key => $value){
+            $q = $q->where($key,$value);
+        }
+        return $q;
+    }
 }

@@ -108,4 +108,10 @@ interface UserRepositoryInterface {
      * @return mixed
      */
     public function rawUpdate($customer, $data);
+
+    public function countAllCustomers($before, $query = array());
+
+    public function countAllUsers($before, $query= array());
+
+    public function countWithLead($before, $query = array());
 }
