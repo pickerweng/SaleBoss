@@ -158,8 +158,8 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         $todayStart = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->toDateTimeString();
         return $user->createdLeads()->where('remind_at', '>', $todayStart)
                     ->with('tags','phones')
-                    ->orWhere(function($q){
-                        $q->where('updated_at','<','remind_at')->whereNotNull('remind_at');
+                    ->orWhere(function($q) use($user){
+                        $q->where('updated_at','<','remind_at')->where('creator_id',$user->id)->whereNotNull('remind_at');
                     })
                     ->orderBy('remind_at','ASC')
                     ->take($int)->get();
