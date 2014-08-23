@@ -37,12 +37,11 @@ class CustomerController extends BaseController
         $this->leadRepo = $leadRepo;
         $this->beforeFilter('hasPermission:customers.own_edit',['only' => ['edit','update']]);
         $lead = Input::get('lead_id');
+	    $lead= $this->leadRepo->findById($lead);
         if(!empty($lead)){
             $user = $this->auth->user();
-            if(! $user->hasAnyAccess(['leads.create_all_user'])){
-                if ($user->id != $lead->creator_id){
+            if(! $user->hasAnyAccess(['leads.create_all_user']) && $user->id != $lead->creator_id){
                     return $this->redirectTo('dash')->with('success_message',trans('messages.access_denied'));
-                }
             }
         }
     }
