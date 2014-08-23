@@ -30,7 +30,8 @@ $(document).ready(function() {
 
         request.done(function (data) {
             showLeadSuccessMessage(data);
-            submitBtn.button('reset');
+            //submitBtn.button('reset');
+            $(".resettable").val('');
             leadStoreForm[0].reset();
             injectNewCreatedData(data);
         });
