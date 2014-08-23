@@ -1,4 +1,24 @@
 <div class="table-responsive">
+	    <table class="table table-hover table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>رتبه بندی بر اساس تعداد پنل های عادی تکمیل شده</th>
+                    <th>تعداد فروخته شده</th>
+                    <th>جمع قیمت</th>
+                </tr>
+            </thead>
+            <tbody>
+            		@foreach($scoreList as $scorable)
+            			<tr>
+            				<td>{{$scorable->creator->getIdentifier()}}</td>
+            				<td>{{$scorable->totalCount	}}</td>
+            				<td>{{number_format($scorable->totalPrice)}} تومان</td>
+            			</tr>
+            		@endforeach
+            </tbody>
+        </table>
+</div>
+<div class="table-responsive">
     <table class="table table-hover table-bordered table-condensed">
         <thead>
             <tr>
