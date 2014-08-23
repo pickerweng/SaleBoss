@@ -58,7 +58,6 @@ class CustomerController extends BaseController
             try {
                 $lead = $this->leadRepo->findById($lead);
             }catch (NotFoundException $e){
-
             }
         }
         $title = 'ایجاد مشتری جدید';

@@ -13,7 +13,7 @@ class AddLeadIdToUsersTable extends Migration {
 	public function up()
 	{
 		Schema::table('users',function($t){
-            $t->integer('lead_id')->unsigned()->nullable()->after('id');
+            $t->integer('lead_id')->nullable()->unsigned()->after('id');
 
             $t->foreign('lead_id')->references('id')->on('leads')->onDelete('set null');
         });

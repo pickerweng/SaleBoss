@@ -86,12 +86,14 @@ class CustomerCreator {
 
         try
         {
-            if (!empty ($data['lead_id'])){
-                $lead = $this->leadRepo->findById($data['lead_id']);
+            if (!empty ($this->data['lead_id'])){
+                $lead = $this->leadRepo->findById($this->data['lead_id']);
                 if ($lead->creator_id != $this->auth->user()->id && $this->auth->user()->hasAnyAccess(['create_user_for_lead']) )
                 {
                     App::abort(404);
                 }
+            }else {
+	            $this->data['lead_id'] = null;
             }
             $customer = $this->doStore();
             return $this->listener->onStoreSuccess(Lang::get('messages.operation_success'),$customer);
