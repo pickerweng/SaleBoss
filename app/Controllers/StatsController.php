@@ -105,7 +105,14 @@ class StatsController extends BaseController
         $completedOrders = $this->orderRepo->countWithQuery($before , ['completed' => 1, 'creator_id' => $user->id]);
         $fromLeadCustomers = $this->userRepo->countWithLead($before, ['creator_id' => $user->id]);
         $totalPanelPrice = $this->orderRepo->sumPanelPrice($before, ['creator_id' => $user->id]);
-	    $scoreList = Order::with('creator')->groupBy('creator_id')->where('completed',true)->where('panel_type',0)->orderBy('totalCount','DESC')->get(['creator_id', DB::raw('count(*) as totalCount'), DB::raw('sum(panel_price) as totalPrice')]);
+	    $scoreList = Order::with('creator')->groupBy('creator_id')
+		                                    ->where('completed',true)
+		                                    ->where('panel_type',0)
+		                                    ->orderBy('totalCount','DESC');
+	    if(!empty($before)){
+		    $scoreList = $scoreList->where('created_at','>', $before);
+	    }
+	    $scoreList = $scoreList->get(['creator_id', DB::raw('count(*) as totalCount'), DB::raw('sum(panel_price) as totalPrice')]);
         return $this->view('admin.pages.stat.my_whole',compact(
             'totalOrders',
             'totalLeads',
