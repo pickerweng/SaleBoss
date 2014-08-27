@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    console.log('asdasdasdasdasdsada');
     var submitBtn = $(".submit_button");
     var leadStoreForm = $("#lead-store-form");
 
