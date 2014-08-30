@@ -9,6 +9,7 @@ use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
+use SaleBoss\Services\Date\JalaliDateRange;
 
 class StatsController extends BaseController
 {
@@ -85,8 +86,7 @@ class StatsController extends BaseController
             App::abort(404);
         }
         $before = Input::get('period');
-        if (!empty($before))
-        {
+        if (!empty($before)){
             $before = Carbon::createFromTimestamp(strtotime('tomorrow') - ((int) $before * 24 * 60 * 60))->toDateTimeString();
         }
         $totalOrders = $this->orderRepo->countWithQuery($before, ['creator_id' => $user->id]);
@@ -109,6 +109,7 @@ class StatsController extends BaseController
 		                                    ->where('completed',true)
 		                                    ->where('panel_type',0)
 		                                    ->orderBy('totalCount','DESC');
+
 	    if(!empty($before)){
 		    $scoreList = $scoreList->where('created_at','>', $before);
 	    }
