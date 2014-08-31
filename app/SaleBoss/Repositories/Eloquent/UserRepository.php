@@ -215,44 +215,57 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         }
     }
 
-    public function countAllCustomers($before, $query = [])
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count all customers of the user entity
+     *
+     * @param null $start
+     * @param null $end
+     * @param array $query
+     * @return int
+     */
+    public function countAllCustomers($start = null, $end=null, array $query = [])
     {
-        $q = $this->model->newInstance()->where('is_customer',true);
-        if (! empty($before))
-        {
-            $q = $q->where('created_at', '>', $before);
-        }
-        $q = $this->addQueries($q,$query);
+        $q = $this->addSimpleWheres($this->model->newInstance()->getQuery(), $query);
+        $q = $q->where('is_customer',true);
+        $q = $this->addStartRange($q, $start);
+        $q = $this->addEndRange($q, $end);
         return $q->count();
     }
 
-    public function countAllUsers($before, $query = [])
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count all  of the entity
+     *
+     * @param null $start
+     * @param null $end
+     * @param array $query
+     * @return int
+     */
+    public function countAllUsers($start = null, $end = null, array $query = [])
     {
-        $q  = $this->model->newInstance()->where('is_customer',false);
-        if (! empty($before)){
-            $q = $q->where('created_at','>',$before);
-        }
-        $q = $this->addQueries($q, $query);
+        $q = $this->addSimpleWheres($this->model->newInstance()->getQuery(), $query);
+        $q = $q->where('is_customer',false);
+        $q = $this->addStartRange($q, $start);
+        $q = $this->addEndRange($q, $end);
         return $q->count();
     }
 
-    public function countWithLead($before, $query = [])
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count all users that has came from leads
+     *
+     * @param null $start
+     * @param null $end
+     * @param array $query
+     * @return int
+     */
+    public function countWithLead($start = null, $end = null, array $query = [])
     {
-        $q = $this->model->newInstance();
-        if(!empty($before))
-        {
-            $q = $q->where('created_at','>',$before);
-        }
+        $q = $this->addSimpleWheres($this->model->newInstance()->getQuery(), $query);
         $q = $q->whereNotNull('lead_id');
-        $q = $this->addQueries($q, $query);
+        $q = $this->addStartRange($q, $start);
+        $q = $this->addEndRange($q, $end);
         return $q->count();
-    }
-
-    private function addQueries($q,$queries)
-    {
-        foreach($queries as $key => $value){
-            $q = $q->where($key,$value);
-        }
-        return $q;
     }
 }

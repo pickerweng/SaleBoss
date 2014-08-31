@@ -3,14 +3,14 @@
 class UserStatsCommand
 {
 
-    public $userId;
+    public $user;
     public $startRange;
     public $endRange;
 
-    public function __construct($userId, $startRange = null, $endRange = null)
+    public function __construct($user, $start = null, $end = null)
     {
-        $this->userId = $userId;
-        $this->startRange = $startRange;
-        $this->endRange = $endRange;
+        $this->user = $user;
+        $this->start = $start;
+        $this->end = $end;
     }
 } 

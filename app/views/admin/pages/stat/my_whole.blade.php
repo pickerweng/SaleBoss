@@ -17,7 +17,7 @@
                         'url'       =>  Request::path(),
                         'class'     =>  'form-inline'
                     ])}}
-                    <p>نمایش آمارها از {{Form::text('from',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time'])}}  تا {{Form::text('to',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time2'])}} <button type="submit" class="btn btn-info">بروز رسانی</button></button></p>
+                    <p>نمایش آمارها از {{Form::text('start',Input::get('start'),['class' => 'form-control', 'size' => '10', 'id' => 'time'])}}  تا {{Form::text('end',Input::get('end'),['class' => 'form-control', 'size' => '10', 'id' => 'time2'])}} <button type="submit" class="btn btn-info">بروز رسانی</button></button></p>
                     {{Form::close()}}
             </div>
         </div>

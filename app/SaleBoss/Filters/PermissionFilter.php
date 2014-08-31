@@ -1,7 +1,6 @@
 <?php
 namespace SaleBoss\Filters;
 
-
 use Cartalyst\Sentry\Facades\Laravel\Sentry;
 use Illuminate\Support\Facades\Redirect;
 

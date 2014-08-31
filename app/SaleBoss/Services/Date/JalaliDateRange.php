@@ -1,5 +1,6 @@
 <?php namespace SaleBoss\Services\Date; 
 
+use Carbon\Carbon;
 use Miladr\Jalali\jDateTime;
 use SaleBoss\Services\Date\Exceptions\InvalidArgumentException;
 
@@ -31,12 +32,45 @@ class JalaliDateRange
      */
     public function getTimestamp($date, $delimiter = '/')
     {
-        if (is_null($date)) return null;
+        if (empty($date)) return null;
         $parsed = $this->parse($date, $delimiter);
         list($jYear, $jMonth, $jDay) = $parsed;
         return $this->calculateTimestamp($jYear, $jMonth, $jDay);
     }
 
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Get date time string of the end of the day
+     *
+     * @param $date
+     * @param string $delimiter
+     * @return null|string
+     */
+    public function getDayEndStringOf($date, $delimiter = '/')
+    {
+        if (empty($date)) return null;
+
+        list($gYear, $gMonth, $gDay) = $this->converter($date, $delimiter);
+
+        return Carbon::create($gYear, $gMonth, $gDay)->endOfDay()->toDateTimeString();
+    }
+
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Get end DateTime string of the beginning of the day
+     *
+     * @param $date
+     * @param string $delimiter
+     * @return null|string
+     */
+    public function getDayBeginStringOf($date, $delimiter = '/')
+    {
+        if (empty($date)) return null;
+
+        list($gYear, $gMonth, $gDay) = $this->converter($date, $delimiter);
+
+        return Carbon::create($gYear, $gMonth, $gDay)->startOfDay()->toDateTimeString();
+    }
 
     /**
      * @author bigsinoos <pcfeeler@gmail.com>
@@ -49,7 +83,12 @@ class JalaliDateRange
      */
     public function calculateTimestamp($jYear, $jMonth = 1, $jDay = 1)
     {
-        return strtotime(implode('-',jDateTime::toGregorian($jYear, $jMonth, $jDay)));
+        return strtotime(implode('-',$this->gregorianArray($jYear, $jMonth, $jDay)));
+    }
+
+    public function gregorianArray($jYear, $jMonth, $jDay)
+    {
+        return jDateTime::toGregorian($jYear, $jMonth, $jDay);
     }
 
     /**
@@ -62,9 +101,25 @@ class JalaliDateRange
     public function checkDateString($explodedDate, $date, $del)
     {
         $count = count($explodedDate);
-        if ($count > 3 || $count < 2) {
+        if ($count != 3) {
             $message = "[{$date}] is not an accepted date delimitted by [{$del}]";
             throw new InvalidArgumentException($message);
         }
+    }
+
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Converter
+     *
+     * @param $date
+     * @param $delimiter
+     * @return array
+     */
+    private function converter($date, $delimiter)
+    {
+        $parsed = $this->parse($date, $delimiter);
+        list($jYear, $jMonth, $jDay) = $parsed;
+
+        return $this->gregorianArray($jYear, $jMonth, $jDay);
     }
 } 

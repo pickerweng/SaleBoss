@@ -189,21 +189,60 @@ class AbstractRepository {
     /**
      * Count with query
      *
-     * @param null $before
+     * @param null $start
+     * @param null $end
      * @param array $query
-     * @return
+     * @return mixed
      */
-    public function countWithQuery($before = null, array $query)
+    public function countWithQuery($start = null, $end = null, array $query = [])
     {
-        $q= $this->model->newInstance();
-        foreach($query as $key => $value) {
-            $q = $q->where($key, $value);
-        }
-        if ( ! empty($before)) {
-            $q = $q->where('created_at','>',$before);
-        }
+        $q = $this->addSimpleWheres($this->model->newInstance()->getQuery(), $query);
+        $q = $this->addStartRange($q, $start);
+        $q = $this->addEndRange($q, $end);
         return $q->count();
     }
 
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Add simple wheres to the query
+     *
+     * @param $q
+     * @param array $queries
+     * @return mixed
+     */
+    protected function addSimpleWheres($q, array $queries)
+    {
+        foreach($queries as $key =>  $value){
+            $q = $q->where($key, $value);
+        }
+        return $q;
+    }
 
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Add start range for the one of the available date ex. created_at
+     *
+     * @param $q
+     * @param $start
+     * @param string $for
+     * @return mixed
+     */
+    protected function addStartRange($q, $start, $for = 'created_at')
+    {
+        return $q = $start ? $q->where($for, '>=', $start) : $q;
+    }
+
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Add end range for the one of the available dates ex. created_at
+     *
+     * @param $q
+     * @param $end
+     * @param string $for
+     * @return mixed
+     */
+    protected function addEndRange($q, $end, $for = 'created_at')
+    {
+        return $q = $end ? $q->where($for, '<', $end) : $q;
+    }
 }

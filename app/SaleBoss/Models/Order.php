@@ -2,12 +2,11 @@
 
 namespace SaleBoss\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 use Miladr\Jalali\jDate;
 
-class Order extends  Eloquent{
+class Order extends  BaseEloquent{
 
 	protected  $table = 'orders';
     protected $guarded = [];

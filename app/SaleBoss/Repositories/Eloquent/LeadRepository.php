@@ -153,13 +153,24 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
 					->get(array('status', DB::raw('count(*) as total')));
 	}
 
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Reminding leads of the user
+     *
+     * @param User $user
+     * @param int $int
+     * @return mixed
+     */
     public function getRemindableLeads(User $user, $int = 50)
     {
-        $todayStart = Carbon::createFromTimestamp(strtotime('tomorrow') - (24 * 60 * 60))->toDateTimeString();
-        return $user->createdLeads()->where('remind_at', '>', $todayStart)
+        $todayStart = Carbon::createFromTimestamp(time())->startOfDay()->toDateTimeString();
+        return $user->createdLeads()
+                    ->where('remind_at', '>', $todayStart)
                     ->with('tags','phones')
                     ->orWhere(function($q) use($user){
-                        $q->where('updated_at','<','remind_at')->where('creator_id',$user->id)->whereNotNull('remind_at');
+                        $q->where('updated_at','<','remind_at')
+                          ->where('creator_id',$user->id)
+                          ->whereNotNull('remind_at');
                     })
                     ->orderBy('remind_at','ASC')
                     ->take($int)->get();

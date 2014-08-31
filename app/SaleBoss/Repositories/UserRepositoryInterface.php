@@ -109,9 +109,47 @@ interface UserRepositoryInterface {
      */
     public function rawUpdate($customer, $data);
 
-    public function countAllCustomers($before, $query = array());
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count table with conditions
+     *
+     * @param null $start
+     * @param null $end
+     * @param array $query
+     * @return int
+     */
+    public function countWithQuery($start = null, $end = null, array $query = []);
 
-    public function countAllUsers($before, $query= array());
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count all customers of the user entity
+     *
+     * @param null $start
+     * @param null $end
+     * @param array $query
+     * @return int
+     */
+    public function countAllCustomers($start = null, $end = null, array $query = array());
 
-    public function countWithLead($before, $query = array());
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count all  of the entity
+     *
+     * @param null $startP
+     * @param null $end
+     * @param array $query
+     * @return int
+     */
+    public function countAllUsers($start = null, $end = null, array $query = array());
+
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count all users that has came from leads
+     *
+     * @param null $start
+     * @param null $end
+     * @param array $query
+     * @return int
+     */
+    public function countWithLead($start = null, $end = null, array $query = array());
 }

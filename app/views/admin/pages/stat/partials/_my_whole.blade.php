@@ -8,13 +8,15 @@
                 </tr>
             </thead>
             <tbody>
-            		@foreach($scoreList as $scorable)
-            			<tr>
-            				<td>{{$scorable->creator->getIdentifier()}}</td>
-            				<td>{{$scorable->totalCount	}}</td>
-            				<td>{{number_format($scorable->totalPrice)}} تومان</td>
-            			</tr>
-            		@endforeach
+                    @if(! empty($scoreList))
+                        @foreach($scoreList as $scorable)
+                            <tr>
+                                <td>{{$scorable->creator->getIdentifier()}}</td>
+                                <td>{{$scorable->totalCount	}}</td>
+                                <td>{{number_format($scorable->totalPrice)}} تومان</td>
+                            </tr>
+                        @endforeach
+            		@endif
             </tbody>
         </table>
 </div>
@@ -29,71 +31,75 @@
         <tbody>
             <tr>
                 <td>کل مشتریان موجود</td>
-                <td>{{$totalCustomers}}</td>
+                <td>{{$stats->totalCustomers}}</td>
             </tr>
             <tr>
                 <td>کل سفارش های موجود</td>
-                <td>{{$totalOrders}}</td>
+                <td>{{$stats->totalOrders}}</td>
             </tr>
             <tr>
                 <td>کل لیدهای موجود</td>
-                <td>{{$totalLeads}}</td>
+                <td>{{$stats->totalLeads}}</td>
             </tr>
             <tr>
                 <td>لیدهای با وضعیت نامشخص</td>
-                <td>{{$totalUndefinedLeads}}</td>
+                <td>{{$stats->totalUndefinedLeads}}</td>
             </tr>
             <tr>
                 <td>لیدهای باوضعیت  موفق</td>
-                <td>{{$totalSuccessfulLeads}}</td>
+                <td>{{$stats->totalSuccessfulLeads}}</td>
             </tr>
             <tr>
                 <td>لیدهای با وضعیت درانتظار</td>
-                <td>{{$totalPendingLeads}}</td>
+                <td>{{$stats->totalPendingLeads}}</td>
             </tr>
             <tr>
                 <td>لیدهای با وضعیت ناموق</td>
-                <td>{{$totalUnsuccessfulLeads}}</td>
+                <td>{{$stats->totalUnsuccessfulLeads}}</td>
             </tr>
             <tr>
                 <td>درصد لیدهای موفق به کل لیدها</td>
-                <td>{{$totalSuccessfulLeads}} / {{$totalLeads}} ({{round(($totalSuccessfulLeads/ ($totalLeads + 1)) * 100)}}%)</td>
+                <td>{{$stats->totalSuccessfulLeads}} / {{$stats->totalLeads}} ({{round(($stats->totalSuccessfulLeads/ ($stats->totalLeads + 1)) * 100)}}%)</td>
             </tr>
             <tr>
                 <td>سفارش های با پنل عادی</td>
-                <td>{{$generalPanelOrders}} ({{round(($generalPanelOrders/($totalOrders + 1)) * 100)}}%)</td>
+                <td>{{$stats->generalPanelOrders}} ({{round(($stats->generalPanelOrders/($stats->totalOrders + 1)) * 100)}}%)</td>
             </tr>
             <tr>
                 <td>سفارش های با پنل آزمایشی</td>
-                <td>{{$experimentalPanels}} ({{round(($experimentalPanels / ($totalOrders + 1)) * 100)}}%)</td>
+                <td>{{$stats->exprimentalPanels}} ({{round(($stats->exprimentalPanels / ($stats->totalOrders + 1)) * 100)}}%)</td>
             </tr>
             <tr>
                 <td>سفارش های با پنل رایگان</td>
-                <td>{{$freePanels}}</td>
+                <td>{{$stats->freePanels}}</td>
             </tr>
             <tr>
                 <td>سفارش های با پنل تخفیفی</td>
-                <td>{{$couponPanels}}</td>
+                <td>{{$stats->couponPanels}}</td>
             </tr>
             <tr>
                 <td>سفارش های بدون پنل</td>
-                <td>{{$panelLess}}</td>
+                <td>{{$stats->panelLess}}</td>
             </tr>
             <tr>
                 <td>سفارش های پنل دار</td>
-                <td>{{$hasPanels}}</td>
+                <td>{{$stats->hasPanels}}</td>
             </tr>
             <tr>
                 <td>سفارش های تکمیل شده</td>
-                <td>{{$completedOrders}}</td>
+                <td>{{$stats->completedOrders}}</td>
             </tr>
             <tr>
                 <td>مشتریانی که از طریق لید ایجاد شده اند</td>
-                <td>{{$fromLeadCustomers}}</td>
+                <td>{{$stats->fromLeadCustomers}}</td>
+            </tr>
+            <tr>
+                <td>مجموع سفارش های ایجاد شده توسط لید</td>
+                <td>{{$stats->leadedOrderStats->totalCount}} ({{number_format($stats->leadedOrderStats->totalPrice)}} تومان)</td>
             </tr>
             <tr>
                 <td>مجموع پول پنل</td>
-                <td>{{number_format($totalPanelPrice)}} تومان</td>
+                <td>{{number_format($stats->totalPanelPrice)}} تومان</td>
             </tr>
         </tbody>
     </table>

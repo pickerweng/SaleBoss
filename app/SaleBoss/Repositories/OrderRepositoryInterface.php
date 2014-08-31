@@ -53,10 +53,55 @@ interface OrderRepositoryInterface {
 	 */
 	public function update(Order $order,array $data);
 
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Get Searchable order list paginated
+     *
+     * @param $int
+     * @return mixed
+     */
     public function getSearchableOrders ($int);
 
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count all orders
+     *
+     * @param null $before
+     * @return mixed
+     */
     public function countAll($before = null);
 
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Get score list based on sale
+     *
+     * @param null  $start
+     * @param null  $end
+     * @param array $queries
+     * @return Collection
+     */
+    public function getScoreList($start = null, $end = null, array $queries = []);
 
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Sum panel price
+     *
+     * @param null  $start
+     * @param null  $end
+     * @param array $query
+     * @return mixed
+     */
+    public function sumPanelPrice($start = null, $end = null, $query = []);
+
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count price of leaded orders by a user
+     *
+     * @param null  $start
+     * @param null  $end
+     * @param array $query
+     * @return int
+     */
+    public function leadedOrdersStats($start = null, $end = null, array $query = []);
 
 }

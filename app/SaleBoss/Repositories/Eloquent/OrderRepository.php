@@ -3,23 +3,33 @@
 namespace SaleBoss\Repositories\Eloquent;
 
 use Illuminate\Database\QueryException;
+use SaleBoss\Models\Lead;
 use SaleBoss\Models\Order;
 use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
 use SaleBoss\Repositories\OrderRepositoryInterface;
 use SaleBoss\Repositories\state;
+use DB;
 
 class OrderRepository extends AbstractRepository implements OrderRepositoryInterface {
 
 	protected $model;
+    protected $leadModel;
+    protected $userModel;
 
-	/**
-	 * @param Order $order
-	 */
+    /**
+     * @param Order                                                      $order
+     * @param \SaleBoss\Models\User                                      $userModel
+     * @param \SaleBoss\Models\Lead|\SaleBoss\Repositories\Eloquent\Lead $leadModel
+     */
 	public function __construct(
-		Order $order
+		Order $order,
+        User $userModel,
+        Lead $leadModel
 	){
 		$this->model = $order;
+        $this->userModel = $userModel;
+        $this->leadModel = $leadModel;
 	}
 
 	/**
@@ -103,16 +113,57 @@ class OrderRepository extends AbstractRepository implements OrderRepositoryInter
         return $creator->orders()->with('state','customer','creator')->makeSearchable()->makeSortable()->paginate($int);
     }
 
-    public function sumPanelPrice($before, $query = [])
+    public function sumPanelPrice($start = null, $end = null, $query = [])
     {
-        $q = $this->model->newInstance();
-        if (!empty($before))
-        {
-            $q = $q->where('created_at','>',$before);
-        }
-        foreach($query as $key => $value){
-            $q = $q->where($key, $value);
-        }
+        $q = $this->addSimpleWheres($this->model->newInstance()->getQuery(), $query);
+        $q = $this->addStartRange($q, $start);
+        $q = $this->addEndRange($q, $end);
         return $q->sum('panel_price');
+    }
+
+    public function getScoreList($start = null, $end = null, array $queries = [])
+    {
+        /*$q = $this->model
+                  ->newInstance()->with('creator')->groupBy('creator_id')
+                  ->where('completed',true)
+                  ->where('panel_type',0)
+                  ->orderBy('totalCount','DESC');
+
+        if(!empty($before)){
+            $scoreList = $scoreList->where('created_at','>', $before);
+        }
+        $scoreList = $scoreList->get(['creator_id', DB::raw('count(*) as totalCount'), DB::raw('sum(panel_price) as totalPrice')]);*/
+    }
+
+    /**
+     * @author bigsinoos <pcfeeler@gmail.com>
+     * Count price of leaded orders by a user
+     *
+     * @param null  $start
+     * @param null  $end
+     * @param array $query
+     * @return int
+     */
+    public function leadedOrdersStats($start = null, $end = null, array $query = [])
+    {
+        $orderTable = $this->model->getFullTableName();
+        $userTable = $this->userModel->getFullTableName();
+        $leadTable = $this->leadModel->getFullTableName();
+
+        foreach($query as $key => $value){
+            $query ["{$orderTable}.{$key}"] = $value;
+            unset($query[$key]);
+        }
+
+        $q = $this->addSimpleWheres($this->model->newInstance()->getQuery(), $query);
+        $q = $this->addStartRange($q, $start);
+        $q = $this->addEndRange($q, $end);
+        $q = $q->join($userTable, "{$userTable}.id" , '=', "{$orderTable}.customer_id");
+        $q = $q->join($leadTable, "{$leadTable}.id", '=', "{$userTable}.lead_id");
+
+        return $q->get([
+            DB::raw('COUNT(*) as totalCount'),
+            DB::raw('SUM(panel_price) as totalPrice')
+        ]);
     }
 }

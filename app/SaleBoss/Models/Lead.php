@@ -1,9 +1,6 @@
 <?php namespace SaleBoss\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
-
-class Lead extends Eloquent {
+class Lead extends BaseEloquent {
 
     protected $table = 'leads';
     protected $guarded = [];

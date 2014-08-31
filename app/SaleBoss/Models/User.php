@@ -6,7 +6,6 @@ use Cartalyst\Sentry\Users\Eloquent\User as SentryUser;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
-use Miladr\Jalali\jDate;
 
 class User extends SentryUser {
 
@@ -163,5 +162,10 @@ class User extends SentryUser {
         {
             $q->orderBy('created_at','DESC');
         }
+    }
+
+    public function getFullTableName()
+    {
+        return $this->getConnection()->getTablePrefix() . $this->getTable();
     }
 }
