@@ -1,0 +1,22 @@
+/**@font-face{
+    font-family:IranSansZ;
+    font-weight:normal;
+    font-style:normal;
+    src:url("../fonts/iransansz-webfont.eot");
+    src:url("../fonts/iransansz-webfont.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/iransansz-webfont.woff") format("woff"),
+    url("../fonts/iransansz-webfont.ttf") format("truetype"),
+    url("../fonts/iransansz-webfont.svg#IranSansZ") format("svg")
+}*/
+@font-face{
+    font-family:IranSansZ;
+    font-weight:normal;
+    font-style:normal;
+    src:url("../fonts/NotoNaskhArabic-Regular.ttf");
+}
+@font-face{
+    font-family:IranSansZ;
+    font-weight:bold;
+    font-style:normal;
+    src:url("../fonts/NotoNaskhArabic-Bold.ttf");
+}

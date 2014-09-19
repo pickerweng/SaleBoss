@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -45,5 +46,10 @@ $app = require_once __DIR__.'/../bootstrap/start.php';
 | and wonderful application we have whipped up for them.
 |
 */
-
 $app->run();
+$a = new \SaleBoss\Models\User();
+print $a->getFullTableName();exit();
+$timeEnd = microtime(true);
+$mem2 = memory_get_peak_usage(true)/1024/1024;
+$diff = (round(($timeEnd - LARAVEL_START)*1000)). ' ms & ' . count(get_included_files ()) . ' files included & ' . count(get_declared_classes()) . ' classes included & ';
+Log::info($diff . '"+"' . $mem2 . 'mb.');

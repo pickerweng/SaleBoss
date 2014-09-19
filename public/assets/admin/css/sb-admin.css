@@ -1,0 +1,395 @@
+/*
+Author: Start Bootstrap - http://startbootstrap.com
+'SB Admin' HTML Template by Start Bootstrap
+
+All Start Bootstrap themes are licensed under Apache 2.0.
+For more info and more free Bootstrap 3 HTML themes, visit http://startbootstrap.com!
+*/
+
+/* ATTN: This is mobile first CSS - to update 786px and up screen width use the media query near the bottom of the document! */
+
+/* Global Styles */
+
+body {
+  margin-top: 50px;
+}
+
+#wrapper {
+  padding-right: 0;
+}
+
+#page-wrapper {
+  width: 100%;
+  padding: 5px 15px;
+}
+
+/* Nav Messages */
+
+.messages-dropdown .dropdown-menu .message-preview .avatar,
+.messages-dropdown .dropdown-menu .message-preview .name,
+.messages-dropdown .dropdown-menu .message-preview .message,
+.messages-dropdown .dropdown-menu .message-preview .time {
+  display: block;
+}
+
+.messages-dropdown .dropdown-menu .message-preview .avatar {
+  float: right;
+  margin-left: 15px;
+}
+
+.messages-dropdown .dropdown-menu .message-preview .name {
+  font-weight: bold;
+}
+
+.messages-dropdown .dropdown-menu .message-preview .message {
+  font-size: 12px;
+}
+
+.messages-dropdown .dropdown-menu .message-preview .time {
+  font-size: 12px;
+}
+
+
+/* Nav Announcements */
+
+.announcement-heading {
+  font-size: 50px;
+  margin: 0;
+}
+
+.announcement-text {
+  margin: 0;
+}
+
+/* Table Headers */
+
+table.tablesorter thead {
+  cursor: pointer;
+}
+
+table.tablesorter thead tr th:hover {
+  background-color: #f5f5f5;
+}
+
+/* Flot Chart Containers */
+
+.flot-chart {
+  display: block;
+  height: 400px;
+}
+
+.flot-chart-content {
+  width: 100%;
+  height: 100%;
+}
+
+/* Edit Below to Customize Widths > 768px */
+@media (min-width:768px) {
+
+  /* Wrappers */
+
+  #wrapper {
+	padding-right: 225px;
+  }
+
+  #page-wrapper {
+	padding: 15px 25px;
+  }
+
+  /* Side Nav */
+
+  .side-nav {
+	margin-right: -225px;
+	right: 225px;
+	width: 225px;
+	position: fixed;
+	top: 50px;
+	height: 100%;
+	border-radius: 0;
+	border: none;
+	background-color: #222222;
+	overflow-y: auto;
+  }
+
+  /* Bootstrap Default Overrides - Customized Dropdowns for the Side Nav */
+
+  .side-nav>li.dropdown>ul.dropdown-menu {
+	position: relative;
+	min-width: 225px;
+	margin: 0;
+	padding: 0;
+	border: none;
+	border-radius: 0;
+	background-color: transparent;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+  }
+
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a {
+	color: #999999;
+	padding: 15px 25px 15px 15px;
+  }
+
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a:hover,
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a.active,
+  .side-nav>li.dropdown>ul.dropdown-menu>li>a:focus {
+	color: #fff;
+	background-color: #080808;
+  }
+
+  .side-nav>li>a {
+	width: 225px;
+  }
+
+  .navbar-inverse .navbar-nav>li>a:hover,
+  .navbar-inverse .navbar-nav>li>a:focus {
+	background-color: #080808;
+  }
+
+  /* Nav Messages */
+
+  .messages-dropdown .dropdown-menu {
+	min-width: 300px;
+  }
+
+  .messages-dropdown .dropdown-menu li a {
+	white-space: normal;
+  }
+
+  .navbar-collapse {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+
+}
+.message-preview .avatar img{
+  width:50px;
+}
+.photo-ul {
+
+
+}
+.photo-ul li {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  position: relative;
+  border: 2px solid #d9d9d9;
+  border-radius: 3px;
+  -webkit-transition: border 0.5s;
+  transition: border 0.5s;
+}
+.photo-ul li:hover {
+  border: 2px solid #222222;
+}
+.photo-ul li img {
+
+}
+.photo-ul li .photo-desc {
+  width: 100%;
+  position: absolute;
+  bottom:5px;
+}
+.photo-ul li .photo-desc button {
+  margin-left:5px;
+  margin-right:5px;
+}
+.modal img#showThisImage {
+  display: inline;
+  text-align: center;
+  max-width: 100%;
+}
+#viewPhotoModal {
+  width:auto;
+}
+#viewPhotoModal .modal-lg {
+  width:1072px;
+  max-width: 90%;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border-style: solid;
+  border-color: rgba(0,0,0,0);
+  border-top-color: rgb(0,121,129);
+  border-width: 3px 0px 0px 0px;
+
+  -webkit-border-radius: 50%;
+     -moz-border-radius: 50%;
+          border-radius: 50%;
+
+  -webkit-animation: spin 0.5s infinite linear;
+     -moz-animation: spin 0.5s infinite linear;
+       -o-animation: spin 0.5s infinite linear;
+          animation: spin 0.5s infinite linear;
+}
+
+@-webkit-keyframes spin {
+  from {-webkit-transform: rotate(0deg);}
+  to   {-webkit-transform: rotate(359deg);}
+}
+
+@-moz-keyframes spin {
+  from {-moz-transform: rotate(0deg);}
+  to   {-moz-transform: rotate(359deg);}
+}
+
+@-o-keyframes spin {
+  from {-o-transform: rotate(0deg);}
+  to   {-o-transform: rotate(359deg);}
+}
+
+@keyframes spin{
+  from {transform: rotate(0deg);}
+  to   {transform: rotate(359deg);}
+}
+.modalImageSpinner {
+  width: 50px;
+  margin: 0 auto;
+  margin-top:20px;
+}
+#showThisImage {
+  margin-top:-70px;
+  position: relative;
+
+}
+.photo-ul .deleteInput{
+  margin-right: 5px;
+}
+.photoName {
+  font-size:10px;
+  display: none;
+}
+.languageLeft{
+  text-align:left;direction:ltr;
+}
+.radio-inline, .checkbox-inline {
+  padding-left:20px;
+  padding-right:20px;
+}
+.radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"]{
+
+}
+.success {
+  color:green;
+}
+.error {
+  color:red;
+}
+.operation-margin {
+  margin-right:5px;
+}
+
+.admin-user-profile-picture{
+  display: block;
+  position: relative;
+  margin: 10px auto;
+  padding:3px;
+  border:1px solid gray;
+  border-radius: 50%;
+  min-height: 50px;
+  min-width: 50px;
+}
+.no-profile-picture-wrapper {
+  display: block;
+  margin: 10px auto;
+  width:77px;
+}
+.no-profile-picture {
+  border:1px solid #ddd;
+  padding: 10px;
+}
+.profile-picture {
+  margin:0 auto;
+  display: block;
+}
+
+.dir-ltr {
+    direction:ltr;
+}
+.dir-rtl {
+    direction:rtl;
+}
+.caret {
+    margin-top:10px;
+}
+.alert ul li {
+    padding-top:5px;
+    padding-bottom: 5px;
+    list-style-type: square;
+}
+p {
+    line-height: 28px;
+}
+.navbar-inverse .navbar-nav > li > a {
+}
+.navbar-inverse .navbar-nav > li > a.image-menu-item{
+    padding-top: 8px;
+    font-weight: bold;
+}
+li.profile-sum {
+    margin-top:10px;
+    width: 100%;
+}
+.profile-sum img.profile-picture {
+    display: block;
+    margin:10px auto;
+}
+.pretty-form .control-label {
+    margin-top:15px;
+}
+
+.stepwizard-step p {
+    margin-top: 10px;
+}
+
+.process-row {
+    display: table-row;
+}
+
+.process {
+    display: table;
+    width: 100%;
+    position: relative;
+}
+
+.process-step button[disabled] {
+    opacity: 1 !important;
+    filter: alpha(opacity=100) !important;
+}
+
+.process-row:before {
+    top: 50px;
+    bottom: 0;
+    position: absolute;
+    content: " ";
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    z-order: 0;
+
+}
+
+.process-step {
+    display: table-cell;
+    text-align: center;
+    position: relative;
+}
+
+.process-step p {
+    margin-top:10px;
+
+}
+
+.btn-circle {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}

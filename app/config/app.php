@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://localhost',
+	'url' => 'http://salesboss.opilo.com',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Tehran',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'fa',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -121,7 +121,19 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
+		'Cartalyst\Sentry\SentryServiceProvider',
+		'SaleBoss\Repositories\RepositoryServiceProvider',
+        'SaleBoss\Filters\FilterServiceProvider',
+        'SaleBoss\Services\ServicesServiceProvider',
+        'Miladr\Jalali\JalaliServiceProvider',
+        'SaleBoss\Services\Menu\MenuServiceProvider',
+		'SaleBoss\Services\Presenters\PresenterServiceProvider',
+		'Laracasts\Utilities\UtilitiesServiceProvider',
+        'SaleBoss\Events\EventsServiceProvider',
+        'SaleBoss\Services\Leads\LeadServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
+		'Laracasts\Commander\CommanderServiceProvider',
+		'Laracasts\Validation\ValidationServiceProvider'
 	),
 
 	/*
@@ -188,7 +200,12 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-
+		'Sentry'          => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'FormGenerator'   => 'SaleBoss\Services\EavSmartAss\Form\Facades\FormGenerator',
+        'MenuBuilder'     => 'SaleBoss\Services\Menu\Facades\MenuBuilder',
+		'CommonPresenter' => 'SaleBoss\Services\Presenters\Facades\CommonPresenter',
+        'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
+        'ThrottleL'       => 'SaleBoss\Services\Leads\Presenter\Facades\ThrottleL'
 	),
 
 );

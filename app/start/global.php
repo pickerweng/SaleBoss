@@ -49,6 +49,7 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
+    //return Redirect::to('dash')->with('error_message','مشکلی در پردازش درخواست شما وجود دارد. لطفا به بخش نرم افزار اطلاع دهید.');
 });
 
 /*
@@ -78,4 +79,32 @@ App::down(function()
 |
 */
 
+/*
+* Log SQL QUERIES FOR PERFORMANCE
+*/
+Event::listen('illuminate.query', function($query, $bindings, $time, $name)
+{
+	if(Config::get('app.debug')){
+		$data = compact('bindings', 'time', 'name');
+
+// Format binding data for sql insertion
+		foreach ($bindings as $i => $binding)
+		{
+			if ($binding instanceof \DateTime){
+				$bindings[$i] = $binding->format('\'Y-m-d H:i:s\'');
+			}
+			else if (is_string($binding)){
+				$bindings[$i] = "'$binding'";
+			}
+		}
+
+// Insert bindings into query
+		$query = str_replace(array('%', '?'), array('%%', '%s'), $query);
+		$query = vsprintf($query, $bindings);
+
+		Log::info($query, $data);
+	}
+});
+
+View::share('opiloConfig',Config::get('saleboss/opilo_configs'));
 require app_path().'/filters.php';

@@ -26,7 +26,8 @@ $app = new Illuminate\Foundation\Application;
 
 $env = $app->detectEnvironment(array(
 
-	'local' => array('homestead'),
+	'local'     => array('homestead'),
+	'bigsinoos' => array('USER-107','bigsinoos-H55M-USB3','bigsinoos-PC','Opilo-IT-1')
 
 ));
 
