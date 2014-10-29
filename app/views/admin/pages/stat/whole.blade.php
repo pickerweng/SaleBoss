@@ -32,7 +32,7 @@
 
 @section('stylesheets')
 	@parent
-	<link type="text/css" rel="stylesheet" href="{{asset('assets/admin/css/persianDatePicker-default.css')}}" />
+	<link type="text/css" rel="stylesheet" href="{{asset('assets/admin/css/persianDatePicker.css')}}" />
 @stop
 
 @section('scripts')
