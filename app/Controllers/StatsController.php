@@ -32,28 +32,30 @@ class StatsController extends BaseController
     }
 
     public function whole(){
-        $before = Input::get('period');
-        if (!empty($before))
+//        $before = Input::get('period');
+        $from = Input::get('from');
+        $to = Input::get('to');
+        if (!empty($from))
         {
-            $before = Carbon::createFromTimestamp(strtotime('tomorrow') - ((int) $before * 24 * 60 * 60))->toDateTimeString();
+            $from = Carbon::createFromTimestamp(strtotime('tomorrow') - ((int) $from * 24 * 60 * 60))->toDateTimeString();
         }
-        $totalOrders = $this->orderRepo->countAll($before);
-        $totalCustomers = $this->userRepo->countAllCustomers($before);
-        $totalLeads = $this->leadRepo->countAll($before);
-        $totalSystemUsers = $this->userRepo->countAllUsers($before);
-        $totalUndefinedLeads = $this->leadRepo->countWithQuery($before,['status' => 0]);
-        $totalSuccessfulLeads = $this->leadRepo->countWithQuery($before, ['status' => 1]);
-        $totalUnsuccessfulLeads = $this->leadRepo->countWithQuery($before, ['status' => -1]);
-        $totalPendingLeads = $this->leadRepo->countWithQuery($before, ['status' => 2]);
-        $generalPanelOrders = $this->orderRepo->countWithQuery($before, ['panel_type' => 0]);
-        $experimentalPanels = $this->orderRepo->countWithQuery($before, ['panel_type' => 2]);
-        $freePanels = $this->orderRepo->countWithQuery($before,['panel_type' => 1]);
-        $couponPanels = $this->orderRepo->countWithQuery($before, ['panel_type' => 3]);
-        $panelLess = $this->orderRepo->countWithQuery($before, ['panel_type' => 4]);
-        $hasPanels = $this->orderRepo->countWithQuery($before, ['panel_type' => 5]);
-        $completedOrders = $this->orderRepo->countWithQuery($before , ['completed' => 1]);
-        $fromLeadCustomers = $this->userRepo->countWithLead($before);
-        $totalPanelPrice = $this->orderRepo->sumPanelPrice($before);
+        $totalOrders = $this->orderRepo->countAll($from);
+        $totalCustomers = $this->userRepo->countAllCustomers($from);
+        $totalLeads = $this->leadRepo->countAll($from);
+        $totalSystemUsers = $this->userRepo->countAllUsers($from);
+        $totalUndefinedLeads = $this->leadRepo->countWithQuery($from,['status' => 0]);
+        $totalSuccessfulLeads = $this->leadRepo->countWithQuery($from, ['status' => 1]);
+        $totalUnsuccessfulLeads = $this->leadRepo->countWithQuery($from, ['status' => -1]);
+        $totalPendingLeads = $this->leadRepo->countWithQuery($from, ['status' => 2]);
+        $generalPanelOrders = $this->orderRepo->countWithQuery($from, ['panel_type' => 0]);
+        $experimentalPanels = $this->orderRepo->countWithQuery($from, ['panel_type' => 2]);
+        $freePanels = $this->orderRepo->countWithQuery($from,['panel_type' => 1]);
+        $couponPanels = $this->orderRepo->countWithQuery($from, ['panel_type' => 3]);
+        $panelLess = $this->orderRepo->countWithQuery($from, ['panel_type' => 4]);
+        $hasPanels = $this->orderRepo->countWithQuery($from, ['panel_type' => 5]);
+        $completedOrders = $this->orderRepo->countWithQuery($from , ['completed' => 1]);
+        $fromLeadCustomers = $this->userRepo->countWithLead($from);
+        $totalPanelPrice = $this->orderRepo->sumPanelPrice($from);
         return $this->view('admin.pages.stat.whole',compact(
             'totalOrders',
             'totalLeads',
