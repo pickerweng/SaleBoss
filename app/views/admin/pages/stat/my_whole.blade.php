@@ -48,6 +48,7 @@
     			console.log('sasd');
 				$("#time, #time2").persianDatepicker({
 				  cellWidth:30,
+				  formatDate: "YYYY-0M-DD",
 				  cellHeight:30
 			  });
 			});

@@ -55,8 +55,6 @@ interface OrderRepositoryInterface {
 
     public function getSearchableOrders ($int);
 
-    public function countAll($before = null);
-
-
+    public function countAll($firstTime = null, $secondTime = null);
 
 }

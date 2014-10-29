@@ -177,12 +177,14 @@ class AbstractRepository {
      * @param null $before
      * @return int
      */
-    public function countAll($before = null)
+    public function countAll($firstTime = null, $secondTime = null)
     {
         $q = $this->model->newInstance()->getQuery();
-        if (! empty($before)){
-            $q = $q->where('created_at', '>',$before);
-        }
+
+	    if (!empty($firstTime) or !empty($secondTime)) {
+		    $q = $q->whereBetween('created_at', array($firstTime, $secondTime));
+	    }
+
         return $q->count();
     }
 
@@ -193,15 +195,15 @@ class AbstractRepository {
      * @param array $query
      * @return
      */
-    public function countWithQuery($before = null, array $query)
+    public function countWithQuery($firstTime = null, $secondTime = null, array $query)
     {
         $q= $this->model->newInstance();
         foreach($query as $key => $value) {
             $q = $q->where($key, $value);
         }
-        if ( ! empty($before)) {
-            $q = $q->where('created_at','>',$before);
-        }
+	    if(!empty($firstTime) or !empty($secondTime)) {
+		    $q = $q->whereBetween('created_at', array($firstTime, $secondTime));
+	    }
         return $q->count();
     }
 

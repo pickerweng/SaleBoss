@@ -109,9 +109,9 @@ interface UserRepositoryInterface {
      */
     public function rawUpdate($customer, $data);
 
-    public function countAllCustomers($before, $query = array());
+    public function countAllCustomers($firstTime, $secondTime,  $query = array());
 
-    public function countAllUsers($before, $query= array());
+    public function countAllUsers($firstTime, $secondTime, $query= array());
 
-    public function countWithLead($before, $query = array());
+    public function countWithLead($firstTime, $secondTime, $query = array());
 }

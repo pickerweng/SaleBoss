@@ -57,5 +57,5 @@ interface LeadRepositoryInterface {
 
     public function getRemindableLeads(User $user, $int = 50);
 
-    public function countAll($before);
+    public function countAll($firstTime, $secondTime);
 } 

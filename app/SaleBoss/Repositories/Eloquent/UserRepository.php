@@ -215,33 +215,31 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         }
     }
 
-    public function countAllCustomers($before, $query = [])
+    public function countAllCustomers($firstTime, $secondTime, $query = [])
     {
         $q = $this->model->newInstance()->where('is_customer',true);
-        if (! empty($before))
-        {
-            $q = $q->where('created_at', '>', $before);
+        if(!empty($firstTime) or !empty($secondTime)) {
+            $q = $q->whereBetween('created_at', array($firstTime, $secondTime));
         }
         $q = $this->addQueries($q,$query);
         return $q->count();
     }
 
-    public function countAllUsers($before, $query = [])
+    public function countAllUsers($firstTime, $secondTime, $query = [])
     {
         $q  = $this->model->newInstance()->where('is_customer',false);
-        if (! empty($before)){
-            $q = $q->where('created_at','>',$before);
+        if(!empty($firstTime) or !empty($secondTime)) {
+            $q = $q->whereBetween('created_at', array($firstTime, $secondTime));
         }
         $q = $this->addQueries($q, $query);
         return $q->count();
     }
 
-    public function countWithLead($before, $query = [])
+    public function countWithLead($firstTime, $secondTime, $query = [])
     {
         $q = $this->model->newInstance();
-        if(!empty($before))
-        {
-            $q = $q->where('created_at','>',$before);
+        if(!empty($firstTime) or !empty($secondTime)) {
+            $q = $q->whereBetween('created_at', array($firstTime, $secondTime));
         }
         $q = $q->whereNotNull('lead_id');
         $q = $this->addQueries($q, $query);
