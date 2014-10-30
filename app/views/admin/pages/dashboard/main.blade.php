@@ -3,22 +3,33 @@
 	<li class="active"><i class="fa fa-dashboard"></i> داشبورد</li>
 @stop
 @section('content')
-<div class="row" style="margin-bottom:15px;">
-	@if(Sentry::getUser()->hasAnyAccess(['customers.create']))
-	<div class="col-lg-4 col-md-3 col-sm-6">
-		<a href="{{URL::to('my/customers')}}" class="btn btn-success btn-lg btn-block"><i class="fa fa-list"></i>     لیست مشتری های من</a>
+<div class="row" style="margin-bottom: 15px">
+	<div class="col-md-7 col-sm-12">
+		@include('admin.pages.dashboard.partials._declaration')
 	</div>
-	@endif
-	@if( Sentry::getUser()->hasAnyAccess(['customers.create']) )
-	<div class="col-lg-4 col-md-3 col-sm-6">
-		<a href="{{URL::to('customers/create')}}" class="btn btn-info btn-lg btn-block"><i class="fa fa-plus"></i>     ایجاد مشتری جدید</a>
+	<div class="col-md-5 col-sm-12">
+		<div class="row" style="margin-bottom: 15px">
+			@if(Sentry::getUser()->hasAnyAccess(['customers.create']))
+			<div class="col-md-12">
+				<a href="{{URL::to('my/customers')}}" class="btn btn-success btn-lg btn-block"><i class="fa fa-list"></i>     لیست مشتری های من</a>
+			</div>
+			@endif
+		</div>
+		<div class="row" style="margin-bottom: 15px">
+			@if( Sentry::getUser()->hasAnyAccess(['customers.create']) )
+			<div class="col-md-12">
+				<a href="{{URL::to('customers/create')}}" class="btn btn-info btn-lg btn-block"><i class="fa fa-plus"></i>     ایجاد مشتری جدید</a>
+			</div>
+			@endif
+		</div>
+        <div class="row" style="margin-bottom: 15px">
+			@if ( Sentry::getUser()->hasAnyAccess(['orders.own_create']) )
+				<div class="col-md-12">
+					<a href="{{URL::to('my/orders')}}" class="btn btn-info btn-warning btn-lg btn-block"><i class="fa fa-list"></i> لیست سفارش های من</a>
+				</div>
+			@endif
+		</div>
 	</div>
-	@endif
-    @if ( Sentry::getUser()->hasAnyAccess(['orders.own_create']) )
-        <div class="col-lg-4 col-md-3 col-sm-6">
-            <a href="{{URL::to('my/orders')}}" class="btn btn-info btn-warning btn-lg btn-block"><i class="fa fa-list"></i> لیست سفارش های من</a>
-        </div>
-    @endif
 </div>
 <div class="row">
 	@if(Sentry::getUser()->hasAnyAccess(['graphs.order_graph']))

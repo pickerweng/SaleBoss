@@ -57,5 +57,9 @@ interface LeadRepositoryInterface {
 
     public function getRemindableLeads(User $user, $int = 50);
 
+    public function getUserAllLeads(User $user);
+
+    public function getUserAllLeadsApproved(User $user);
+
     public function countAll($firstTime, $secondTime);
 } 

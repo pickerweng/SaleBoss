@@ -164,4 +164,15 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
                     ->orderBy('remind_at','ASC')
                     ->take($int)->get();
     }
+
+    public function getUserAllLeads(User $user)
+    {
+        return $user->createdLeads()->with('tags','phones')->count();
+    }
+
+    public function getUserAllLeadsApproved(User $user)
+    {
+        return $user->createdLeads()->where('status','1')->count();
+    }
+
 }

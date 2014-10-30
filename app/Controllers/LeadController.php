@@ -1,6 +1,5 @@
 <?php namespace Controllers;
 
-
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
@@ -11,6 +10,8 @@ use SaleBoss\Services\Leads\Creator\CreatorInterface;
 use SaleBoss\Services\Leads\Creator\CreatorListenerInterface;
 use SaleBoss\Services\Leads\Presenter\DelegateManInterface;
 use SaleBoss\Services\Leads\Presenter\PickerListenerInterface;
+use SaleBoss\Repositories\UserRepositoryInterface;
+use SaleBoss\Services\Leads\My\Commands\ListCommand;
 
 class LeadController extends BaseController
     implements CreatorListenerInterface, PickerListenerInterface {
@@ -19,23 +20,27 @@ class LeadController extends BaseController
     protected $creator;
     protected $delegateMan;
     protected $leadRepo;
+    protected $userRepo;
 
     /**
      * @param AuthenticatorInterface                                  $auth
      * @param \SaleBoss\Services\Leads\Creator\CreatorInterface       $creator
      * @param \SaleBoss\Services\Leads\Presenter\DelegateManInterface $delegateMan
      * @param \SaleBoss\Repositories\LeadRepositoryInterface          $leadRepo
+     * @param \SaleBoss\Repositories\UserRepositoryInterface          $userRepo
      */
     public function __construct(
         AuthenticatorInterface $auth,
         CreatorInterface $creator,
         DelegateManInterface $delegateMan,
-        LeadRepositoryInterface $leadRepo
+        LeadRepositoryInterface $leadRepo,
+        UserRepositoryInterface $userRepo
     ){
         $this->auth = $auth;
         $this->creator = $creator;
         $this->delegateMan = $delegateMan;
-        $this->leadRepo =$leadRepo;
+        $this->leadRepo = $leadRepo;
+        $this->userRepo = $userRepo;
     }
 
     /**
@@ -199,5 +204,19 @@ class LeadController extends BaseController
     public function onPickFail ($messages)
     {
         return $this->redirectTo('leads?my_leads=1')->withErrors($messages);
+    }
+
+    public function users($id)
+    {
+        if (!$this->auth->user()->hasAnyAccess(['leads.user']))
+        {
+            return $this->redirectTo('dash')->with('error_message','شما اجازه مشاهده لیدهای کاربران دیگر را ندارید.');
+        }
+
+        $user = $this->userRepo->findById($id);
+        $leads = $this->leadRepo->getUserLeads($user, 25);
+        $userCountAll = $this->leadRepo->getUserAllLeads($user);
+        $userAllLeadsApproved = $this->leadRepo->getUserAllLeadsApproved($user);
+        return $this->view('admin.pages.lead.user', compact('user', 'leads','userCountAll','userAllLeadsApproved'));
     }
 }
