@@ -29,7 +29,7 @@ class MyLeadsController extends BaseController
 
 	public function index()
 	{
-		$list = $this->execute(ListCommand::class);
+		$list = $this->execute(ListCommand::class, ['user' => $this->auth->user()]);
 		return $this->view('admin.pages.lead.my_index')
 			->withList($list)
 			->withCurrentUser($this->auth->user());

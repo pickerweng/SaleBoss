@@ -8,10 +8,10 @@ use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 use SaleBoss\Services\Leads\Creator\CreatorInterface;
 use SaleBoss\Services\Leads\Creator\CreatorListenerInterface;
+use SaleBoss\Services\Leads\My\Commands\ListCommand;
 use SaleBoss\Services\Leads\Presenter\DelegateManInterface;
 use SaleBoss\Services\Leads\Presenter\PickerListenerInterface;
 use SaleBoss\Repositories\UserRepositoryInterface;
-use SaleBoss\Services\Leads\My\Commands\ListCommand;
 
 class LeadController extends BaseController
     implements CreatorListenerInterface, PickerListenerInterface {
@@ -214,7 +214,7 @@ class LeadController extends BaseController
         }
 
         $user = $this->userRepo->findById($id);
-        $leads = $this->leadRepo->getUserLeads($user, 25);
+        $leads = $this->execute(ListCommand::class, compact('user'));
         $userCountAll = $this->leadRepo->getUserAllLeads($user);
         $userAllLeadsApproved = $this->leadRepo->getUserAllLeadsApproved($user);
         return $this->view('admin.pages.lead.user', compact('user', 'leads','userCountAll','userAllLeadsApproved'));

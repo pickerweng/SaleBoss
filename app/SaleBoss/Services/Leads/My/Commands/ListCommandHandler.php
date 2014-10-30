@@ -22,12 +22,12 @@ class ListCommandHandler implements CommandHandler {
     /**
      * Handle the command
      *
-     * @param $command
+     * @param ListCommand $command
      * @return mixed
      */
     public function handle($command)
     {
-        $leads = $this->leadRepo->getUserLeads($this->auth->user(), 20);
+        $leads = $this->leadRepo->getUserLeads($command->user, 20);
         return $leads;
     }
 }

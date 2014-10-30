@@ -1,6 +1,6 @@
 <div class="panel panel-danger" style="font-size: 1.2em">
 	<div class="panel-heading">
-		<h3 class="panel-title"><i class="fa fa-bell"></i> اعلانیه های فنی</h3>
+		<h3 class="panel-title"><i class="fa fa-bell"></i> تابلوی اعلانات</h3>
 	</div>
 	<div class="panel-body" style="font-weight: bold">
 		<div class="row" style="margin-right: 5px; margin-bottom: 15px">
