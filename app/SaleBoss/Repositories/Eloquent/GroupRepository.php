@@ -21,16 +21,6 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
 	}
 
 	/**
-	 * Get All Groups
-	 *
-	 * @return Collection
-	 */
-	public function getAll()
-	{
-		return $this->model->all();
-	}
-
-	/**
 	 * Get Groups of current user
 	 *
 	 * @param $user
@@ -42,7 +32,7 @@ class GroupRepository extends AbstractRepository implements GroupRepositoryInter
 	}
 
     /**
-     * Add
+     * Add groups to user
      *
      * @param User   $user
      * @param array  $groups

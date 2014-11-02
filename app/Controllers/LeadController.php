@@ -219,4 +219,15 @@ class LeadController extends BaseController
         $userAllLeadsApproved = $this->leadRepo->getUserAllLeadsApproved($user);
         return $this->view('admin.pages.lead.user', compact('user', 'leads','userCountAll','userAllLeadsApproved'));
     }
+
+    public function leadsAll()
+    {
+        if (!$this->auth->user()->hasAnyAccess(['leads.user']))
+        {
+            return $this->redirectTo('dash')->with('error_message','شما اجازه مشاهده لیدهای کاربران دیگر را ندارید.');
+        }
+        $leads = $this->leadRepo->getAllLeadPaginated();
+        return $this->view('admin.pages.lead.all', compact('user', 'leads'));
+    }
+
 }

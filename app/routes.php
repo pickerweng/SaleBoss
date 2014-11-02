@@ -42,7 +42,8 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::delete('leads/locker/{id}','LeadController@lockerRelease');
         Route::get('leads/bulk','LeadImporterController@create');
         Route::post('leads/bulk','LeadImporterController@store');
-        Route::resource('leads','LeadController');
+        Route::resource('leads','LeadController', array('except' => array('show')));
+        Route::get('leads/all','LeadController@leadsAll');
         Route::get('leads/user/{user_id}', 'LeadController@users');
         Route::get("me/edit","UserController@profileEdit");
         Route::put("me/edit","UserController@profileUpdate");

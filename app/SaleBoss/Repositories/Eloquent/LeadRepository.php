@@ -117,6 +117,17 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         return $user->createdLeads()->with('tags','phones')->orderBy('created_at','DESC')->paginate($int);
     }
 
+    /**
+     * Get All Leads Paginate
+     *
+     * @return Collection
+     */
+    public function getAllLeadPaginated($int = 25)
+    {
+        return $this->model->orderBy('created_at','DESC')->paginate($int);
+    }
+
+
 	/**
 	 * @author bigsinoos <pcfeeler@gmail.com>
 	 * Get user leads between a date
@@ -132,7 +143,7 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
         $todayEnd = Carbon::createFromTimestamp($todayEnd)->toDateString();
         return $user->createdLeads()
                     ->with('tags','phones')
-                    ->whereBetween('remind_at',array($todayStart, $todayEnd))
+                    ->whereBetween('remind_at',[$todayStart, $todayEnd])
                     ->get();
     }
 
@@ -143,14 +154,14 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
 			return $user->createdLeads()
 				        ->getQuery()
 						->groupBy('status')
-						->get(array('status', DB::raw('count(*) as total')));
+						->get(['status', DB::raw('count(*) as total')]);
 		}
         $before = Carbon::createFromTimestamp((int) $before);
 		return $user->createdLeads()
 					->getQuery()
 					->where('created_at','>', $before->toDateString())
 					->groupBy('status')
-					->get(array('status', DB::raw('count(*) as total')));
+					->get(['status', DB::raw('count(*) as total')]);
 	}
 
     public function getRemindableLeads(User $user, $int = 50)
@@ -165,14 +176,24 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
                     ->take($int)->get();
     }
 
+    /**
+     * @param User $user
+     * @return mixed
+     */
     public function getUserAllLeads(User $user)
     {
         return $user->createdLeads()->with('tags','phones')->count();
     }
 
+    /**
+     * @param User $user
+     * @return mixed
+     */
     public function getUserAllLeadsApproved(User $user)
     {
         return $user->createdLeads()->where('status','1')->count();
     }
+
+
 
 }

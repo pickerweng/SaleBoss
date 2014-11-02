@@ -66,24 +66,23 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
      * @throws \SaleBoss\Repositories\Exceptions\NotFoundException
      */
 	public function update($id, array $data)
-	{
-		try {
-			$model = $this->model->newInstance();
-			$model = $model->find($id);
-			if(is_null($model)){
-				throw new NotFoundException("No item with id : [{$id}] found");
-			}
-            if(empty($data['password']))
-            {
+    {
+        try {
+            $model = $this->model->newInstance();
+            $model = $model->find($id);
+            if (is_null($model)) {
+                throw new NotFoundException("No item with id : [{$id}] found");
+            }
+            if (empty($data['password'])) {
                 $data['password'] = $model->password;
             }
-			$model->update($data);
-			return $model;
-		}catch(QueryException $e){
-			throw new InvalidArgumentException($e->getMessage());
-		}
-	}
+            $model->update($data);
 
+            return $model;
+        } catch (QueryException $e) {
+            throw new InvalidArgumentException($e->getMessage());
+        }
+    }
 
 	/**
 	 * Find a user with groups
@@ -219,7 +218,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     {
         $q = $this->model->newInstance()->where('is_customer',true);
         if(!empty($firstTime) or !empty($secondTime)) {
-            $q = $q->whereBetween('created_at', array($firstTime, $secondTime));
+            $q = $q->whereBetween('created_at', [$firstTime, $secondTime]);
         }
         $q = $this->addQueries($q,$query);
         return $q->count();
@@ -229,7 +228,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     {
         $q  = $this->model->newInstance()->where('is_customer',false);
         if(!empty($firstTime) or !empty($secondTime)) {
-            $q = $q->whereBetween('created_at', array($firstTime, $secondTime));
+            $q = $q->whereBetween('created_at', [$firstTime, $secondTime]);
         }
         $q = $this->addQueries($q, $query);
         return $q->count();
@@ -239,7 +238,7 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
     {
         $q = $this->model->newInstance();
         if(!empty($firstTime) or !empty($secondTime)) {
-            $q = $q->whereBetween('created_at', array($firstTime, $secondTime));
+            $q = $q->whereBetween('created_at', [$firstTime, $secondTime]);
         }
         $q = $q->whereNotNull('lead_id');
         $q = $this->addQueries($q, $query);

@@ -38,6 +38,16 @@ class AbstractRepository {
 	}
 
 	/**
+	 * Get All
+	 *
+	 * @return Collection
+	 */
+	public function getAll()
+	{
+		return $this->model->all();
+	}
+
+	/**
 	 * @author bigsinoos <pcfeeler@gmail.com>
 	 * Find a model by property
 	 *
