@@ -65,7 +65,7 @@ class Creator implements CreatorInterface {
             $this->doStore();
             return $this->listener->onCreateSuccess(Lang::get(
                 'messages.success_lead_creation',
-                array('count'   =>  count($this->data), 'before' => $this->before)
+                ['count'   =>  count($this->data), 'before' => $this->before]
             ));
         }catch (RepositoryException $e)
         {
@@ -104,19 +104,41 @@ class Creator implements CreatorInterface {
      */
     private function filterData()
     {
+
         foreach($this->data as $key => &$lead)
         {
-            $lead['shared'] = empty($lead['shared']) ? false : true;
             $lead['description'] = empty($lead['description']) ? '' : $lead['description'];
             $lead['priority'] = empty($lead['priority']) ? 0 : $lead['priority'];
+            $lead['creator_id'] = empty($lead['creator_id']) ? null : $lead['creator_id'];
+            $lead['tag_id'] = empty($lead['tag_id']) ? 182 : ((int) $lead['tag_id']);
             $lead['created_at'] = Carbon::now();
             $lead['updated_at'] = Carbon::now();
-            if (! $valid = $this->leadValidator->isValid($lead))
-            {
+            if (!$valid = $this->leadValidator->isValid($lead)) {
                 unset($this->data[$key]);
                 $this->before++;
             }
         }
+    }
+
+    /**
+     * Get only some variables of a tow-level nested array
+     *
+     * @param $filterable
+     * @param array $keep
+     * @return array
+     */
+    public static function doFilter(&$filterable, $keep)
+    {
+        $keepable = [];
+        foreach($filterable as $key => $value){
+            foreach($keep as $what){
+                if(isset($value[$what])){
+                    $keepable[$key][$what] = $value[$what];
+                }
+            }
+        }
+        $filterable = null;
+        return $keepable;
     }
 
     /**
@@ -125,7 +147,7 @@ class Creator implements CreatorInterface {
     private function doStore()
     {
         $this->leadRepo->bulkCreate($this->data, $this->creator);
-        $this->events->fire('leads.inserted',array($this->data));
+        $this->events->fire('leads.inserted',[$this->data]);
     }
 
     /**

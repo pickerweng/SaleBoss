@@ -8,17 +8,32 @@ use SaleBoss\Models\User;
 use SaleBoss\Repositories\Exceptions\InvalidArgumentException;
 use SaleBoss\Repositories\Exceptions\RepositoryException;
 use SaleBoss\Repositories\LeadRepositoryInterface;
+use SaleBoss\Repositories\PhoneRepositoryInterface;
+use SaleBoss\Repositories\TagRepositoryInterface;
+use Whoops\Example\Exception;
 
 class LeadRepository extends AbstractRepository implements LeadRepositoryInterface {
 
     protected $model;
 
     /**
+     * @var PhoneRepositoryInterface
+     */
+    private $phones;
+
+    /**
+     * @var TagRepositoryInterface
+     */
+    private $tagRepo;
+
+    /**
      * @param Lead $lead
      */
-    public function __construct(Lead $lead)
+    public function __construct(Lead $lead, PhoneRepositoryInterface $phones, TagRepositoryInterface $tagRepo)
     {
         $this->model = $lead;
+        $this->phones = $phones;
+        $this->tagRepo = $tagRepo;
     }
 
     /**
@@ -29,17 +44,27 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
      * @throws \SaleBoss\Repositories\Exceptions\RepositoryException
      * @return mixed
      */
-    public function bulkCreate (array $data, User $user = null)
+    public function bulkCreate(array $data, User $user = null)
     {
-        $data = $this->setCreatorId($data, !empty($user) ? $user->id : null);
-        DB::beginTransaction();
+//        $data = $this->setCreatorId($data, !empty($user) ? $user->id : null);
            try {
-               $this->model->newInstance()->insert($data);
-           } catch(QueryException $e) {
+                DB::beginTransaction();
+               foreach($data as $lead_data)
+               {
+                   $phone = $lead_data['phone_number'];
+                   $tag_id = $lead_data['tag_id'];
+                   unset($lead_data['phone_number']);
+                   unset($lead_data['tag_id']);
+                   $lead = $this->model->create($lead_data);
+                   $this->phones->addPhoneToLead($lead, $phone);
+                   $this->tagRepo->addTagToLead($lead, $this->tagRepo->findById($tag_id));
+               }
+                DB::commit();
+           } catch(Exception $e) {
+
                DB::rollback();
                throw new RepositoryException($e->getMessage());
            }
-        DB::commit();
     }
 
     /**

@@ -29,12 +29,12 @@ class ExcelImporter implements ImporterInterface {
             $newRow = [];
             $newRow['phone_number'] = $row['phone_number'];
             $newRow['description'] = empty($row['description']) ? '' : $row['description'];
+            $newRow['creator_id'] = empty($row['creator_id']) ? null : $row['creator_id'];
             $newRow['priority'] = empty($row['priority']) ? 0 : ((int) $row['priority']);
-            $newRow['shared'] = true;
+            $newRow['tag_id'] = empty($row['tag_id']) ? 182 : ((int) $row['tag_id']);
             $row = $newRow;
             unset($newRow);
         });
-
         return $firstSheet;
     }
 } 

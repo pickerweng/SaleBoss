@@ -2,7 +2,7 @@
 
 class LeadValidator extends AbstractValidator {
     protected $rules = [
-        'phone_number'  =>  'required|unique:leads,phone_number',
+        'phone_number'  =>  'required|unique:phones,number',
         'priority'      =>  'integer',
         'status'        =>  'integer'
     ];
