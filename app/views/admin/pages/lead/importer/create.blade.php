@@ -18,8 +18,14 @@
                     'files'     =>  'true'
                 ])}}
                     <div class="col-lg-12">
-                        {{Form::label('file','آپلود فایل',['class' => 'control-label'])}}
-                        {{Form::file('file')}}
+                        <div class="col-lg-6">
+                            {{Form::file('file')}}
+                        </div>
+                        <div class="col-lg-3">
+                            {{Form::select('user_id',SaleBoss\Models\User::getUserList(),0,['class' => 'form-control stable'])}}
+                            انتخاب کاربر در داخل فایل {{Form::checkbox('user_local', true);}}
+                        </div>
+                    </div>
                         <p class="help-block">حجم فایل باید کمتر از 4000 کیلوبایت باشد و تنها فرمت های xls, xlsx وcsv قابل قبول هستند.</p>
                     </div>
                     <div class="col-lg-12">

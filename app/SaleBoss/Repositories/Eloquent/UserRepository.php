@@ -252,4 +252,9 @@ class UserRepository extends AbstractRepository implements UserRepositoryInterfa
         }
         return $q;
     }
+
+    public function getUserList($count = null)
+    {
+        return $this->model->getUserList($count);
+    }
 }

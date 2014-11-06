@@ -9,7 +9,7 @@ interface CreatorInterface {
      * @param array $data
      * @return mixed
      */
-    public function bulkCreate(array $data);
+    public function bulkCreate(array $data, $user_id);
 
     /**
      * Create a single lead

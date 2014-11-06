@@ -53,5 +53,4 @@ class Lead extends Eloquent {
 			'phone_id'
 		);
 	}
-
 } 

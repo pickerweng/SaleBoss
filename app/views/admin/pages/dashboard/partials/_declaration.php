@@ -4,6 +4,9 @@
 	</div>
 	<div class="panel-body" style="font-weight: bold">
 		<div class="row" style="margin-right: 5px; margin-bottom: 15px">
+			<i class="fa fa-spinner fa-spin"></i> امکان وارد نمودن انبوه لید برای هر کارشناس فروش به طور جداگانه توسط مدیریت فراهم گردید.
+		</div>
+		<div class="row" style="margin-right: 5px; margin-bottom: 15px">
 			<i class="fa fa-spinner fa-spin"></i> امکان نمایش آمار برای کلیه کاربران به صورت "از" و "تا" فراهم گردید.
 		</div>
 		<div class="row" style="margin-right: 5px;">

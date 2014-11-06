@@ -49,7 +49,7 @@ class ImporterService {
      * @param $file
      * @return mixed
      */
-    public function import($file)
+    public function import($file, $user_id)
     {
         $this->file = $file;
 
@@ -61,7 +61,7 @@ class ImporterService {
 
         try {
             $this->creator->setListener($this->listener);
-            return $this->creator->bulkCreate($this->doImport());
+            return $this->creator->bulkCreate($this->doImport(), $user_id);
         }catch (FactoryException $e)
         {
             Log::info($e->getMessage());

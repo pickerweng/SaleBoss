@@ -13,6 +13,15 @@
 @stop
 
 @section('content')
+<div class="panel">
+	<div class="panel-body" style="font-weight: bold">
+		<div class="row" style="margin-right: 5px; margin-bottom: 15px">
+			<div class="col-md-12">
+			    <a href="{{URL::to('leads/bulk')}}" class="btn btn-success btn-lg btn-block">وارد نمودن انبوه لید</a>
+			</div>
+		</div>
+	</div>
+</div>
 <div class="table-responsive">
     <table class="table table-hover table-stripped my-lead-table">
         <thead>

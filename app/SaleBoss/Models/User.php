@@ -156,12 +156,20 @@ class User extends SentryUser {
     {
         $sortBy = Input::get('sort_by');
         $asc = Input::get('asc');
-        if (in_array($sortBy,['created_at','updated_at','id']))
-        {
-            $q->orderBy($sortBy,empty($asc) ? "DESC" : "ASC");
-        }else
-        {
-            $q->orderBy('created_at','DESC');
+        if (in_array($sortBy, ['created_at', 'updated_at', 'id'])) {
+            $q->orderBy($sortBy, empty($asc) ? "DESC" : "ASC");
+        } else {
+            $q->orderBy('created_at', 'DESC');
+        }
+    }
+
+    public function scopeGetUserList($q, $count = null)
+    {
+        $q = $q->where('is_customer', false)->orderBy('id','ASC');
+        if (is_null($count)) {
+            return $q->get()->lists('last_name','id');
+        }else {
+            return $q->take($count)->get()->lists('last_name','id');
         }
     }
 }

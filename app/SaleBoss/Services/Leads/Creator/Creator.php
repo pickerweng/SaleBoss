@@ -51,9 +51,9 @@ class Creator implements CreatorInterface {
      * @param array $data
      * @return mixed
      */
-    public function bulkCreate(array $data)
+    public function bulkCreate(array $data, $user_id)
     {
-        $this->setData($data);
+        $this->setData($data, $user_id);
         $this->filterData();
         if (empty($this->data))
         {
@@ -91,9 +91,10 @@ class Creator implements CreatorInterface {
      * @param array $data
      * @return $this
      */
-    private function setData(array $data)
+    private function setData(array $data, $user_id)
     {
         $this->data = $data;
+        $this->user_id = $user_id;
         return $this;
     }
 
@@ -104,20 +105,40 @@ class Creator implements CreatorInterface {
      */
     private function filterData()
     {
-
-        foreach($this->data as $key => &$lead)
+        if($this->user_id == 'saeed')
         {
-            $lead['description'] = empty($lead['description']) ? '' : $lead['description'];
-            $lead['priority'] = empty($lead['priority']) ? 0 : $lead['priority'];
-            $lead['creator_id'] = empty($lead['creator_id']) ? null : $lead['creator_id'];
-            $lead['tag_id'] = empty($lead['tag_id']) ? 182 : ((int) $lead['tag_id']);
-            $lead['created_at'] = Carbon::now();
-            $lead['updated_at'] = Carbon::now();
-            if (!$valid = $this->leadValidator->isValid($lead)) {
-                unset($this->data[$key]);
-                $this->before++;
+            foreach($this->data as $key => &$lead)
+            {
+                $lead['description'] = empty($lead['description']) ? '' : $lead['description'];
+                $lead['priority'] = empty($lead['priority']) ? 0 : $lead['priority'];
+                $lead['tag_id'] = empty($lead['tag_id']) ? 182 : ((int) $lead['tag_id']);
+                $lead['creator_id'] = empty($lead['creator_id']) ? null : $lead['creator_id'];
+
+                $lead['created_at'] = Carbon::now();
+                $lead['updated_at'] = Carbon::now();
+                if (!$valid = $this->leadValidator->isValid($lead)) {
+                    unset($this->data[$key]);
+                    $this->before++;
+                }
             }
+
         }
+            else
+            {
+                foreach($this->data as $key => &$lead)
+                {
+                    $lead['description'] = empty($lead['description']) ? '' : $lead['description'];
+                    $lead['priority'] = empty($lead['priority']) ? 0 : $lead['priority'];
+                    $lead['tag_id'] = empty($lead['tag_id']) ? 182 : ((int) $lead['tag_id']);
+                    $lead['creator_id'] = $this->user_id;
+                    $lead['created_at'] = Carbon::now();
+                    $lead['updated_at'] = Carbon::now();
+                    if (!$valid = $this->leadValidator->isValid($lead)) {
+                        unset($this->data[$key]);
+                        $this->before++;
+                    }
+                }
+            }
     }
 
     /**
