@@ -40,7 +40,7 @@
         </thead>
         <tbody>
       @foreach($leads as $lead)
-          <tr class="inline-form-tr">
+          <tr class="inline-form-tr" @if ($lead->new_lead === 1) style="background-color: #F4726D" @endif>
               <td>#{{$lead->id}}</td>
               <td>{{$lead->name}}</td>
               <td class="text-center" style="direction: ltr">{{$lead->phones->first()->number}}</td>

@@ -51,7 +51,7 @@ class Creator implements CreatorInterface {
      * @param array $data
      * @return mixed
      */
-    public function bulkCreate(array $data, $user_id)
+    public function bulkCreate(array $data, $user_id = null)
     {
         $this->setData($data, $user_id);
         $this->filterData();
@@ -91,7 +91,7 @@ class Creator implements CreatorInterface {
      * @param array $data
      * @return $this
      */
-    private function setData(array $data, $user_id)
+    private function setData(array $data, $user_id = null)
     {
         $this->data = $data;
         $this->user_id = $user_id;
@@ -105,7 +105,7 @@ class Creator implements CreatorInterface {
      */
     private function filterData()
     {
-        if($this->user_id == 'saeed')
+        if($this->user_id == 'local_user')
         {
             foreach($this->data as $key => &$lead)
             {
@@ -113,7 +113,7 @@ class Creator implements CreatorInterface {
                 $lead['priority'] = empty($lead['priority']) ? 0 : $lead['priority'];
                 $lead['tag_id'] = empty($lead['tag_id']) ? 182 : ((int) $lead['tag_id']);
                 $lead['creator_id'] = empty($lead['creator_id']) ? null : $lead['creator_id'];
-
+                $lead['new_lead'] = '1';
                 $lead['created_at'] = Carbon::now();
                 $lead['updated_at'] = Carbon::now();
                 if (!$valid = $this->leadValidator->isValid($lead)) {
@@ -131,6 +131,7 @@ class Creator implements CreatorInterface {
                     $lead['priority'] = empty($lead['priority']) ? 0 : $lead['priority'];
                     $lead['tag_id'] = empty($lead['tag_id']) ? 182 : ((int) $lead['tag_id']);
                     $lead['creator_id'] = $this->user_id;
+                    $lead['new_lead'] = '1';
                     $lead['created_at'] = Carbon::now();
                     $lead['updated_at'] = Carbon::now();
                     if (!$valid = $this->leadValidator->isValid($lead)) {

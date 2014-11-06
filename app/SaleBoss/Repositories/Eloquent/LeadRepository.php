@@ -49,6 +49,7 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
 //        $data = $this->setCreatorId($data, !empty($user) ? $user->id : null);
            try {
                 DB::beginTransaction();
+               $this->model->update(array("new_lead" => null));
                foreach($data as $lead_data)
                {
                    $phone = $lead_data['phone_number'];

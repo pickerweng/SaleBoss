@@ -49,7 +49,7 @@ class ImporterService {
      * @param $file
      * @return mixed
      */
-    public function import($file, $user_id)
+    public function import($file, $user_id = null)
     {
         $this->file = $file;
 

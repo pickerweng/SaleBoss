@@ -25,7 +25,7 @@ class LeadImporterController extends BaseController
     public function store()
     {
         $file = Input::file('file');
-        $user_id = (Input::get('user_local')) ? 'saeed' : Input::get('user_id');
+        $user_id = (Input::get('user_local')) ? 'local_user' : Input::get('user_id');
         $this->importer->setListener($this);
         return $this->importer->import($file, $user_id);
     }
