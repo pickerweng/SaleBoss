@@ -30,7 +30,7 @@ class Tag extends Eloquent
 
 	public function scopeGetTagList($q, $count = null)
 	{
-		$q = $q->orderBy('name','ASC');
+		$q = $q->orderBy('name','ASC')->where('id','>','181');
 		if (is_null($count)) {
 			return $q->get()->lists('name','id');
 		}else {

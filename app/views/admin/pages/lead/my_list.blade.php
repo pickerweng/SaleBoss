@@ -23,7 +23,7 @@
 				<td>__</td>
 				<td>{{Form::text('name',null,['placeholder' => 'نام شخص یا شرکت','class' => 'form-control bulkable resettable', 'size' => '10'])}}</td>
 				<td>{{Form::text('phone',null,['placeholder' => 'شماره تماس','class' => 'form-control languageLeft bulkable resettable','size' => '10'])}}</td>
-				<td class="tags">{{Form::select('tag',SaleBoss\Models\Tag::getTagList(),0,['class' => 'form-control stable'])}}</td>
+				<td class="tags">{{Form::select('tag',SaleBoss\Models\Tag::getTagList(),182,['class' => 'form-control stable'])}}</td>
 				<td>{{Form::text('description',null,['placeholder' => 'توضیحات','class' => 'form-control bulkable resettable','size' => '10'])}}</td>
 				<td class="priorities">{{Form::select( 'priority',array(0,1,2,3,4,5),0,['class' => 'form-control languageLeft bulkable resettable'])}}</td>
 				<td class="statuses"> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable'])}}</td>
