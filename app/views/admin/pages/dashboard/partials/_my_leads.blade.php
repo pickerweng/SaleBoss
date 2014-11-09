@@ -11,7 +11,6 @@
                     <th><i class="fa fa-flag"></i> شناسه</th>
                     <th><i class="fa fa-user"></i> نام شخص یا شرکت</th>
                     <th><i class="fa fa-mobile"></i> شماره تماس</th>
-                    <th><i class="fa fa-file-text"></i> وضعیت رسیدگی</th>
                     <th>وضعیت</th>
                     <th>به یاد آوری در</th>
                     <th class="languageLeft">عملیات</th>
@@ -25,13 +24,6 @@
                             <td>{{$lead->phones->first()->number}}</td>
 				            <td class="priorities" style="display: none;">{{Form::select( 'priority',array(0,1,2,3,4,5),0,['class' => 'form-control languageLeft bulkable resettable'])}}</td>
 				            <td class="statuses" style="display: none"> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable'])}}</td>
-                            <td class="text-center">
-                                @if($lead->remind_at >  $lead->updated_at)
-                                    <span class="fa fa-times"></span>
-                                @else
-                                    <span class="fa fa-check"></span> {{$lead->jalaliAgoDate('updated_at')}}
-                                @endif
-                            </td>
                             <td>
                                 <span class="label label-<?php print statusClass($lead->status)?>">
                                     {{$opiloConfig['lead_status'][$lead->status]}}

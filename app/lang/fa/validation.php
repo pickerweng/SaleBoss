@@ -54,7 +54,7 @@ return array(
 	),
 	"not_in"           => " فیلد :attribute باید دارای انتخاب مشخص باشد.",
 	"numeric"          => "The :attribute must be a number.",
-	"regex"            => "The :attribute format is invalid.",
+	"regex"            => "فیلد :attribute اشتباه است",
 	"required"         => "فیلد :attribute باید دارای مقدار باشد.",
 	"required_if"      => "The :attribute field is required when :other is :value.",
 	"required_with"    => "فیلد :attribute ضروریست زمانی که :values دارای مقدار میباشد.",
