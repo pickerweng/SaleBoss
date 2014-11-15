@@ -10,7 +10,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12" style="padding-right: 30px;">
             <div class="well">
                     {{Form::open([
                         'method'    => 'get',
