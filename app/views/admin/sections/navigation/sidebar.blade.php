@@ -1,4 +1,4 @@
-<div class="sidebar responsive" id="sidebar">
+<div class="sidebar responsive sidebar-fixed" id="sidebar">
      <div class="sidebar-shortcuts-large center" id="sidebar-shortcuts-large">
 
        <button class="btn">

@@ -1,8 +1,8 @@
 
           <div>
-          <div class="table-header Nassim Nassim700 NassimTitle panelColor" style="padding-right: 10px;" >
+             <div class="table-header Nassim Nassim700 NassimTitle panelColor" style="padding-right: 10px;" >
               <i class="fa fa-list"></i> لیست لیدهای من
-        </div>
+            </div>
                 <div class="form-inline">
                     <table class="table table-striped table-hover">
                            <thead>
@@ -34,8 +34,8 @@
                               				<td class="statuses"> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable', 'style' => 'width: 100%'])}}</td>
                               				<td>{{Form::text('remind_at',null,['class' => 'form-control resettable', 'placeholder' => 'به یادآوری در چندروز بعد؟', 'style' => 'width: 100%'])}}</td>
                               				<td>
-                              					<button type="submit" data-loading-text='<i class="fa fa-spinner"></i>' class="btn radius btn-sm operation-margin btn-success submit_button"><i class="fa fa-plus"></i></button>
-                              					<button type="reset" class="btn btn-sm btn-warning radius"><i class="fa fa-list"></i></button>
+                              					<button type="submit" data-loading-text='<i class="fa fa-spinner"></i>' class="btn radius btn-xs operation-margin btn-success submit_button"><i class="fa fa-plus"></i></button>
+                              					<button type="reset" class="btn btn-xs btn-warning radius"><i class="fa fa-list"></i></button>
                               				</td>
                               				{{Form::close()}}
                               			</tr>
@@ -70,9 +70,11 @@
                                           @endforeach
                           </tbody>
                           <tfoot>
-                                <div class="row">
-                                	{{$list->appends(Input::except('page'))->links()}}
-                                </div>
+                                <tr>
+                                    <td>
+                                        {{$list->appends(Input::except('page'))->links()}}
+                                    </td>
+                                </tr>
                           </tfoot>
                     </table>
                 </div>
