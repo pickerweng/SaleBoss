@@ -1,10 +1,10 @@
 @extends('admin.layouts.default')
 @section('title')
-@parent | لیست مشتریان من
+@parent | لیست سفارش های من
 @stop
 @section('breadcrumb')
 @parent
-<li><i class="fa fa-user"></i> مشتریان من</li>
+<li><i class="fa fa-user"></i> سفارش های من</li>
 @stop
 @section('content')
 <div class="row">

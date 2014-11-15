@@ -22,7 +22,7 @@
 	<div class="page-content">
 		<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<h4>متاسفم ! <small>لطفا اطلاعات زیر را چک کنید.</small></h4>
+			<h4 class="Nassim">متاسفم ! <small>لطفا اطلاعات زیر را چک کنید.</small></h4>
 			@if (Session::has('error_message'))
 				{{ Session::get('error_message') }}
 			@endif

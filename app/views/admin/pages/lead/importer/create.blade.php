@@ -5,13 +5,13 @@
 @section('breadcrumb')
 	@parent
 	<li class="active"><a href="{{URL::to('leads')}}"><i class="fa fa-list"></i> لیدها</a></li>
-    <li class="active"><i class="fa fa-plus"></i>آپلود لید</li>
+    <li class="active"><i class="fa fa-plus"></i> آپلود لید</li>
 @stop
 @section('content')
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-8 col-lg-offset-2">
         <div class="well">
-            <div class="row">
+
                 {{Form::open([
                     'method'    =>  'post',
                     'url'       =>  'leads/bulk',
@@ -30,10 +30,10 @@
                     </div>
                     <div class="col-lg-12">
                         <br>
-                        {{Form::submit('ارسال',['class' => 'btn btn-success'])}}
+                        {{Form::submit('ارسال',['class' => 'btn btn-success Nassim radius'])}}
                     </div>
                 {{Form::close()}}
-            </div>
+
         </div>
 	</div>
 </div>
