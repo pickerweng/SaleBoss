@@ -227,6 +227,7 @@ class LeadController extends BaseController
             return $this->redirectTo('dash')->with('error_message','شما اجازه مشاهده لیدهای کاربران دیگر را ندارید.');
         }
         $leads = $this->leadRepo->getAllLeadPaginated();
+
         return $this->view('admin.pages.lead.all', compact('user', 'leads'));
     }
 

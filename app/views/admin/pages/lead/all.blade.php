@@ -29,11 +29,11 @@
     <table class="table table-hover table-stripped my-lead-table tableFontSize12">
         <thead>
         <tr>
-            <th style="padding: 13px"><i class="fa fa-flag"></i> شناسه</th>
+            <th style="padding: 13px; width: 90px"><i class="fa fa-flag"></i> شناسه</th>
             <th><i class="fa fa-user"></i> نام شخص یا شرکت</th>
+            <th>ثبت کننده</th>
             <th class="text-center"><i class="fa fa-mobile"></i> شماره تماس</th>
             <th class="text-center"><i class="fa fa-tag"></i> زمینه فعالیت</th>
-            <th><i class="fa fa-file-text"></i> توضیحات</th>
             <th class="text-center"><i class="fa fa-star"></i> اهمیت </th>
             <th>وضعیت</th>
             <th>به یاد آوری در</th>
@@ -44,9 +44,9 @@
           <tr class="inline-form-tr">
               <td>#{{$lead->id}}</td>
               <td>{{$lead->name}}</td>
+              <td><a href="{{URL::to('leads/user/' . $lead->creator->id)}}" target="_blank"><span class="label panelColor radius">{{$lead->creator->first_name}} {{$lead->creator->last_name}}</span></a></td>
               <td class="text-center" style="direction: ltr">{{$lead->phones->first()->number}}</td>
               <td class="text-center" style="direction: ltr">{{$lead->tags->first()->name}}</td>
-              <td>{{empty($lead->description) ? 'ندارد' : softTrim($lead->description,50)}}</td>
               <td class="text-center">
                   @for($i=1;$i<=$lead->priority + 1;$i++)
                       <i style="color:#CC9900" class="fa fa-star"></i>

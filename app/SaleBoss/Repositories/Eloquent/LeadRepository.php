@@ -151,7 +151,7 @@ class LeadRepository extends AbstractRepository implements LeadRepositoryInterfa
      */
     public function getAllLeadPaginated($int = 25)
     {
-        return $this->model->orderBy('created_at','DESC')->paginate($int);
+        return $this->model->with('creator')->orderBy('created_at','DESC')->paginate($int);
     }
 
 
