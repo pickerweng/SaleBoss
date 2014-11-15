@@ -15,11 +15,11 @@
 				'method'	=>	'post'
 			))}}
 			<div class="form-group">
-				{{Form::label('item[title]','عنوان منو')}}
+				{{Form::label('item[title]','عنوان منو', ['class' => 'control-label Nassim NassimTitle Nassim700'])}}
 				{{Form::text('item[title]',null,array('class' => 'form-control','placeholder' => 'عنوان مناسب برای منو'))}}
 			</div>
 			<div class="form-group">
-				{{Form::label('item[uri]','لینک منو')}}
+				{{Form::label('item[uri]','لینک منو', ['class' => 'control-label Nassim NassimTitle Nassim700'])}}
 				{{Form::text('item[uri]',null,array('class' => 'form-control languageLeft' , 'placeholder' => 'Example: http://google.com'))}}
 			</div>
 			<div class="form-group">
@@ -28,11 +28,11 @@
 				</label>
 			</div>
 			<div class="form-group">
-				{{Form::label('item[ids]','نوع منو')}}<br>
+				{{Form::label('item[ids]','نوع منو', ['class' => 'control-label Nassim NassimTitle Nassim700'])}}<br>
 				{{Form::select('item[ids]', MenuBuilder::select(),null,array('class' => 'form-control'))}}
 			</div>
 			<br>
-			<button type="submit" class="btn btn-success">ایجاد</button>
+			<button type="submit" class="btn btn-success Nassim radius">ایجاد</button>
 		{{Form::close()}}
 	</div>
 </div>

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row hidden-print">
 	{{Form::open([
 	'method'    =>  'put',
 	'url'       =>  'orders/support_approve/' . $order->id,
@@ -7,17 +7,17 @@
 	{{Form::hidden('completed',null,array('class' => 'approve-order-hidden'))}}
     {{Form::hidden('to_accounter',null,array('class' => 'to-accounter-hidden'))}}
 	<div class="col-lg-4 col-md-6 col-sm-12">
-		<button type="button" class="btn btn-success btn-block btn-lg accounter-action-button approve-button" data-toggle="modal" data-target="#orderDesc">
+		<button type="button" class="btn btn-success btn-block btn-lg accounter-action-button approve-button radius Nassim" data-toggle="modal" data-target="#orderDesc">
 			<i class="fa fa-check"></i> تایید نهایی
 		</button><br>
 	</div>
 	<div class="col-lg-4 col-md-6 col-sm-12">
-		<button type="button" class="btn btn-default btn-block btn-lg accounter-action-button to-accounter-deport-button" data-toggle="modal" data-target="#orderDesc">
+		<button type="button" class="btn btn-default btn-block btn-lg accounter-action-button to-accounter-deport-button radius Nassim" data-toggle="modal" data-target="#orderDesc">
 			<i class="fa fa-error"></i> بازگشت به حسابداری
 		</button><br>
 	</div>
     <div class="col-lg-4 col-md-6 col-sm-12">
-        <button type="button" class="btn btn-danger btn-block btn-lg accounter-action-button deport-button" data-toggle="modal" data-target="#orderDesc">
+        <button type="button" class="btn btn-danger btn-block btn-lg accounter-action-button deport-button radius Nassim" data-toggle="modal" data-target="#orderDesc">
             <i class="fa fa-error"></i> عدم تایید بازگشت به فروش
         </button><br>
     </div>

@@ -1,5 +1,5 @@
 <div class="well">
-    <h4><strong>همیشه جستجو کنید!</strong></h4>
+    <h4 class="NassimTitle Nassim">همیشه جستجو کنید!</h4>
     <div class="row">
         {{Form::open([
             'url'       =>  Request::path(),

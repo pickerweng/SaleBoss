@@ -53,7 +53,7 @@ return array(
 		"array"   => "The :attribute must have at least :min items.",
 	),
 	"not_in"           => " فیلد :attribute باید دارای انتخاب مشخص باشد.",
-	"numeric"          => "The :attribute must be a number.",
+	"numeric"          => "فیلد :attribute میبایست عدد باشد.",
 	"regex"            => "فیلد :attribute اشتباه است",
 	"required"         => "فیلد :attribute باید دارای مقدار باشد.",
 	"required_if"      => "The :attribute field is required when :other is :value.",
@@ -112,7 +112,8 @@ return array(
             'old_password'          =>  '<em><b>پسورد قدیمی</b></em>',
 			'description'           =>  '<em><b>توضیحات</b></em>',
 			'phone'                 =>  '<em><b>شماره</b></em>',
-	        'tag'                   =>  '<em><b>زمینه فعالیت</b></em>'
+	        'tag'                   =>  '<em><b>زمینه فعالیت</b></em>',
+	        'remind_at'             =>  '<em><b>به یاد آوری</b></em>'
 		),
 
 );

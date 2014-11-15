@@ -24,10 +24,10 @@
 						<td class="text-center">{{$user->username}}</td>
 						<td class="text-center">{{$user->first_name}} {{$user->last_name}}</td>
 						<td>
-							<a href="{{URL::to('admin/user/' . $user->id . '/edit')}}" class="btn operation-margin btn-xs pull-left btn-info">ویرایش</a>
+							<a href="{{URL::to('admin/user/' . $user->id . '/edit')}}" class="btn operation-margin btn-xs pull-left btn-info radius Nassim">ویرایش</a>
 							<button 
 								type="button"
-								class="btn btn-xs pull-left margin-right btn-danger" 
+								class="btn btn-xs pull-left margin-right btn-danger radius Nassim"
 								delete-url="{{URL::to('admin/user/' . $user->id)}}"
 								onclick="Common.setDeleteURL(this,'#delete_form')"
 								data-toggle="modal" 

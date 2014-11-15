@@ -4,14 +4,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">آیا حذف این آیتم را تایید میکنید؟</h4>
+        <h4 class="modal-title Nassim Nassim700" id="myModalLabel">آیا حذف این آیتم را تایید میکنید؟</h4>
       </div>
       <div class="modal-body">
       	<p>این عمل پس از انجام قابل بازگشت نخواهد بود، لطفا دقت کنید</p>
       </div>
       <div class="modal-footer">
-		<button type="button" class="btn btn-danger pull-left" onclick="Common.submitDeleteForm('#delete_form')">تایید میکنم</button>
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">بستن</button>
+		<button type="button" class="btn btn-sm btn-warning pull-left radius" style="margin-right: 10px;" onclick="Common.submitDeleteForm('#delete_form')">تایید میکنم</button>
+        <button type="button" class="btn btn-sm btn-default pull-left radius" data-dismiss="modal">بستن</button>
       </div>
     </div>
   </div>

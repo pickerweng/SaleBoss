@@ -1,4 +1,4 @@
-<a href="{{URL::to('groups/' . $group->id . '/edit')}}" class="btn operation-margin btn-xs pull-left btn-info">ویرایش</a>
+<a href="{{URL::to('groups/' . $group->id . '/edit')}}" class="btn operation-margin btn-xs pull-left btn-info nassim radius">ویرایش</a>
 <!--button
 	type="button"
 	class="btn btn-xs pull-left margin-right btn-danger"

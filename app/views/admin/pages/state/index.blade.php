@@ -9,13 +9,13 @@
 @section('content')
 <div class="row">
 	<div class="col-sm-12 col-md-6 col-md-offset-3">
-		<h3 class="text-center">روندکار</h3>
+		<h3 class="text-center Nassim">روندکار</h3>
 		@if(!$states->isEmpty())
 		<div class="table-responsive">
 			<table class="table table-hover table-striped">
 				<thead>
 					<tr>
-						<th>#مرحله </th>
+						<th style="padding: 13px">#مرحله </th>
 						<th>نام مرحله</th>
 						<th class="languageLeft">عملیات</th>
 					</tr>

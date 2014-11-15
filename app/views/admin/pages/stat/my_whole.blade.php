@@ -17,14 +17,14 @@
                         'url'       =>  Request::path(),
                         'class'     =>  'form-inline'
                     ])}}
-                    <p>نمایش آمارها از {{Form::text('from',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time'])}}  تا {{Form::text('to',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time2'])}} <button type="submit" class="btn btn-info">بروز رسانی</button></button></p>
+                    <p>نمایش آمارها از {{Form::text('from',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time'])}}  تا {{Form::text('to',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time2'])}} <button type="submit" class="btn btn-info radius Nassim btn-sm">بروز رسانی</button></button></p>
                     {{Form::close()}}
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
-            <p class="text-center">نمایش آمار مربوط به {{$user->getIdentifier()}}</p>
+            <p class="text-center Nassim NassimTitle Nassim700">نمایش آمار مربوط به {{$user->getIdentifier()}}</p>
         </div>
     </div>
     <div class="row">

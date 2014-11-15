@@ -1,18 +1,15 @@
-<div class="panel panel-primary">
-	<div class="panel-heading">
-		<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> جدول سفارش ها</h3>
-	</div>
-	<div class="panel-body">
-		<div id="morris-chart-area"></div>
-	</div>
-</div>
+ <div class="widget-box">
+   <div class="widget-header"><h5 class="Nassim Nassim700 NassimTitle"><i class="fa fa-bar-chart-o"></i> نمودار سفارش ها</h5></div>
+   <div class="widget-body">
+        <div id="morris-chart-area"></div>
+   </div>
+ </div>
 <script type="text/javascript">
 	$(document).ready(function(){
 		oChart = [];
     	$.each(orderChart, function(index, val){
     		oChart.push(val);
     	});
-    	console.log(oChart);
     	Morris.Area({
     		element: 'morris-chart-area',
     		data: oChart,

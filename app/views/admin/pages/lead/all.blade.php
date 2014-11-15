@@ -17,16 +17,19 @@
 	<div class="panel-body" style="font-weight: bold">
 		<div class="row" style="margin-right: 5px; margin-bottom: 15px">
 			<div class="col-md-12">
-			    <a href="{{URL::to('leads/bulk')}}" class="btn btn-success btn-lg btn-block">وارد نمودن انبوه لید</a>
+			    <a href="{{URL::to('leads/bulk')}}" class="btn btn-success btn-lg btn-block radius Nassim">وارد نمودن انبوه لید</a>
 			</div>
 		</div>
 	</div>
 </div>
+<div class="table-header Nassim Nassim700 NassimTitle panelColor" style="padding-right: 10px;" >
+                <i class="fa fa-list"></i> لیست تمام لیدها
+          </div>
 <div class="table-responsive">
-    <table class="table table-hover table-stripped my-lead-table">
+    <table class="table table-hover table-stripped my-lead-table tableFontSize12">
         <thead>
         <tr>
-            <th><i class="fa fa-flag"></i> شناسه</th>
+            <th style="padding: 13px"><i class="fa fa-flag"></i> شناسه</th>
             <th><i class="fa fa-user"></i> نام شخص یا شرکت</th>
             <th class="text-center"><i class="fa fa-mobile"></i> شماره تماس</th>
             <th class="text-center"><i class="fa fa-tag"></i> زمینه فعالیت</th>
@@ -50,7 +53,7 @@
                   @endfor
               </td>
               <td>
-                  <span class="label label-<?php print statusClass($lead->status)?>">
+                  <span class="label arrowed label-<?php print statusClass($lead->status)?>">
                       {{$opiloConfig['lead_status'][$lead->status]}}
                   </span>
               </td>
@@ -58,7 +61,7 @@
                   @if(!is_null($lead->remind_at))
                       <i class="fa fa-calendar"></i> {{$lead->jalaliDate('remind_at')}} ({{$lead->jalaliAgoDate('remind_at')}})
                   @else
-                    <code>ندارد</code>
+                    ندارد
                   @endif
               </td>
           </tr>

@@ -9,16 +9,16 @@
 @section('content')
 <div class="row">
 	<div class="col-sm-12 col-md-6 col-md-offset-3">
-		<h3 class="text-center">لیست دسترسی ها</h3>
+		<h3 class="text-center Nassim">لیست دسترسی ها</h3>
 		<div class="table-responsive">
 			{{Form::open([
 				'method'    =>  'post',
 				'url'       =>  'permissions'
 			])}}
-			<table class="table table-hover table-striped">
+			<table class="table table-hover table-striped tableFontSize12">
 				<thead>
 					<tr>
-						<th>شناسه</th>
+						<th style="padding: 13px">شناسه</th>
 						<th>نام دسترسی</th>
 						@foreach($groups as $group)
 							<th class="text-center">{{$group->display_name}}</th>
@@ -43,7 +43,7 @@
 					@endforeach
 				</tbody>
 			</table>
-			{{Form::submit('ثبت تغییرات',array('class' => 'btn btn-lg btn-success'))}}
+			{{Form::submit('ثبت تغییرات',array('class' => 'btn btn-md Nassim radius btn-success'))}}
 		</div>
 	</div>
 </div>

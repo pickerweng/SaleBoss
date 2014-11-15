@@ -1,19 +1,25 @@
+
 	{{-- check if session has message --}}
 	@if (Session::has('message'))
+	<div class="page-content">
 		<div class="alert alert-info">
 			{{ Session::get('message') }}
 		</div>
+	</div>
 	@endif
 	{{-- check if session has success_message and print it --}}
 	@if (Session::has('success_message'))
+	<div class="page-content">
 		<div class="alert alert-success alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			{{ Session::get('success_message')}}
 		</div>
+	</div>
 	@endif
 
 	{{-- check if session has error_message and show it --}}
 	@if (Session::has('error_message') || $errors->has())
+	<div class="page-content">
 		<div class="alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 			<h4>متاسفم ! <small>لطفا اطلاعات زیر را چک کنید.</small></h4>
@@ -25,4 +31,5 @@
 				{{HTML::decode(HTML::ul($errors->all()))}}
 			@endif
 		</div>
+	</div>
 	@endif

@@ -4,6 +4,7 @@ return array(
     'orders.create'                         =>  'ایجاد سفارش جدید',
     'orders.own_create'                     =>  'ایجاد سفارش جدید تنها برای مشتری خود',
     'graphs.order_graph'                    =>  'مشاهده ی گراف سفارش ها',
+    'graphs.own_chart_status_graph'         => 'مشاهده وضعیت گراف لیدهای من',
     'customers.edit'                        =>  'ویرایش مشتری',
     'customers.own_edit'                    =>  'ویرایش مشتری خود',
     'menu.admin'                            =>  'منوی مدیریت',

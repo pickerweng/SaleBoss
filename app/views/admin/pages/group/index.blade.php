@@ -8,11 +8,11 @@
 @stop
 @section('content')
 <div class="row">
-	<h4 class="text-center" style="margin-top: 10px">لیست گروه های کاربری</h4><br>
-	<a class="btn btn-info" href="{{URL::to('groups/create')}}">+ ایجاد گروه کاربری</a>
+	<h4 class="text-center Nassim" style="margin-top: 10px">لیست گروه های کاربری</h4><br>
+	<a class="btn btn-info Nassim radius" href="{{URL::to('groups/create')}}">+ ایجاد گروه کاربری</a>
 	<div class="col-md-6 col-md-offset-3 col-sm-12">
 		<div class="table-responsive">
-			<table class="table table-hover table-bordered table-striped">
+			<table class="table table-hover table-bordered table-striped tableFontSize12">
 				<thead>
 					<tr>
 						<th>#</th>

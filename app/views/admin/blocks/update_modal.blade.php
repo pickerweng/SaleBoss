@@ -4,14 +4,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">بروز رسانی </h4>
+        <h4 class="modal-title Nassim Nassim700" id="myModalLabel">بروز رسانی </h4>
       </div>
       <div class="modal-body">
       	<p></p>
       </div>
       <div class="modal-footer">
-		<button type="button" class="btn btn-warning pull-left" onclick="Common.submitUpdateForm('#update_form')">بروز رسانی</button>
-        <button type="button" class="btn btn-default pull-left" data-dismiss="modal">بستن</button>
+		<button type="button" class="btn btn-sm btn-warning pull-left radius" style="margin-right: 10px;" onclick="Common.submitUpdateForm('#update_form')">بروز رسانی</button>
+        <button type="button" class="btn btn-sm btn-default pull-left radius" data-dismiss="modal">بستن</button>
       </div>
     </div>
   </div>
@@ -26,40 +26,40 @@
     ))}}
     	<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-12">
-				<label class="control-label">نام یا شماره شرکت</label>
+				<label class="control-label Nassim Nassim700 NassimTitle">نام یا شماره شرکت</label>
 				<input name="name" type="text" class="form-control bulkable resettable" placeholder="نام شخص یا شرکت" value="<%= name %>">
 			</div>
 			<div class="col-lg-6 col-sm-12">
-				<label class="control-label">شماره تماس</label>
+				<label class="control-label Nassim Nassim700 NassimTitle">شماره تماس</label>
 				<input name="phone" type="text" class="form-control languageLeft bulkable resettable" value="<%= phone %>">
 			</div>
 		</div>
 		<br>
 		<div class="row">
     		<div class="col-lg-6 col-md-6 col-sm-12">
-    			<label class="control-label">زمینه فعالیت</label>
+    			<label class="control-label Nassim Nassim700 NassimTitle">زمینه فعالیت</label>
     			<%= tags %>
     		</div>
     		<div class="col-lg-6 col-md-6 col-sm-12">
-    			<label class="control-label">توضیحات</label>
+    			<label class="control-label Nassim Nassim700 NassimTitle">توضیحات</label>
     			<input name="description" type="text" class="form-control bulkable resettable" value="<%= description %>">
     		</div>
 		</div>
 		<br>
 		<div class="row">
 			<div class="col-lg-6 col-md-6 col-sm-12">
-				<label class="control-label">اهمیت</label>
+				<label class="control-label Nassim Nassim700 NassimTitle">اهمیت</label>
 					<%= priorities %>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-12">
-				<label class="control-label">وضعیت</label>
+				<label class="control-label Nassim Nassim700 NassimTitle">وضعیت</label>
 				<%= statuses %>
 			</div>
 		</div>
 		<br>
 		<div class="row">
     		<div class="col-lg-6 col-md-6 col-sm-12">
-    			<label class="control-label">تاریخ به یاد آوری</label>
+    			<label class="control-label Nassim Nassim700 NassimTitle">تاریخ به یاد آوری</label>
     			<input name="remind_at" class="form-control" type="text" placeholder="به یاد آوری در چند روز بعد؟">
     		</div>
 		</div>

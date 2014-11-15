@@ -1,0 +1,109 @@
+body {
+    font-family:'Tahoma';font-size:11px !important;
+}
+
+.Nassim {
+    font-family: "Nassim";
+}
+
+.Nassim700 {
+    font-weight: 700;
+}
+
+.NassimTitle {
+    font-size: 16px !important;
+}
+
+a, a:hover {
+    text-decoration: none;
+}
+
+a:hover {
+    color: #333;
+}
+
+.row {
+    margin-bottom: 10px;
+}
+
+.marginRight {
+    margin-right: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+.nav-list>li.active>a {
+    font-weight: 400 !important;
+}
+
+.breadcrumb, .dropdown-menu>li>a, .alert, .nav-list>li>a, label {
+    font-size: 11px !important;
+}
+
+.navbar .navbar-brand {
+    padding-right: 40px;
+}
+
+.dropdown-menu.dropdown-close {
+    top: 100%;
+}
+
+.profile-dropmenu {
+    width: 200px;
+}
+
+.dropdown-menu.dropdown-close.dropdown-menu-right {
+    right: 0px;
+}
+
+.dropdown-menu {
+    min-width: 100%;
+}
+
+.user-menu>li>a>.ace-icon {
+    font-size: 110%;
+}
+
+.user-info {
+    top: 30%;
+    width: 100px;
+}
+
+.sidebar .sidebar-shortcuts-large {
+    line-height: 40px;
+}
+
+ul, menu, dir {
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+}
+
+.ace-nav>li {
+    height: 46px;
+}
+
+.panel-title {
+    font-family: Nassim;
+    font-weight: 700;
+}
+
+.form-control, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], input[type=color], input[type=date], input[type=datetime-local], input[type=datetime], input[type=email], input[type=month], input[type=number], input[type=password], input[type=search], input[type=tel], input[type=text], input[type=time], input[type=url], input[type=week], textarea {
+    font-size: 12px;
+}
+
+.radius {
+    border-radius: 4px !important;
+}
+
+.rtl .alert-dismissable, .rtl .alert-dismissible {
+    padding-right: 10px;
+}
+
+.tableFontSize12 {
+    font-size: 12px !important;
+}
+
+.morris-hover{position:absolute;z-index:1000}.morris-hover.morris-default-style{border-radius:10px;padding:6px;color:#666;background:rgba(255,255,255,0.8);border:solid 2px rgba(230,230,230,0.8);font-family:sans-serif;font-size:12px;text-align:center}.morris-hover.morris-default-style .morris-hover-row-label{font-weight:bold;margin:0.25em 0}
+.morris-hover.morris-default-style .morris-hover-point{white-space:nowrap;margin:0.1em 0}

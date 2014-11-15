@@ -2,11 +2,14 @@
 @section('content')
 <div class="row">
 	<div class="col-sm-12">
-		<table class="table table-responsive table-hover">
+	          <div class="table-header Nassim Nassim700 NassimTitle panelColor" style="padding-right: 10px;" >
+                    <i class="fa fa-user"></i> لیست کاربران
+              </div>
+		<table class="table table-responsive table-hover tableFontSize12">
 			<thead>
 				<tr>
 					@foreach($columns as $key => $column)
-						<th>{{CommonPresenter::key($key)}}</th>
+						<th style="padding: 13px">{{CommonPresenter::key($key)}}</th>
 					@endforeach
 					@if(!empty($operationColumn))
 						<th class="languageLeft">

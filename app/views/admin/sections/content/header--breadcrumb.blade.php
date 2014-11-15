@@ -1,7 +1,7 @@
 <!-- Content Header : Breadcrumb Section -->
-<ol class="breadcrumb">
+<ul class="breadcrumb">
 @section('breadcrumb')
-  <li class="active"><a href="{{URL::to('dash')}}"><i class="fa fa-dashboard"></i> داشبورد</a></li>
+  <li class="active hidden-print"><a href="{{URL::to('dash')}}"><i class="fa fa-home home-icon"></i>  داشبورد</a></li>
 @show
-</ol>
+</ul>
 <!-- End of Content Header : Breadcrumb Section -->

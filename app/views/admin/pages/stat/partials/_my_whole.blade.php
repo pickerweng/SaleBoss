@@ -1,8 +1,11 @@
+<div class="table-header Nassim Nassim700 NassimTitle panelColor" style="padding-right: 10px;" >
+              <i class="fa fa-list"></i> رتبه بندی بر اساس تعداد پنل های عادی تکمیل شده
+        </div>
 <div class="table-responsive">
-	    <table class="table table-hover table-bordered table-condensed">
+	    <table class="table table-hover table-bordered table-condensed tableFontSize12">
             <thead>
                 <tr>
-                    <th>رتبه بندی بر اساس تعداد پنل های عادی تکمیل شده</th>
+                    <th >اسامی</th>
                     <th>تعداد فروخته شده</th>
                     <th>جمع قیمت</th>
                 </tr>
@@ -18,8 +21,11 @@
             </tbody>
         </table>
 </div>
+<div class="table-header Nassim Nassim700 NassimTitle panelColor" style="padding-right: 10px;" >
+              <i class="fa fa-list"></i> آمار {{$user->getIdentifier()}}
+        </div>
 <div class="table-responsive">
-    <table class="table table-hover table-bordered table-condensed">
+    <table class="table table-hover table-bordered table-condensed tableFontSize12">
         <thead>
             <tr>
                 <th>نام آمار</th>

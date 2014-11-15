@@ -10,7 +10,7 @@
 @section('content')
 <div class="row">
 	<div class="col-sm-12 col-lg-offset-4 col-lg-4 col-md-6 col-md-offset-2">
-		<h3 class="text-center">ویرایش گروه کاربری {{$state->title}}</h3>
+		<h3 class="text-center Nassim">ویرایش گروه کاربری {{$state->title}}</h3>
 		@include('admin.pages.state._form')
 	</div>
 </div>

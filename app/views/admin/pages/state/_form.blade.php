@@ -12,5 +12,5 @@
 		{{Form::text('item[priority]',!empty($update) ? $state->priority: null , ['class' => 'form-control languageLeft'])}}
 	</div>
 
-	{{Form::submit('ثبت',array('class' => 'btn btn-lg btn-success'))}}
+	{{Form::submit('ثبت',array('class' => 'btn btn-md btn-success Nassim radius'))}}
 {{Form::close()}}

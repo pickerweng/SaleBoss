@@ -12,5 +12,5 @@
 		{{Form::text('item[name]',!empty($update) ? $group->name : null , ['class' => 'form-control languageLeft'])}}
 	</div>
 
-	{{Form::submit('ثبت',array('class' => 'btn btn-lg btn-success'))}}
+	{{Form::submit('ثبت',array('class' => 'btn btn-md btn-success radius Nassim'))}}
 {{Form::close()}}

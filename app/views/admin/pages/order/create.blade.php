@@ -13,7 +13,7 @@
 		<div class="well">
 			<div class="row">
 				<div class="col-sm-12 col-md-3 col-md-offset-9">
-					<button class="btn btn-info btn-lg btn-block" data-toggle="modal" data-target="#customerSummary">مشاهده مشتری</button>
+					<button class="btn btn-info btn-lg btn-block Nassim radius" data-toggle="modal" data-target="#customerSummary">مشاهده مشتری</button>
 				</div>
 				<div class="col-lg-12">
 					@include('admin.pages.order._sale_form')
@@ -27,15 +27,12 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h4 class="modal-title" id="myModalLabel">مشاهده مشتری {{$customer->name()}}</h4>
+				<h4 class="modal-title Nassim" id="myModalLabel">مشاهده مشتری {{$customer->name()}}</h4>
 			</div>
 			<div class="modal-body">
 				<div class="well">
 					@include('admin.pages.customer._show')
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">بستن</button>
 			</div>
 		</div>
 	</div>

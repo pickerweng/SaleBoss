@@ -1,8 +1,11 @@
+<div class="table-header Nassim Nassim700 NassimTitle panelColor" style="padding-right: 10px;" >
+              <i class="fa fa-list"></i> رتبه بندی بر اساس تعداد پنل های عادی تکمیل شده
+        </div>
 <div class="table-responsive">
-    <table class="table table-hover table-bordered table-condensed">
+    <table class="table table-hover table-bordered table-condensed tableFontSize12">
         <thead>
             <tr>
-                <th>نام آمار</th>
+                <th style="padding: 13px;">نام آمار</th>
                 <th>مقدار</th>
             </tr>
         </thead>
