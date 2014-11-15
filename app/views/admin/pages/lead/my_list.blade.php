@@ -9,12 +9,12 @@
                                <tr role="row">
                                   <th style="padding:13px; width: 90px;"><i class="fa fa-flag"></i> شناسه</th>
                                   <th><i class="fa fa-user"></i> نام شخص یا شرکت</th>
-                                  <th class="text-center"><i class="fa fa-mobile"></i> شماره تماس</th>
+                                  <th class="text-center" style="width: 130px;"><i class="fa fa-mobile"></i> شماره تماس</th>
                                   <th class="text-center"><i class="fa fa-tag"></i> زمینه فعالیت</th>
                                   <th><i class="fa fa-file-text"></i> توضیحات</th>
                                   <th class="text-center"><i class="fa fa-star"></i> اهمیت </th>
                                   <th>وضعیت</th>
-                                  <th>به یاد آوری در</th>
+                                  <th style="width: 130px;">به یاد آوری در</th>
                                   <th class="languageLeft">عملیات</th>
                               </tr>
                            </thead>
