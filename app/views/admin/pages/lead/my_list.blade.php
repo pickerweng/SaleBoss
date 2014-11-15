@@ -7,7 +7,7 @@
                     <table class="table table-striped table-hover">
                            <thead>
                                <tr role="row">
-                                  <th style="padding:13px;"><i class="fa fa-flag"></i> شناسه</th>
+                                  <th style="padding:13px; width: 90px;"><i class="fa fa-flag"></i> شناسه</th>
                                   <th><i class="fa fa-user"></i> نام شخص یا شرکت</th>
                                   <th class="text-center"><i class="fa fa-mobile"></i> شماره تماس</th>
                                   <th class="text-center"><i class="fa fa-tag"></i> زمینه فعالیت</th>
