@@ -14,7 +14,7 @@
                 <li class="red @if(Route::getCurrentRoute()->getPath() == 'dash') @if($leadsNotify) @if(! $remindingLeadsNotify->isEmpty()) open  @endif @endif @endif">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <i class="ace-icon fa fa-bell"></i>
-                        <span class="badge badge-important">5</span>
+                        <span class="badge badge-important">{{count($remindingLeadsNotify)}}</span>
                     </a>
                         @include('admin.pages.dashboard.partials._my_notify_leads')
 
