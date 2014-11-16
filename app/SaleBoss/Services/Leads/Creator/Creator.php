@@ -110,7 +110,7 @@ class Creator implements CreatorInterface {
             foreach($this->data as $key => &$lead)
             {
                 $lead['description'] = empty($lead['description']) ? '' : $lead['description'];
-                $lead['priority'] = empty($lead['priority']) ? 0 : $lead['priority'];
+                $lead['priority'] = empty($lead['priority']) ? 1 : $lead['priority'];
                 $lead['tag_id'] = empty($lead['tag_id']) ? 182 : ((int) $lead['tag_id']);
                 $lead['creator_id'] = empty($lead['creator_id']) ? null : $lead['creator_id'];
                 $lead['new_lead'] = '1';
@@ -128,7 +128,7 @@ class Creator implements CreatorInterface {
                 foreach($this->data as $key => &$lead)
                 {
                     $lead['description'] = empty($lead['description']) ? '' : $lead['description'];
-                    $lead['priority'] = empty($lead['priority']) ? 0 : $lead['priority'];
+                    $lead['priority'] = empty($lead['priority']) ? 1 : $lead['priority'];
                     $lead['tag_id'] = empty($lead['tag_id']) ? 182 : ((int) $lead['tag_id']);
                     $lead['creator_id'] = $this->user_id;
                     $lead['new_lead'] = '1';

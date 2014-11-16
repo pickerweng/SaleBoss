@@ -50,7 +50,7 @@
               <td class="text-center" style="direction: ltr">{{$lead->tags->first()->name}}</td>
               <td>{{empty($lead->description) ? 'ندارد' : softTrim($lead->description,50)}}</td>
               <td class="text-center">
-                  @for($i=1;$i<=$lead->priority + 1;$i++)
+                  @for($i=1;$i<=$lead->priority;$i++)
                       <i style="color:#CC9900" class="fa fa-star"></i>
                   @endfor
               </td>

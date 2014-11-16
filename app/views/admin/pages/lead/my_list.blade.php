@@ -30,7 +30,7 @@
                               				<td>{{Form::text('phone',null,['placeholder' => 'شماره تماس','class' => 'form-control languageLeft bulkable resettable', 'style' => 'width: 100%'])}}</td>
                               				<td>{{Form::select('tag',SaleBoss\Models\Tag::getTagList(),182,['class' => 'form-control stable', 'style' => 'width: 100%'])}}</td>
                               				<td>{{Form::text('description',null,['placeholder' => 'توضیحات','class' => 'form-control bulkable resettable', 'style' => 'width: 100%'])}}</td>
-                              				<td class="priorities">{{Form::select( 'priority',array(0,1,2,3,4,5),0,['class' => 'form-control languageLeft bulkable resettable', 'style' => 'width: 100%'])}}</td>
+                              				<td class="priorities">{{Form::select( 'priority',['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'], 1,['class' => 'form-control languageLeft bulkable resettable', 'style' => 'width: 100%'])}}</td>
                               				<td class="statuses"> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable', 'style' => 'width: 100%'])}}</td>
                               				<td>{{Form::text('remind_at',null,['class' => 'form-control resettable', 'placeholder' => 'به یادآوری در چندروز بعد؟', 'style' => 'width: 100%'])}}</td>
                               				<td>
@@ -47,7 +47,7 @@
                                                   <td class="text-center" style="direction: ltr">{{$lead->tags->first()->name}}</td>
                                                   <td>{{empty($lead->description) ? 'ندارد' : softTrim($lead->description,50)}}</td>
                                                   <td class="text-center">
-                                                      @for($i=1;$i<=$lead->priority + 1;$i++)
+                                                      @for($i=1;$i<=$lead->priority;$i++)
                                                           <i style="color:#CC9900" class="fa fa-star"></i>
                                                       @endfor
                                                   </td>

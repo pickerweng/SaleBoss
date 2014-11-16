@@ -6,12 +6,12 @@
 		<td class="text-center"><%= tags[0].name %></td>
 		<td><%= description %></td>
 		<td class="text-center">
-			<% for(p = 1; p <= ( Number(priority) + 1); p++){ %>
+			<% for(p = 1; p <= ( Number(priority)); p++){ %>
 				<i class="fa fa-star" style="color:#CC9900;"></i>
 			<% }  %>
 		</td>
 		<td>
-			<span class="label label-<%= getStatusClass(status) %>"><%= translated_status %></span>
+			<span class="label arrowed label-<%= getStatusClass(status) %>"><%= translated_status %></span>
 		</td>
 		<td><%= remind_at %></td>
 		<td>
