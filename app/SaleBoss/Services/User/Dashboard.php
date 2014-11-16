@@ -76,7 +76,7 @@ class Dashboard implements DashboardInterface {
 		$orderChart = $this->orderChart();
 		$myLeadStats = $this->ownLeadStats();
         $remindingLeads = $this->getRemindingLeads(7);
-        $remindingLeadsNotify = $this->getRemindingLeads(7);
+        $remindingLeadsNotify = $this->getRemindingLeads(1);
         $leadStats = $this->leadStats();
 		return compact (
 			'userQueue',

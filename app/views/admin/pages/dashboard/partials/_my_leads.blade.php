@@ -1,6 +1,6 @@
 <div style="margin-bottom: 10px;">
           <div class="table-header Nassim Nassim700 NassimTitle panelColor" style="padding-right: 10px;" >
-                <i class="fa fa-list"></i> لیست لیدهای دارای تاریخ به یادآوری
+                <i class="fa fa-list"></i> لیست لیدهای دارای تاریخ به یادآوری تا ۷ روز آینده
           </div>
               @if(! $remindingLeads->isEmpty())
               <div>

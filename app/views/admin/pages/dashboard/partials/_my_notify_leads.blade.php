@@ -25,7 +25,7 @@
                                 </li>
                                 @endforeach
                           @else
-                              <li class="text-center">موردی وجود ندارد</li>
+                              <li class="text-center Nassim">موردی وجود ندارد</li>
                           @endif
                       </ul>
                   </li>
