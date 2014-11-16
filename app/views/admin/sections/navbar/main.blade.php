@@ -1,4 +1,4 @@
-<div id="navbar" class="navbar navbar-default navbar-fixed-top panelColor">
+<div id="navbar" class="navbar navbar-default navbar-fixed-top panelColor" style="-webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);box-shadow: 0 2px 4px 0 rgba(0,0,0,.25)">
      <div id="navbar-container" class="navbar-container">
 
         <!-- toggle buttons are here or inside brand container -->
@@ -9,9 +9,16 @@
           </a>
         </div><!-- /.navbar-header -->
 
-
         <div class="navbar-buttons navbar-header pull-left">
           <ul class="nav ace-nav">
+                <li class="red @if(Route::getCurrentRoute()->getPath() == 'dash') @if($leadsNotify) @if(! $remindingLeadsNotify->isEmpty()) open  @endif @endif @endif">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <i class="ace-icon fa fa-bell"></i>
+                        <span class="badge badge-important">5</span>
+                    </a>
+                        @include('admin.pages.dashboard.partials._my_notify_leads')
+
+                </li>
                 <!-- #section:basics/navbar.user_menu -->
                 <li class="light-blue profile-dropmenu">
                     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -51,6 +58,7 @@
                         </li>
                     </ul>
                 </li>
+
 
                 <!-- /section:basics/navbar.user_menu -->
 

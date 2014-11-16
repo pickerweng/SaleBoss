@@ -125,6 +125,7 @@ return array(
 		'SaleBoss\Repositories\RepositoryServiceProvider',
         'SaleBoss\Filters\FilterServiceProvider',
         'SaleBoss\Services\ServicesServiceProvider',
+        'SaleBoss\Services\ShareServicesServiceProvider',
         'Miladr\Jalali\JalaliServiceProvider',
         'SaleBoss\Services\Menu\MenuServiceProvider',
 		'SaleBoss\Services\Presenters\PresenterServiceProvider',

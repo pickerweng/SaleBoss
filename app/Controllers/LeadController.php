@@ -107,7 +107,7 @@ class LeadController extends BaseController
 
         return $this->view(
             'admin.pages.lead.index',
-            compact('title','description','list','statistics','currentUser')
+            compact('title','description','list','statistics','currentUser','dataDash')
         );
     }
 

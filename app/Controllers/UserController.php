@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Session;
 use Laracasts\Utilities\JavaScript\Facades\JavaScript;
 use SaleBoss\Repositories\Exceptions\NotFoundException;
 use SaleBoss\Repositories\GroupRepositoryInterface;
@@ -58,10 +59,11 @@ class UserController extends BaseController
 		$this->dash->setUser(Sentry::getUser());
 		$data = $this->dash->getHisDash();
         $data['inDashboard'] = true;
+		$data['leadsNotify'] = (Session::has('leadsNotify')) ? false : true;
+		if($data['leadsNotify']) { Session::set('leadsNotify','viewed'); }
 		JavaScript::put(['orderChart' => $data['orderChart'] , 'myLeadStats' => $data['myLeadStats']]);
 		return $this->view(
-				'admin.pages.dashboard.main',
-				$data
+				'admin.pages.dashboard.main', $data
 			);
 	}
 

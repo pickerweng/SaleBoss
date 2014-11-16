@@ -2,12 +2,16 @@ body {
     font-family:'Tahoma';font-size:11px !important;
 }
 
+.fontSize11 {
+    font-size: 11px !important;
+}
+
 .Nassim {
-    font-family: "Nassim";
+    font-family: "Nassim" !important;
 }
 
 .Nassim700 {
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
 .NassimTitle {
@@ -15,7 +19,7 @@ body {
 }
 
 a, a:hover {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 a:hover {
@@ -101,7 +105,7 @@ ul, menu, dir {
     padding-right: 10px;
 }
 
-.tableFontSize12 {
+.tableFontSize12, .fontSize12 {
     font-size: 12px !important;
 }
 

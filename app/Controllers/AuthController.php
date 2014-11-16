@@ -4,6 +4,7 @@ namespace Controllers;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Session;
 use SaleBoss\Services\Authenticator\Exceptions\InvalidCredentialsException;
 use SaleBoss\Services\Authenticator\Exceptions\UserNotActivatedException;
 use SaleBoss\Services\Authenticator\Exceptions\ValidationException;
@@ -116,6 +117,7 @@ class AuthController extends BaseController {
     public function getLogout()
     {
         $this->auth->logout();
+	    Session::flush();
         return $this->redirectTo('auth/login')->with(
                 'success_message',
                 Lang::get('messages.panel_logout')

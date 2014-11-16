@@ -1,5 +1,4 @@
 <?php namespace SaleBoss\Services;
-
 use Illuminate\Support\ServiceProvider;
 
 class ServicesServiceProvider extends ServiceProvider {

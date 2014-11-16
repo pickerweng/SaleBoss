@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">اهمیت</label>
-                    {{Form::select( 'priority',array(0,1,2,3,4,5),$lead->priority,['class' => 'form-control languageLeft bulkable'])}}
+                    {{Form::select( 'priority',array(1,2,3,4,5),$lead->priority,['class' => 'form-control languageLeft bulkable'])}}
                 </div>
                 <div class="form-group">
                     <label class="control-label">
