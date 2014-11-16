@@ -11,21 +11,21 @@
 		<div class="row" style="margin-bottom: 15px">
 			@if(Sentry::getUser()->hasAnyAccess(['customers.create']))
 			<div class="col-md-12">
-				<a href="{{URL::to('my/customers')}}" class="btn btn-lg btn-block radius"><i class="fa fa-list"></i>     لیست مشتری های من</a>
+				<a href="{{URL::to('my/customers')}}" class="btn btn-lg btn-block radius panelColor"><i class="fa fa-list"></i>     لیست مشتری های من</a>
 			</div>
 			@endif
 		</div>
 		<div class="row" style="margin-bottom: 15px">
 			@if( Sentry::getUser()->hasAnyAccess(['customers.create']) )
 			<div class="col-md-12">
-				<a href="{{URL::to('customers/create')}}" class="btn btn-lg btn-block radius"><i class="fa fa-plus"></i>     ایجاد مشتری جدید</a>
+				<a href="{{URL::to('customers/create')}}" class="btn btn-lg btn-block radius panelColor"><i class="fa fa-plus"></i>     ایجاد مشتری جدید</a>
 			</div>
 			@endif
 		</div>
         <div class="row" style="margin-bottom: 15px">
 			@if ( Sentry::getUser()->hasAnyAccess(['orders.own_create']) )
 				<div class="col-md-12">
-					<a href="{{URL::to('my/orders')}}" class="btn btn-lg btn-block radius"><i class="fa fa-list"></i> لیست سفارش های من</a>
+					<a href="{{URL::to('my/orders')}}" class="btn btn-lg btn-block radius panelColor"><i class="fa fa-list"></i> لیست سفارش های من</a>
 				</div>
 			@endif
 		</div>

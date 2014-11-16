@@ -71,7 +71,7 @@
                           </tbody>
                           <tfoot>
                                 <tr>
-                                    <td>
+                                    <td colspan="9">
                                         {{$list->appends(Input::except('page'))->links()}}
                                     </td>
                                 </tr>

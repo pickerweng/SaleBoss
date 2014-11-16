@@ -1,4 +1,4 @@
-<div class="printable" style="direction: rtl">
+<div class="printable" dir="rtl">
     <fieldset>
         <legend class="Nassim">
             <strong>
@@ -13,80 +13,171 @@
             <label class="label label-xs label-info pull-left hidden-print">{{$order->state->title}}</label>
         </legend>
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('panel_type', 'نوع پنل ',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-static-control">{{$opiloConfig['panel_types'][$order->panel_type]}}</p>
+            <div class="visible-print">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('private_number', 'شماره خط اختصاصی',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$order->private_number}}</p>
+                    </div>
                 </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('panel_type', 'نوع پنل ',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$opiloConfig['panel_types'][$order->panel_type]}}</p>
+                    </div>
+                </div>
+
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('private_number', 'شماره خط اختصاصی',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-static-control">{{$order->private_number}}</p>
+            <div class="hidden-print">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('panel_type', 'نوع پنل ',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$opiloConfig['panel_types'][$order->panel_type]}}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('private_number', 'شماره خط اختصاصی',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$order->private_number}}</p>
+                    </div>
                 </div>
             </div>
         </div>
 	    <div class="row">
-		    <div class="col-md-6 col-sm-6 col-xs-6">
-			    {{Form::label('customer', 'نام مشتری',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-			    <p class="form-static-control">{{$order->customer->getIdentifier()}} ({{$order->customer->id}})</p>
-		    </div>
-		    <div class="col-md-6 col-sm-6">
-			    {{Form::label('creator', 'نام سازنده',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-			    <p class="form-static-control">{{$order->creator->getIdentifier()}} ({{$order->creator->id}})</p>
-		    </div>
+	            <div class="visible-print">
+	                 <div class="col-md-6 col-sm-6 col-xs-6">
+                            {{Form::label('customer', 'نام مشتری',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                            <p class="form-static-control">{{$order->customer->getIdentifier()}} ({{$order->customer->id}})</p>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            {{Form::label('creator', 'نام سازنده',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                            <p class="form-static-control">{{$order->creator->getIdentifier()}} ({{$order->creator->id}})</p>
+                        </div>
+                </div>
+                <div class="hidden-print">
+                    <div class="col-md-6 col-sm-6">
+                           {{Form::label('creator', 'نام سازنده',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                           <p class="form-static-control">{{$order->creator->getIdentifier()}} ({{$order->creator->id}})</p>
+                       </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                           {{Form::label('customer', 'نام مشتری',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                           <p class="form-static-control">{{$order->customer->getIdentifier()}} ({{$order->customer->id}})</p>
+                       </div>
+                </div>
 	    </div>
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('sms_price', 'قیمت هر پیامک به تومان',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-static-control">{{$order->sms_price}}</p>
+                <div class="visible-print">
+	                 <div class="col-md-6 col-sm-6 col-xs-6">
+                         <div class="form-group">
+                             {{Form::label('sms_quantity', 'تعداد پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                             <p class="form-static-control">{{$order->sms_quantity}}</p>
+                         </div>
+                     </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-group">
+                            {{Form::label('sms_price', 'قیمت هر پیامک به تومان',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                            <p class="form-static-control">{{$order->sms_price}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden-print">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-group">
+                            {{Form::label('sms_price', 'قیمت هر پیامک به تومان',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                            <p class="form-static-control">{{$order->sms_price}}</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <div class="form-group">
+                            {{Form::label('sms_quantity', 'تعداد پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                            <p class="form-static-control">{{$order->sms_quantity}}</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <div class="row">
+             <div class="visible-print">
+                 <div class="col-md-6 col-sm-6 col-xs-6">
+                     <div class="form-group">
+                         {{Form::label('sms_text', 'متن پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                         <p class="form-static-control">{{$order->sms_text}}</p>
+                     </div>
+                 </div>
+                 <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('sms_text', 'متن پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$order->sms_text}}</p>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('sms_quantity', 'تعداد پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-static-control">{{$order->sms_quantity}}</p>
+            <div class="hidden-print">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('sms_text', 'متن پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$order->sms_text}}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('sms_description', 'توضیحات پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$order->sms_description}}</p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('sms_text', 'متن پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-static-control">{{$order->sms_text}}</p>
-                </div>
+            <div class="visible-print">
+                 <div class="col-md-6 col-sm-6 col-xs-6">
+                         <div class="form-group">
+                             {{Form::label('cart_number', 'شماره کارت',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                             <p class="form-static-control">{{$order->cart_number}}</p>
+                         </div>
+                     </div>
+                 <div class="col-md-6 col-sm-6 col-xs-6">
+                         <div class="form-group">
+                             {{Form::label('payment_type', 'نوع پرداخت',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                             <p class="form-static-control">{{$opiloConfig['payment_types'][$order->payment_type]}}</p>
+                         </div>
+                     </div>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('sms_description', 'توضیحات پیامک',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-static-control">{{$order->sms_description}}</p>
+            <div class="hidden-print">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('payment_type', 'نوع پرداخت',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$opiloConfig['payment_types'][$order->payment_type]}}</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('cart_number', 'شماره کارت',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-static-control">{{$order->cart_number}}</p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('payment_type', 'نوع پرداخت',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-static-control">{{$opiloConfig['payment_types'][$order->payment_type]}}</p>
+            <div class="visible-print">
+                 <div class="col-md-6 col-sm-6 col-xs-6">
+                     <div class="form-group">
+                         {{Form::label('panel_price', 'مبلغ پنل به تومان',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                         <p class="form-control-static">{{$order->panel_price}}</p>
+                     </div>
+                 </div>
+                 <div class="col-md-6 col-sm-6 col-xs-6">
+                     <label class="control-label Nassim NassimTitle Nassim700">مرحله سفارش</label>
+                     <p class="form-control-static">{{$order->state->title}}</p>
+                 </div>
+            </div>
+            <div class="hidden-print">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <label class="control-label Nassim NassimTitle Nassim700">مرحله سفارش</label>
+                    <p class="form-control-static">{{$order->state->title}}</p>
                 </div>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('cart_number', 'شماره کارت',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-static-control">{{$order->cart_number}}</p>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <label class="control-label Nassim NassimTitle Nassim700">مرحله سفارش</label>
-                <p class="form-control-static">{{$order->state->title}}</p>
-            </div>
-            <div class="col-md-6 col-sm-6 col-xs-6">
-                <div class="form-group">
-                    {{Form::label('panel_price', 'مبلغ پنل به تومان',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
-                    <p class="form-control-static">{{$order->panel_price}}</p>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div class="form-group">
+                        {{Form::label('panel_price', 'مبلغ پنل به تومان',['class' => 'control-label Nassim NassimTitle Nassim700'])}}
+                        <p class="form-control-static">{{$order->panel_price}}</p>
+                    </div>
                 </div>
             </div>
         </div>

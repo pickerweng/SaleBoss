@@ -43,7 +43,7 @@
 	                                        @endif
 	                                    </td>
 	                                    <td class="languageLeft">
-	                                        <a class="blue" href="{{URL::to('orders/' . $order->id)}}">
+	                                        <a class="blue" href="{{URL::to('orders/' . $order->id)}}" target="_blank">
                                                 <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                             </a>
 	                                    </td>

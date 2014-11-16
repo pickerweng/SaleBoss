@@ -22,7 +22,7 @@
                                        <td>{{$lead->id}}</td>
                                        <td>{{$lead->name}}</td>
                                        <td>{{$lead->phones->first()->number}}</td>
-                                    <td class="priorities" style="display: none;">{{Form::select( 'priority',array(0,1,2,3,4,5),0,['class' => 'form-control languageLeft bulkable resettable'])}}</td>
+                                    <td class="priorities" style="display: none;">{{Form::select( 'priority',['1'=>'1','2'=>'2','3'=>'3','4'=>'4','5'=>'5'], 1,['class' => 'form-control languageLeft bulkable resettable'])}}</td>
                                     <td class="statuses" style="display: none"> {{Form::select('status',$opiloConfig['lead_status'],0,['class' => 'form-control stable'])}}</td>
                                        <td>
                                            <span class="label arrowed label-<?php print statusClass($lead->status)?>">

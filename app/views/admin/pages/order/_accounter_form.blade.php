@@ -6,12 +6,12 @@
         ])}}
         {{Form::hidden('accounter_approved',null,array('class' => 'approve-order-hidden'))}}
         <div class="col-md-12 col-lg-6">
-            <button type="button" class="btn btn-success btn-lg btn-block accounter-action-button approve-button" data-toggle="modal" data-target="#orderDesc">
+            <button type="button" class="btn btn-success btn-lg btn-block accounter-action-button approve-button Nassim Nassim700 radius" data-toggle="modal" data-target="#orderDesc">
                 <i class="fa fa-check"></i> تایید و ارسال به پشتیبانی
             </button>
         </div>
         <div class="col-lg-6 col-md-12">
-            <button type="button" class="btn btn-danger btn-block btn-lg accounter-action-button deport-button" data-toggle="modal" data-target="#orderDesc">
+            <button type="button" class="btn btn-danger btn-block btn-lg accounter-action-button deport-button Nassim Nassim700 radius" data-toggle="modal" data-target="#orderDesc">
                 <i class="fa fa-error"></i> عدم تایید و بازگشت به فروش
             </button>
         </div>
@@ -20,7 +20,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">بستن</span></button>
-                        <h4 class="modal-title" id="myModalLabel">توضیحات حسابدار</h4>
+                        <h4 class="modal-title Nassim" id="myModalLabel">توضیحات حسابدار</h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
@@ -28,8 +28,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">بستن</button>
-                        <button type="submit" class="btn btn-info pull-left submit-order">تایید</button>
+                        <button type="button" class="btn btn-danger pull-left Nassim radius marginRight" data-dismiss="modal">بستن</button>
+                        <button type="submit" class="btn btn-info pull-left submit-order Nassim radius marginRight">تایید</button>
                     </div>
                 </div>
             </div>
