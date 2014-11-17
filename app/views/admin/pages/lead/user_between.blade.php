@@ -18,7 +18,7 @@
 		<div class="row" style="margin-right: 5px; margin-bottom: 15px">
 			<div class="col-md-6">
 			    {{Form::open([
-                    'method'    => 'get',
+                    'method'    => 'post',
                     'url'       =>  Request::path(),
                     'class'     =>  'form-inline'
                 ])}}

@@ -44,6 +44,7 @@ Route::group(["namespace" => "Controllers"], function(){
         Route::post('leads/bulk','LeadImporterController@store');
         Route::resource('leads','LeadController', array('except' => array('show')));
         Route::get('leads/all','LeadController@leadsAll');
+        Route::post('leads/user/{user_id}/time', 'LeadController@userLeadsWithTime');
         Route::get('leads/user/{user_id}/time', 'LeadController@userLeadsWithTime');
         Route::get('leads/user/{user_id}', 'LeadController@usersLeads');
         Route::get("me/edit","UserController@profileEdit");
