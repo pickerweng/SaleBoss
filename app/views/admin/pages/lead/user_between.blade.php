@@ -13,25 +13,18 @@
 @stop
 
 @section('content')
-<div class="panel panel-info">
-	<div class="panel-heading">
-		<h3 class="panel-title"><i class="fa fa-info"></i> اطلاعات</h3>
-	</div>
-	<div class="panel-body" style="font-weight: bold">
+<div class="panel">
+	<div class="panel-body">
 		<div class="row" style="margin-right: 5px; margin-bottom: 15px">
-			<div class="col-md-6"><i class="fa fa-check"></i> تعداد کل لیدهای ثبت شده: {{$userCountAll}}</div>
-			<div class="col-md-6"><i class="fa fa-check"></i> تعداد کل لید های موفق: {{$userAllLeadsApproved}}</div>
-		</div>
-		<div class="row" style="margin-right: 5px;">
-		    <div class="col-md-12">
-                {{Form::open([
+			<div class="col-md-6">
+			    {{Form::open([
                     'method'    => 'get',
-                    'url'       =>  Request::path().'/time',
+                    'url'       =>  Request::path(),
                     'class'     =>  'form-inline'
                 ])}}
-                <p>نمایش لیدها از {{Form::text('from',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time'])}}  تا {{Form::text('to',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time2'])}} <button type="submit" class="btn btn-info radius Nassim btn-sm">بروز رسانی</button></button></p>
+                 <p>نمایش لیدها از {{Form::text('from',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time'])}}  تا {{Form::text('to',Input::get('period'),['class' => 'form-control', 'size' => '10', 'id' => 'time2'])}} <button type="submit" class="btn btn-info radius Nassim btn-sm">بروز رسانی</button></button></p>
                 {{Form::close()}}
-            </div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -86,7 +79,6 @@
     </div>
 
 @stop
-
 
 
 

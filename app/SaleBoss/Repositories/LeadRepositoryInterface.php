@@ -47,6 +47,8 @@ interface LeadRepositoryInterface {
 
     public function getUserLeads(User $user, $int);
 
+    public function getUserLeadByTime(User $user, $firstTime = null, $secondTime = null, $int);
+
     public function getUserLeadsBetween(User $user, $todayStart, $todayEnd);
 
 	public function deleteByModel(Model $model);

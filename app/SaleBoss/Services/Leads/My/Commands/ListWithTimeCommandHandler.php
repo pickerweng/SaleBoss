@@ -6,7 +6,7 @@ use Laracasts\Commander\CommandHandler;
 use SaleBoss\Repositories\LeadRepositoryInterface;
 use SaleBoss\Services\Authenticator\AuthenticatorInterface;
 
-class ListCommandHandler implements CommandHandler {
+class ListWithTimeCommandHandler implements CommandHandler {
 
     protected $leadRepo;
     protected $auth;
@@ -28,7 +28,7 @@ class ListCommandHandler implements CommandHandler {
     public function handle($command)
     {
 
-        $leads = $this->leadRepo->getUserLeads($command->user, 20);
+        $leads = $this->leadRepo->getUserLeadByTime($command->user, $command->firstTime, $command->secondTime, 20);
         return $leads;
     }
 }

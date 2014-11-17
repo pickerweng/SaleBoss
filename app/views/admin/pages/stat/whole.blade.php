@@ -40,7 +40,6 @@
 	<script type="text/javascript" src="{{asset('assets/admin/js/persianDatepicker.min.js')}}"></script>
 	    <script type="text/javascript">
     		$(function() {
-    			console.log('sasd');
 				$("#time, #time2").persianDatepicker({
 				  cellWidth:30,
 				  formatDate: "YYYY-0M-DD",

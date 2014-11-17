@@ -14,11 +14,11 @@
 
 @section('content')
 <div class="panel">
-	<div class="panel-body" style="font-weight: bold">
+	<div class="panel-body">
 		<div class="row" style="margin-right: 5px; margin-bottom: 15px">
-			<div class="col-md-12">
-			    <a href="{{URL::to('leads/bulk')}}" class="btn btn-success btn-lg btn-block radius Nassim">وارد نمودن انبوه لید</a>
-			</div>
+			<div class="col-md-12 Nassim700">
+                <a href="{{URL::to('leads/bulk')}}" class="btn btn-success btn-lg btn-block radius Nassim">وارد نمودن انبوه لید</a>
+            </div>
 		</div>
 	</div>
 </div>
@@ -73,6 +73,7 @@
     </div>
 
 @stop
+
 
 @section('footer')
     @include('admin.blocks.delete_modal')
