@@ -94,8 +94,7 @@
     		$(function() {
 				$("#time, #time2").persianDatepicker({
 				  cellWidth:30,
-				  formatDate: "yyyy-0M-DD",
-				  showGregorianDate: false,
+				  formatDate: "YYYY-0M-DD",
 				  cellHeight:30
 			  });
 			});
