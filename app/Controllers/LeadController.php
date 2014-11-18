@@ -234,8 +234,6 @@ class LeadController extends BaseController
         $firstTime = Input::get('from');
         $secondTime = Input::get('to');
 
-
-
         if (!empty($firstTime) && !empty($secondTime)) {
             $firstTimeEx = explode('-', $firstTime);
             $firstTimeG = Jalali\jDateTime::toGregorian($firstTimeEx[0], $firstTimeEx[1], $firstTimeEx[2]);
@@ -245,7 +243,7 @@ class LeadController extends BaseController
             $secondTimeG = Jalali\jDateTime::toGregorian($secondTimeEx[0], $secondTimeEx[1], $secondTimeEx[2]);
             $secondTime = $secondTimeG[0] . '-' . $secondTimeG[1] . '-' . $secondTimeG[2] . ' 00:00:00 00:00';
         }
-        
+
         $leads = $this->execute(ListWithTimeCommand::class, compact('user','firstTime', 'secondTime'));
         return $this->view('admin.pages.lead.user_between', compact('user', 'leads'));
     }
